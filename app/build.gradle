@@ -8,14 +8,17 @@ android {
         applicationId "com.randomappsinc.randomnumbergeneratorplus"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 }
 
@@ -24,4 +27,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {
+        transitive = true
+    }
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.1'
+    compile 'com.github.rey5137:material:1.2.2'
+    compile 'io.realm:realm-android:0.87.1'
 }
