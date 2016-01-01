@@ -3,4 +3,12 @@
     <string name="load_config">Load RNG configuration</string>
     <string name="save_config">Save RNG configuration</string>
     <string name="settings">Settings</string>
+    
+    <string name="minimum">Minimum:&#160;</string>
+    <string name="default_min">1</string>
+    <string name="maximum">Maximum:&#160;</string>
+    <string name="default_max">100</string>
+    <string name="quantity">Quantity:&#160;</string>
+    <string name="no_dupes">No duplicate numbers</string>
+    <string name="generate">Generate</string>
 </resources>

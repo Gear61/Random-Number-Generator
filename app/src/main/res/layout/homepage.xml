@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/min_prefix"
+                    android:layout_alignBaseline="@+id/min"
+                    android:text="@string/minimum"
+                    style="@style/input_prefix_style"/>
+
+                <EditText
+                    android:id="@+id/min"
+                    android:layout_toRightOf="@id/min_prefix"
+                    android:layout_alignLeft="@+id/max"
+                    android:text="@string/default_min"
+                    android:layout_width="match_parent"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberSigned"
+                    style="@style/number_input_style"/>
+
+                <TextView
+                    android:id="@+id/max_prefix"
+                    android:layout_alignBaseline="@+id/max"
+                    android:text="@string/maximum"
+                    style="@style/input_prefix_style"/>
+
+                <EditText
+                    android:id="@+id/max"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@id/max_prefix"
+                    android:layout_below="@id/min"
+                    android:text="@string/default_max"
+                    android:layout_width="match_parent"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberSigned"
+                    style="@style/number_input_style"/>
+
+                <TextView
+                    android:id="@+id/quantity_prefix"
+                    android:layout_alignBaseline="@+id/quantity"
+                    android:text="@string/quantity"
+                    style="@style/input_prefix_style"/>
+
+                <EditText
+                    android:id="@+id/quantity"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignLeft="@id/max"
+                    android:layout_toRightOf="@id/quantity_prefix"
+                    android:layout_below="@id/max"
+                    android:text="@string/default_min"
+                    android:layout_width="match_parent"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    style="@style/number_input_style"/>
+            </RelativeLayout>
+
+            <com.rey.material.widget.Button
+                android:id="@+id/generate"
+                android:text="@string/generate"
+                android:layout_marginTop="15dp"
+                style="@style/ripple_button_style"
+                app:rd_style="@style/button_ripple_attributes"/>
+        </LinearLayout>
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>
