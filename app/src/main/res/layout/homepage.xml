@@ -31,6 +31,7 @@
 
                 <EditText
                     android:id="@+id/min"
+                    android:maxLength="9"
                     android:layout_toRightOf="@id/min_prefix"
                     android:layout_alignLeft="@+id/max"
                     android:text="@string/default_min"
@@ -47,6 +48,7 @@
 
                 <EditText
                     android:id="@+id/max"
+                    android:maxLength="9"
                     android:layout_marginTop="15dp"
                     android:layout_toRightOf="@id/max_prefix"
                     android:layout_below="@id/min"
@@ -88,6 +90,7 @@
                     style="@style/input_prefix_style"/>
 
                 <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/edit_excluded"
                     android:text="@string/edit_icon"
                     style="@style/edit_exclude_icon"/>
             </LinearLayout>

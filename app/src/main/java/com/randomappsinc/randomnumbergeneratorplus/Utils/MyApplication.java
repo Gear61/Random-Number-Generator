@@ -6,20 +6,28 @@ import android.content.Context;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
+import java.util.Random;
+
 /**
  * Created by alexanderchiou on 12/30/15.
  */
 public final class MyApplication extends Application {
-    public static Context instance;
+    private static Context instance;
+    private static Random random;
 
     @Override
     public void onCreate() {
         super.onCreate();
         Iconify.with(new FontAwesomeModule());
         instance = getApplicationContext();
+        random = new Random();
     }
 
     public static Context getAppContext() {
         return instance;
+    }
+
+    public static Random getRandom() {
+        return random;
     }
 }

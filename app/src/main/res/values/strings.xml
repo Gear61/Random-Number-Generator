@@ -12,4 +12,10 @@
     <string name="exclude">Exclude:&#160;</string>
     <string name="no_dupes">No duplicate numbers</string>
     <string name="generate">Generate</string>
+
+    <string name="edit_excluded_numbers">Edit excluded numbers</string>
+
+    <string name="bigger_min">The minimum must be greater than the maximum.</string>
+    <string name="too_many">The range is too limited to get this many non-duplicate numbers.</string>
+    <string name="non_zero_quantity">The quantity must be greater than 0.</string>
 </resources>
