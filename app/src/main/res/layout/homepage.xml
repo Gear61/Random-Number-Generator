@@ -75,12 +75,51 @@
                     style="@style/number_input_style"/>
             </RelativeLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/exclude"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="20dp"
+                    style="@style/input_prefix_style"/>
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:text="@string/edit_icon"
+                    style="@style/edit_exclude_icon"/>
+            </LinearLayout>
+
+            <com.rey.material.widget.CheckBox
+                android:id="@+id/duplicates_toggle"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/no_dupes"
+                android:textColor="@color/app_blue"
+                app:cbd_animDuration="@integer/shorter_anim_length"
+                app:cbd_strokeColor="@color/app_blue"
+                app:cbd_tickColor="@color/white"/>
+
             <com.rey.material.widget.Button
                 android:id="@+id/generate"
                 android:text="@string/generate"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 style="@style/ripple_button_style"
                 app:rd_style="@style/button_ripple_attributes"/>
+
+            <TextView
+                android:id="@+id/results"
+                android:visibility="gone"
+                android:padding="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/app_blue"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>
