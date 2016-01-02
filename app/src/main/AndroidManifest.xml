@@ -26,6 +26,7 @@
         </activity>
         <activity
             android:name=".Activities.EditExcludedActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/edit_excluded_numbers"
             android:configChanges="orientation|screenSize">
         </activity>

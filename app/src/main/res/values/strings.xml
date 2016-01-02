@@ -14,6 +14,9 @@
     <string name="generate">Generate</string>
 
     <string name="edit_excluded_numbers">Edit excluded numbers</string>
+    <string name="add_excluded_number">Add excluded number</string>
+    <string name="excluded_hint">Number to exclude</string>
+    <string name="no_excluded">No excluded numbers</string>
 
     <string name="bigger_min">The minimum must be greater than the maximum.</string>
     <string name="overlimited_range">The range is too limited to get this many non-duplicate numbers.</string>
