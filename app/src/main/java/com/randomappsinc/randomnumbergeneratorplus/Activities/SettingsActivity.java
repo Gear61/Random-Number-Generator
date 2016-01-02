@@ -42,6 +42,9 @@ public class SettingsActivity extends StandardActivity {
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Intent intent = null;
         switch (position) {
+            case 0:
+                intent = new Intent(this, EditConfigurationsActivity.class);
+                break;
             case 1:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
                 Uri mailUri = Uri.parse(uriText);

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/no_configs"
+        android:layout_marginTop="75dp"
+        android:text="@string/no_configs"
+        android:textSize="24sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        style="@style/input_prefix_style"/>
+
+    <ListView
+        android:id="@+id/configs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+</LinearLayout>

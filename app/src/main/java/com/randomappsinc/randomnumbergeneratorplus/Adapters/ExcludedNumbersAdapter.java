@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.joanzapata.iconify.widget.IconTextView;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 
 import java.util.ArrayList;
@@ -79,7 +78,7 @@ public class ExcludedNumbersAdapter extends BaseAdapter {
 
     public class ExcludedNumberViewHolder {
         @Bind(R.id.excluded_number) TextView excludedNumber;
-        @Bind(R.id.delete_icon) IconTextView deleteIcon;
+        @Bind(R.id.delete_icon) View deleteIcon;
 
         public ExcludedNumberViewHolder(View view) {
             ButterKnife.bind(this, view);

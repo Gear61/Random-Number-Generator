@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by alexanderchiou on 1/1/16.
@@ -78,7 +79,8 @@ public class DatabaseManager {
     }
 
     public String[] getAllConfigs() {
-        List<RNGConfiguration> configs = realm.where(RNGConfiguration.class).findAll();
+        RealmResults<RNGConfiguration> configs = realm.where(RNGConfiguration.class).findAll();
+        configs.sort("configName");
         List<String> configNames = new ArrayList<>();
         for (RNGConfiguration rngConfiguration : configs) {
             configNames.add(rngConfiguration.getConfigName());
