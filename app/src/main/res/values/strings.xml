@@ -22,4 +22,11 @@
     <string name="overlimited_range">The range is too limited to get this many non-duplicate numbers.</string>
     <string name="non_zero_quantity">The quantity must be greater than 0.</string>
     <string name="missing_input">Please enter in a minimum, maximum, and quantity.</string>
+
+    <string name="not_a_number">Please enter in a number to exclude.</string>
+    <string name="already_excluded">You are already excluding this number.</string>
+    <string name="not_in_range">Please enter in a number in the proper range.&#160;</string>
+
+    <!-- Font Awesome icons -->
+    <string name="delete_icon">{fa-minus-circle}</string>
 </resources>

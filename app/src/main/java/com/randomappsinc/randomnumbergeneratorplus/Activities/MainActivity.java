@@ -44,6 +44,8 @@ public class MainActivity extends StandardActivity {
     @OnClick(R.id.edit_excluded)
     public void editExcluded(View view) {
         Intent intent = new Intent(this, EditExcludedActivity.class);
+        intent.putExtra(EditExcludedActivity.MINIMUM_KEY, Integer.parseInt(minimumInput.getText().toString()));
+        intent.putExtra(EditExcludedActivity.MAXIMUM_KEY, Integer.parseInt(maximumInput.getText().toString()));
         intent.putIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY, excludedNumbers);
         startActivityForResult(intent, 1);
     }

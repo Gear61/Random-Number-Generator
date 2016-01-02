@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.joanzapata.iconify.widget.IconTextView
+        android:id="@+id/delete_icon"
+        android:text="@string/delete_icon"
+        android:layout_alignParentRight="true"
+        style="@style/action_icon"/>
+
+    <TextView
+        android:id="@+id/config_name"
+        android:layout_toLeftOf="@+id/delete_icon"
+        style="@style/action_item"/>
+</RelativeLayout>
