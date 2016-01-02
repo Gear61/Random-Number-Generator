@@ -2,6 +2,7 @@ package com.randomappsinc.randomnumbergeneratorplus.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,8 +13,11 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.DatabaseManager;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.RNGConfiguration;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
+import com.randomappsinc.randomnumbergeneratorplus.Utils.ConversionUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
 import com.rey.material.widget.CheckBox;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
@@ -33,8 +38,10 @@ public class MainActivity extends StandardActivity {
     @Bind(R.id.quantity) EditText quantityInput;
     @Bind(R.id.duplicates_toggle) CheckBox dupesToggle;
     @Bind(R.id.results) TextView results;
+    @BindString(R.string.config_name) String configHint;
 
     private ArrayList<Integer> excludedNumbers;
+    private String currentConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +89,19 @@ public class MainActivity extends StandardActivity {
 
     @OnClick(R.id.generate)
     public void generate(View view) {
+        if (verifyForm()) {
+            int minimum = Integer.parseInt(minimumInput.getText().toString());
+            int maximum = Integer.parseInt(maximumInput.getText().toString());
+            int quantity = Integer.parseInt(quantityInput.getText().toString());
+            List<Integer> generatedNums = RandUtils.getNumbers(minimum, maximum, quantity,
+                    dupesToggle.isChecked(), excludedNumbers);
+            String resultsString = RandUtils.getResultsString(generatedNums);
+            results.setVisibility(View.VISIBLE);
+            results.setText(resultsString);
+        }
+    }
+
+    public boolean verifyForm() {
         FormUtils.hideKeyboard(this);
         String minimum = minimumInput.getText().toString();
         String maximum = maximumInput.getText().toString();
@@ -90,23 +110,69 @@ public class MainActivity extends StandardActivity {
         int quantityRestriction = dupesToggle.isChecked() ? Integer.parseInt(quantity) : 1;
         if (minimum.isEmpty() || maximum.isEmpty() || quantity.isEmpty()) {
             FormUtils.showSnackbar(parent, getString(R.string.missing_input));
+            return false;
         }
         else if (Integer.parseInt(maximum) < Integer.parseInt(minimum)) {
             FormUtils.showSnackbar(parent, getString(R.string.bigger_min));
+            return false;
         }
         else if (Integer.parseInt(quantity) <= 0) {
             FormUtils.showSnackbar(parent, getString(R.string.non_zero_quantity));
+            return false;
         }
         else if (numAvailable < quantityRestriction + excludedNumbers.size()) {
             FormUtils.showSnackbar(parent, getString(R.string.overlimited_range));
+            return false;
+        }
+        return true;
+    }
+
+    public void showLoadDialog() {
+        String[] configNames = DatabaseManager.get().getAllConfigs();
+        if (configNames.length > 0) {
+            new MaterialDialog.Builder(this)
+                    .title(R.string.load_config)
+                    .items(configNames)
+                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                        @Override
+                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            return true;
+                        }
+                    })
+                    .positiveText(R.string.load)
+                    .negativeText(android.R.string.no)
+                    .show();
         }
         else {
-            List<Integer> generatedNums = RandUtils.getNumbers(Integer.parseInt(minimum), Integer.parseInt(maximum),
-                    Integer.parseInt(quantity), dupesToggle.isChecked(), excludedNumbers);
-            String resultsString = RandUtils.getResultsString(generatedNums);
-            results.setVisibility(View.VISIBLE);
-            results.setText(resultsString);
+            FormUtils.showSnackbar(parent, getString(R.string.no_configs));
         }
+    }
+
+    public void showSaveDialog() {
+        String currentConfigName = currentConfiguration != null ? currentConfiguration : "";
+        new MaterialDialog.Builder(this)
+                .title(R.string.save_config)
+                .input(configHint, currentConfigName, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        saveConfiguration(input.toString());
+                    }
+                })
+                .positiveText(R.string.save)
+                .negativeText(android.R.string.no)
+                .show();
+    }
+
+    public void saveConfiguration(String configName) {
+        RNGConfiguration configuration = new RNGConfiguration();
+        configuration.setConfigName(configName);
+        configuration.setMinimum(Integer.parseInt(minimumInput.getText().toString()));
+        configuration.setMaximum(Integer.parseInt(maximumInput.getText().toString()));
+        configuration.setQuantity(Integer.parseInt(quantityInput.getText().toString()));
+        configuration.setNoDupes(dupesToggle.isChecked());
+        configuration.setExcludedNumbers(ConversionUtils.getRealmExcludes(excludedNumbers));
+        DatabaseManager.get().addOrUpdateConfig(configuration);
+        FormUtils.showSnackbar(parent, getString(R.string.config_saved));
     }
 
     @Override
@@ -130,6 +196,14 @@ public class MainActivity extends StandardActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.load_config:
+                showLoadDialog();
+                return true;
+            case R.id.save_config:
+                if (verifyForm()) {
+                    showSaveDialog();
+                }
+                return true;
             case R.id.settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;

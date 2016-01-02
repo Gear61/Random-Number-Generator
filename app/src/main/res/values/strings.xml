@@ -2,8 +2,13 @@
     <string name="app_name">RNG Plus</string>
     <string name="load_config">Load RNG configuration</string>
     <string name="save_config">Save RNG configuration</string>
+    <string name="config_saved">RNG configuration saved.</string>
     <string name="settings">Settings</string>
-    
+
+    <string name="load">Load</string>
+    <string name="config_name">RNG configuration name</string>
+    <string name="save">Save</string>
+
     <string name="minimum">Minimum:&#160;</string>
     <string name="default_min">1</string>
     <string name="maximum">Maximum:&#160;</string>
@@ -22,6 +27,7 @@
     <string name="overlimited_range">The range is too limited to get this many non-duplicate numbers.</string>
     <string name="non_zero_quantity">The quantity must be greater than 0.</string>
     <string name="missing_input">Please enter in a minimum, maximum, and quantity.</string>
+    <string name="no_configs">You don\'t have any RNG configurations.</string>
 
     <string name="exclude_note">NOTE: Changing the min/max resets this list.</string>
     <string name="not_a_number">Please enter in a number to exclude.</string>
