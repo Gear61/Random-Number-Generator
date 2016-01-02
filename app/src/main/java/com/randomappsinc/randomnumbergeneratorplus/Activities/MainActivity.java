@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
@@ -136,6 +137,7 @@ public class MainActivity extends StandardActivity {
                     .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                         @Override
                         public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            loadConfig(text.toString());
                             return true;
                         }
                     })
@@ -148,6 +150,16 @@ public class MainActivity extends StandardActivity {
         }
     }
 
+    public void loadConfig(String configName) {
+        RNGConfiguration config = DatabaseManager.get().getConfig(configName);
+        minimumInput.setText(String.valueOf(config.getMinimum()));
+        maximumInput.setText(String.valueOf(config.getMaximum()));
+        quantityInput.setText(String.valueOf(config.getQuantity()));
+        dupesToggle.setCheckedImmediately(config.isNoDupes());
+        excludedNumbers = ConversionUtils.getPlainExcludes(config.getExcludedNumbers());
+        currentConfiguration = configName;
+    }
+
     public void showSaveDialog() {
         String currentConfigName = currentConfiguration != null ? currentConfiguration : "";
         new MaterialDialog.Builder(this)
@@ -155,11 +167,34 @@ public class MainActivity extends StandardActivity {
                 .input(configHint, currentConfigName, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        saveConfiguration(input.toString());
+                        String configName = input.toString();
+                        if (DatabaseManager.get().doesConfigExist(configName)) {
+                            showOverwriteConfirmDialog(configName);
+                        }
+                        else {
+                            saveConfiguration(input.toString());
+                        }
                     }
                 })
                 .positiveText(R.string.save)
                 .negativeText(android.R.string.no)
+                .show();
+    }
+
+    public void showOverwriteConfirmDialog(final String configName) {
+        String confirmOverwrite = "You already have a RNG configuration named \"" + configName + "\". " +
+                "Would you like to overwrite it?";
+        new MaterialDialog.Builder(this)
+                .title(R.string.confirm_overwrite)
+                .content(confirmOverwrite)
+                .positiveText(android.R.string.yes)
+                .negativeText(android.R.string.no)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        saveConfiguration(configName);
+                    }
+                })
                 .show();
     }
 
@@ -172,6 +207,7 @@ public class MainActivity extends StandardActivity {
         configuration.setNoDupes(dupesToggle.isChecked());
         configuration.setExcludedNumbers(ConversionUtils.getRealmExcludes(excludedNumbers));
         DatabaseManager.get().addOrUpdateConfig(configuration);
+        currentConfiguration = configName;
         FormUtils.showSnackbar(parent, getString(R.string.config_saved));
     }
 

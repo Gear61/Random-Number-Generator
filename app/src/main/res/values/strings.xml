@@ -8,6 +8,7 @@
     <string name="load">Load</string>
     <string name="config_name">RNG configuration name</string>
     <string name="save">Save</string>
+    <string name="confirm_overwrite">Confirm overwrite</string>
 
     <string name="minimum">Minimum:&#160;</string>
     <string name="default_min">1</string>

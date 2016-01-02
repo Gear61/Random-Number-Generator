@@ -85,5 +85,9 @@ public class DatabaseManager {
         }
         return configNames.toArray(new String[configNames.size()]);
     }
+
+    public RNGConfiguration getConfig(String configName) {
+        return realm.where(RNGConfiguration.class).equalTo("configName", configName).findFirst();
+    }
 }
 
