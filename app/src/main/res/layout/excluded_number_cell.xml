@@ -11,7 +11,7 @@
         style="@style/action_icon"/>
 
     <TextView
-        android:id="@+id/config_name"
+        android:id="@+id/excluded_number"
         android:layout_toLeftOf="@+id/delete_icon"
         style="@style/action_item"/>
 </RelativeLayout>

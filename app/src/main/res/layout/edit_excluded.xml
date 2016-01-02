@@ -11,6 +11,15 @@
         android:layout_height="match_parent"
         android:padding="10dp">
 
+        <TextView
+            style="@style/input_prefix_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exclude_note"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp"/>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="50dp">

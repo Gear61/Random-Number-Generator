@@ -57,13 +57,21 @@ public class EditExcludedActivity extends StandardActivity {
 
     @OnClick(R.id.add_excluded)
     public void addExcluded(View view) {
+        FormUtils.hideKeyboard(this);
         String enteredExcluded = excludedInput.getText().toString();
+        excludedInput.setText("");
         if (enteredExcluded.isEmpty()) {
             FormUtils.showSnackbar(parent, getString(R.string.not_a_number));
         }
         else if (Integer.parseInt(enteredExcluded) > maximum || Integer.parseInt(enteredExcluded) < minimum) {
             String range = "(" + String.valueOf(minimum) + " to " + String.valueOf(maximum) + ")";
             FormUtils.showSnackbar(parent, getString(R.string.not_in_range) + range);
+        }
+        else if (adapter.containsNumber(Integer.parseInt(enteredExcluded))) {
+            FormUtils.showSnackbar(parent, getString(R.string.already_excluded));
+        }
+        else {
+            adapter.addNumber(Integer.parseInt(enteredExcluded));
         }
     }
 

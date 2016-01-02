@@ -43,8 +43,8 @@ public class SettingsAdapter extends BaseAdapter {
     }
 
     public class SettingsViewHolder {
-        @Bind(R.id.icon) public IconTextView itemIcon;
-        @Bind(R.id.option) public TextView itemName;
+        @Bind(R.id.icon) IconTextView itemIcon;
+        @Bind(R.id.option) TextView itemName;
 
         public SettingsViewHolder(View view) {
             ButterKnife.bind(this, view);
