@@ -5,20 +5,30 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.randomappsinc.randomnumbergeneratorplus.R;
+import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
+import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
 import com.rey.material.widget.CheckBox;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends StandardActivity {
+    @Bind(R.id.parent) View parent;
+    @Bind(R.id.min) EditText minimumInput;
+    @Bind(R.id.max) EditText maximumInput;
+    @Bind(R.id.quantity) EditText quantityInput;
     @Bind(R.id.duplicates_toggle) CheckBox dupesToggle;
+    @Bind(R.id.results) TextView results;
 
     private ArrayList<Integer> excludedNumbers;
 
@@ -47,7 +57,31 @@ public class MainActivity extends StandardActivity {
 
     @OnClick(R.id.generate)
     public void generate(View view) {
-
+        FormUtils.hideKeyboard(this);
+        String minimum = minimumInput.getText().toString();
+        String maximum = maximumInput.getText().toString();
+        String quantity = quantityInput.getText().toString();
+        int numAvailable = Integer.parseInt(maximum) - Integer.parseInt(minimum) + 1;
+        int quantityRestriction = dupesToggle.isChecked() ? Integer.parseInt(quantity) : 1;
+        if (minimum.isEmpty() || maximum.isEmpty() || quantity.isEmpty()) {
+            FormUtils.showSnackbar(parent, getString(R.string.missing_input));
+        }
+        else if (Integer.parseInt(maximum) < Integer.parseInt(minimum)) {
+            FormUtils.showSnackbar(parent, getString(R.string.bigger_min));
+        }
+        else if (Integer.parseInt(quantity) <= 0) {
+            FormUtils.showSnackbar(parent, getString(R.string.non_zero_quantity));
+        }
+        else if (numAvailable < quantityRestriction + excludedNumbers.size()) {
+            FormUtils.showSnackbar(parent, getString(R.string.overlimited_range));
+        }
+        else {
+            List<Integer> generatedNums = RandUtils.getNumbers(Integer.parseInt(minimum), Integer.parseInt(maximum),
+                    Integer.parseInt(quantity), dupesToggle.isChecked(), excludedNumbers);
+            String resultsString = RandUtils.getResultsString(generatedNums);
+            results.setVisibility(View.VISIBLE);
+            results.setText(resultsString);
+        }
     }
 
     @Override
