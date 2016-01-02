@@ -55,6 +55,13 @@ public class ExcludedNumbersAdapter extends BaseAdapter {
         setNoContent();
     }
 
+    public void removeNumber(int position) {
+        excludedNumbers.remove(position);
+        Collections.sort(excludedNumbers);
+        notifyDataSetChanged();
+        setNoContent();
+    }
+
     @Override
     public int getCount() {
         return excludedNumbers.size();
@@ -80,7 +87,7 @@ public class ExcludedNumbersAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
         ExcludedNumberViewHolder holder;
         if (view == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -93,6 +100,12 @@ public class ExcludedNumbersAdapter extends BaseAdapter {
         }
 
         holder.excludedNumber.setText(String.valueOf(getItem(position)));
+        holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeNumber(position);
+            }
+        });
 
         return view;
     }

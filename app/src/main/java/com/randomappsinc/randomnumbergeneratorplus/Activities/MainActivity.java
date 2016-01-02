@@ -2,6 +2,7 @@ package com.randomappsinc.randomnumbergeneratorplus.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,11 +22,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class MainActivity extends StandardActivity {
     @Bind(R.id.parent) View parent;
-    @Bind(R.id.min) EditText minimumInput;
-    @Bind(R.id.max) EditText maximumInput;
+    @Bind(R.id.minimum) EditText minimumInput;
+    @Bind(R.id.maximum) EditText maximumInput;
     @Bind(R.id.quantity) EditText quantityInput;
     @Bind(R.id.duplicates_toggle) CheckBox dupesToggle;
     @Bind(R.id.results) TextView results;
@@ -48,6 +50,16 @@ public class MainActivity extends StandardActivity {
         intent.putExtra(EditExcludedActivity.MAXIMUM_KEY, Integer.parseInt(maximumInput.getText().toString()));
         intent.putIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY, excludedNumbers);
         startActivityForResult(intent, 1);
+    }
+
+    @OnTextChanged(value = R.id.minimum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void minChanged(Editable s) {
+        excludedNumbers.clear();
+    }
+
+    @OnTextChanged(value = R.id.maximum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void maxChanged(Editable s) {
+        excludedNumbers.clear();
     }
 
     @Override

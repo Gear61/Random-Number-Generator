@@ -25,15 +25,15 @@
 
                 <TextView
                     android:id="@+id/min_prefix"
-                    android:layout_alignBaseline="@+id/min"
+                    android:layout_alignBaseline="@+id/minimum"
                     android:text="@string/minimum"
                     style="@style/input_prefix_style"/>
 
                 <EditText
-                    android:id="@+id/min"
+                    android:id="@+id/minimum"
                     android:maxLength="9"
                     android:layout_toRightOf="@id/min_prefix"
-                    android:layout_alignLeft="@+id/max"
+                    android:layout_alignLeft="@+id/maximum"
                     android:text="@string/default_min"
                     android:layout_width="match_parent"
                     android:imeOptions="actionNext"
@@ -42,16 +42,16 @@
 
                 <TextView
                     android:id="@+id/max_prefix"
-                    android:layout_alignBaseline="@+id/max"
+                    android:layout_alignBaseline="@+id/maximum"
                     android:text="@string/maximum"
                     style="@style/input_prefix_style"/>
 
                 <EditText
-                    android:id="@+id/max"
+                    android:id="@+id/maximum"
                     android:maxLength="9"
                     android:layout_marginTop="15dp"
                     android:layout_toRightOf="@id/max_prefix"
-                    android:layout_below="@id/min"
+                    android:layout_below="@id/minimum"
                     android:text="@string/default_max"
                     android:layout_width="match_parent"
                     android:imeOptions="actionNext"
@@ -67,9 +67,9 @@
                 <EditText
                     android:id="@+id/quantity"
                     android:layout_marginTop="15dp"
-                    android:layout_alignLeft="@id/max"
+                    android:layout_alignLeft="@id/maximum"
                     android:layout_toRightOf="@id/quantity_prefix"
-                    android:layout_below="@id/max"
+                    android:layout_below="@id/maximum"
                     android:text="@string/default_min"
                     android:layout_width="match_parent"
                     android:imeOptions="actionDone"
