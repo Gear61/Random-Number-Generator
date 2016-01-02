@@ -49,6 +49,9 @@ public class SettingsActivity extends StandardActivity {
                 startActivity(Intent.createChooser(sendIntent, sendEmail));
                 return;
             case 2:
+                intent = new Intent(this, OtherAppsActivity.class);
+                break;
+            case 3:
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
@@ -56,7 +59,7 @@ public class SettingsActivity extends StandardActivity {
                     return;
                 }
                 break;
-            case 3:
+            case 4:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL));
                 break;
         }

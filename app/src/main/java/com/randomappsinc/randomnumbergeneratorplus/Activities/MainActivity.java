@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
@@ -41,6 +43,15 @@ public class MainActivity extends StandardActivity {
         ButterKnife.bind(this);
 
         excludedNumbers = new ArrayList<>();
+
+        if (PreferencesManager.get().isFirstTimeUser()) {
+            PreferencesManager.get().rememberWelcome();
+            new MaterialDialog.Builder(this)
+                    .title(R.string.welcome)
+                    .content(R.string.ask_for_help)
+                    .positiveText(android.R.string.yes)
+                    .show();
+        }
     }
 
     @OnClick(R.id.edit_excluded)

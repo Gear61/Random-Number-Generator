@@ -30,5 +30,10 @@
             android:label="@string/edit_excluded_numbers"
             android:configChanges="orientation|screenSize">
         </activity>
+        <activity
+            android:label="@string/my_other_apps"
+            android:name=".Activities.OtherAppsActivity"
+            android:configChanges="orientation|screenSize">
+        </activity>
     </application>
 </manifest>
