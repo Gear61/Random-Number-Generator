@@ -31,11 +31,6 @@
             android:configChanges="orientation|screenSize">
         </activity>
         <activity
-            android:label="@string/my_other_apps"
-            android:name=".Activities.OtherAppsActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
-        <activity
             android:label="@string/edit_configurations"
             android:name=".Activities.EditConfigurationsActivity"
             android:configChanges="orientation|screenSize">

@@ -162,22 +162,32 @@ public class MainActivity extends StandardActivity {
 
     public void showSaveDialog() {
         String currentConfigName = currentConfiguration != null ? currentConfiguration : "";
+
         new MaterialDialog.Builder(this)
                 .title(R.string.save_config)
                 .input(configHint, currentConfigName, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        String configName = input.toString();
-                        if (DatabaseManager.get().doesConfigExist(configName)) {
-                            showOverwriteConfirmDialog(configName);
-                        }
-                        else {
-                            saveConfiguration(input.toString());
+                        boolean submitEnabled = !(input.toString().trim().isEmpty());
+                        dialog.getActionButton(DialogAction.POSITIVE).setEnabled(submitEnabled);
+                    }
+                })
+                .alwaysCallInputCallback()
+                .positiveText(R.string.save)
+                .negativeText(android.R.string.no)
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (which == DialogAction.POSITIVE) {
+                            String configName = dialog.getInputEditText().getText().toString();
+                            if (DatabaseManager.get().doesConfigExist(configName)) {
+                                showOverwriteConfirmDialog(configName);
+                            } else {
+                                saveConfiguration(configName);
+                            }
                         }
                     }
                 })
-                .positiveText(R.string.save)
-                .negativeText(android.R.string.no)
                 .show();
     }
 

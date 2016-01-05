@@ -21,6 +21,7 @@ import butterknife.OnItemClick;
  */
 public class SettingsActivity extends StandardActivity {
     public static final String SUPPORT_EMAIL = "chessnone@gmail.com";
+    public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/developer?id=RandomAppsInc";
     public static final String REPO_URL = "https://github.com/Gear61/Random-Number-Generator";
 
     @Bind(R.id.parent) View parent;
@@ -52,7 +53,7 @@ public class SettingsActivity extends StandardActivity {
                 startActivity(Intent.createChooser(sendIntent, sendEmail));
                 return;
             case 2:
-                intent = new Intent(this, OtherAppsActivity.class);
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OTHER_APPS_URL));
                 break;
             case 3:
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());

@@ -15,8 +15,7 @@ import butterknife.ButterKnife;
  */
 public class EditConfigurationsActivity extends StandardActivity {
     @Bind(R.id.configs) ListView configs;
-    @Bind(R.id.no_configs)
-    View noConfigs;
+    @Bind(R.id.no_configs) View noConfigs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
