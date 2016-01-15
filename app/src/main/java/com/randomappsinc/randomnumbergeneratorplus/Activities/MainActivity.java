@@ -134,15 +134,12 @@ public class MainActivity extends StandardActivity {
             new MaterialDialog.Builder(this)
                     .title(R.string.load_config)
                     .items(configNames)
-                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    .itemsCallback(new MaterialDialog.ListCallback() {
                         @Override
-                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                             loadConfig(text.toString());
-                            return true;
                         }
                     })
-                    .positiveText(R.string.load)
-                    .negativeText(android.R.string.no)
                     .show();
         }
         else {
