@@ -1,7 +1,9 @@
 package com.randomappsinc.randomnumbergeneratorplus.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -62,6 +64,31 @@ public class MainActivity extends StandardActivity {
                     .content(R.string.instructions)
                     .positiveText(android.R.string.yes)
                     .show();
+        }
+
+        if (PreferencesManager.get().shouldAskForRating()) {
+            new MaterialDialog.Builder(this)
+                    .content(R.string.please_rate)
+                    .negativeText(R.string.decline_rating)
+                    .positiveText(R.string.will_rate)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
+                                FormUtils.showSnackbar(parent, getString(R.string.play_store_error));
+                                return;
+                            }
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
+        }
+
+        String defaultConfig = PreferencesManager.get().getDefaultConfig();
+        if (!defaultConfig.isEmpty()) {
+            loadConfig(defaultConfig, false);
         }
     }
 
@@ -159,7 +186,7 @@ public class MainActivity extends StandardActivity {
         excludedNumbers = ConversionUtils.getPlainExcludes(config.getExcludedNumbers());
         currentConfiguration = configName;
         if (verbose) {
-            confirmConfigAction(getString(R.string.config_loaded) + getString(R.string.set_preload));
+            confirmConfigAction(getString(R.string.config_loaded), configName);
         }
     }
 
@@ -221,11 +248,11 @@ public class MainActivity extends StandardActivity {
         configuration.setExcludedNumbers(ConversionUtils.getRealmExcludes(excludedNumbers));
         DatabaseManager.get().addOrUpdateConfig(configuration);
         currentConfiguration = configName;
-        confirmConfigAction(getString(R.string.config_saved) + getString(R.string.set_preload));
+        confirmConfigAction(getString(R.string.config_saved), configName);
     }
 
-    public void confirmConfigAction(String message) {
-        Snackbar snackbar = Snackbar.make(parent, message, 5000);
+    public void confirmConfigAction(String messageBase, final String configName) {
+        Snackbar snackbar = Snackbar.make(parent, messageBase + getString(R.string.set_preload), 5000);
         View rootView = snackbar.getView();
         snackbar.getView().setBackgroundColor(blue);
         TextView textview = (TextView) rootView.findViewById(android.support.design.R.id.snackbar_text);
@@ -233,11 +260,32 @@ public class MainActivity extends StandardActivity {
         snackbar.setAction(R.string.yes, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PreferencesManager.get().setDefaultConfig(configName);
                 FormUtils.showSnackbar(parent, getString(R.string.preload_confirm));
             }
         });
         snackbar.setActionTextColor(Color.WHITE);
         snackbar.show();
+    }
+
+    @OnClick(R.id.results)
+    public void showResultsOptions() {
+        final Context context = this;
+        new MaterialDialog.Builder(this)
+                .items(R.array.results_options)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        switch (which) {
+                            case 0:
+                                RandUtils.copyNumsToClipboard(results.getText().toString(), parent);
+                                break;
+                            case 1:
+                                RandUtils.showResultsDialog(results.getText().toString(), context);
+                        }
+                    }
+                })
+                .show();
     }
 
     @Override

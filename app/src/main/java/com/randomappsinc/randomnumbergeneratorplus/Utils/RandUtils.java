@@ -1,5 +1,14 @@
 package com.randomappsinc.randomnumbergeneratorplus.Utils;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.view.View;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.randomappsinc.randomnumbergeneratorplus.R;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -56,5 +65,21 @@ public class RandUtils {
             stringBuilder.append(String.valueOf(numbers.get(i)));
         }
         return stringBuilder.toString();
+    }
+
+    public static void copyNumsToClipboard(String numbers, View parent) {
+        Context context = MyApplication.getAppContext();
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(context.getString(R.string.generated_numbers), numbers);
+        clipboard.setPrimaryClip(clip);
+        FormUtils.showSnackbar(parent, context.getString(R.string.copy_confirmation));
+    }
+
+    public static void showResultsDialog(String results, Context context) {
+        new MaterialDialog.Builder(context)
+                .title(R.string.generated_numbers)
+                .content(results)
+                .positiveText(android.R.string.yes)
+                .show();
     }
 }

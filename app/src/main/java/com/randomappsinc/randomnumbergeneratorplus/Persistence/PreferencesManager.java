@@ -12,6 +12,7 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 public class PreferencesManager {
     private static final String FIRST_TIME_USER = "firstTimeUser";
     private static final String DEFAULT_CONFIG = "defaultConfig";
+    private static final String NUM_APP_OPENS = "numAppOpens";
 
     private SharedPreferences prefs;
     private static PreferencesManager instance;
@@ -43,6 +44,19 @@ public class PreferencesManager {
         prefs.edit().putBoolean(FIRST_TIME_USER, false).apply();
     }
 
+    public String getDefaultConfig() {
+        return prefs.getString(DEFAULT_CONFIG, "");
+    }
 
+    public void setDefaultConfig(String configName) {
+        prefs.edit().putString(DEFAULT_CONFIG, configName).apply();
+    }
+
+    public boolean shouldAskForRating() {
+        int currentAppOpens = prefs.getInt(NUM_APP_OPENS, 0);
+        currentAppOpens++;
+        prefs.edit().putInt(NUM_APP_OPENS, currentAppOpens).apply();
+        return currentAppOpens == 5;
+    }
 }
 
