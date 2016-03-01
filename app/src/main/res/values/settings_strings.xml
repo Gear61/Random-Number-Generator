@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="edit_configurations">Edit RNG configurations</string>
+    <string name="view_instructions">View instructions</string>
     <string name="send_feedback">Send feedback</string>
     <string name="my_other_apps">My other apps</string>
     <string name="rate_this_app">Rate this app</string>
     <string name="source_code">Source code</string>
     <string-array name="settings_options">
         <item>@string/edit_configurations</item>
+        <item>@string/view_instructions</item>
         <item>@string/send_feedback</item>
         <item>@string/my_other_apps</item>
         <item>@string/rate_this_app</item>
@@ -18,12 +20,14 @@
 
     <!-- Font Awesome Icons -->
     <string name="edit_icon">{fa-edit}</string>
+    <string name="info_icon">{fa-info-circle}</string>
     <string name="email_icon">{fa-envelope}</string>
     <string name="android_icon">{fa-android}</string>
     <string name="like_icon">{fa-thumbs-up}</string>
     <string name="github_icon">{fa-github}</string>
     <string-array name="settings_icons">
         <item>@string/edit_icon</item>
+        <item>@string/info_icon</item>
         <item>@string/email_icon</item>
         <item>@string/android_icon</item>
         <item>@string/like_icon</item>

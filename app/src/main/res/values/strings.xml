@@ -2,7 +2,6 @@
     <string name="app_name">RNG Plus</string>
     <string name="load_config">Load RNG configuration</string>
     <string name="save_config">Save RNG configuration</string>
-    <string name="config_saved">RNG configuration saved.</string>
     <string name="settings">Settings</string>
 
     <string name="load">Load</string>
@@ -40,9 +39,20 @@
     <!-- Font Awesome icons -->
     <string name="delete_icon">{fa-minus-circle}</string>
 
-    <string name="welcome">Welcome</string>
-    <string name="ask_for_help">Hey there, I\'m Alex! I\'m always looking to make my work as awesome as possible
-        for the community, so if you have any ideas on how to improve this app (bug fixes, feature requests, etc),
-        please use the send feedback option in the settings to tell me! Thank you!
+    <string name="instructions_title">Instructions</string>
+    <string name="instructions">
+        As a heads up, here are some app features that may not be immediately apparent.
+        \n\n1. Click on the buttons in the homepage\'s toolbar to save/load RNG configurations.
+        \n\n2. Rename and delete RNG configurations from the settings menu.
+        \n\n3. Click on the generated numbers box for additional options.
+        \n\nYou can view these instructions again at any given time from the settings menu.
+        Thank you very much for downloading this app, and I hope it serves you well!
     </string>
+
+    <string name="config_saved">RNG configuration saved.</string>
+    <string name="config_loaded">RNG configuration loaded.</string>
+    <string name="set_preload">&#160;Load it automatically upon app start?</string>
+    <string name="yes">yes</string>
+
+    <string name="preload_confirm">This RNG configuration will now automatically load when the app starts.</string>
 </resources>

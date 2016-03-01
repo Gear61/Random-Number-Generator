@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.Adapters.SettingsAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
@@ -21,7 +21,7 @@ import butterknife.OnItemClick;
  */
 public class SettingsActivity extends StandardActivity {
     public static final String SUPPORT_EMAIL = "chessnone@gmail.com";
-    public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/developer?id=RandomAppsInc";
+    public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/dev?id=9093438553713389916";
     public static final String REPO_URL = "https://github.com/Gear61/Random-Number-Generator";
 
     @Bind(R.id.parent) View parent;
@@ -40,22 +40,25 @@ public class SettingsActivity extends StandardActivity {
     }
 
     @OnItemClick(R.id.settings_options)
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+    public void onItemClick(int position) {
         Intent intent = null;
         switch (position) {
             case 0:
                 intent = new Intent(this, EditConfigurationsActivity.class);
                 break;
             case 1:
+                showInstructionsDialog();
+                return;
+            case 2:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
                 Uri mailUri = Uri.parse(uriText);
                 Intent sendIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
                 startActivity(Intent.createChooser(sendIntent, sendEmail));
                 return;
-            case 2:
+            case 3:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OTHER_APPS_URL));
                 break;
-            case 3:
+            case 4:
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
@@ -63,10 +66,18 @@ public class SettingsActivity extends StandardActivity {
                     return;
                 }
                 break;
-            case 4:
+            case 5:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL));
                 break;
         }
         startActivity(intent);
+    }
+
+    private void showInstructionsDialog() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.instructions_title)
+                .content(R.string.instructions)
+                .positiveText(android.R.string.yes)
+                .show();
     }
 }

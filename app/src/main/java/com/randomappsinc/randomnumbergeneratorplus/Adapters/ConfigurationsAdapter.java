@@ -125,7 +125,6 @@ public class ConfigurationsAdapter extends BaseAdapter {
         }
     }
 
-    // Renders the ListView item that the user has scrolled to or is about to scroll to
     public View getView(final int position, View view, ViewGroup parent) {
         ConfigViewHolder holder;
         if (view == null) {

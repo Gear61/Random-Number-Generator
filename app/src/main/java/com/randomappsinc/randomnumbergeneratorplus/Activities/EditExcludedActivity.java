@@ -56,7 +56,7 @@ public class EditExcludedActivity extends StandardActivity {
     }
 
     @OnClick(R.id.add_excluded)
-    public void addExcluded(View view) {
+    public void addExcluded() {
         String enteredExcluded = excludedInput.getText().toString();
         excludedInput.setText("");
         if (enteredExcluded.isEmpty()) {

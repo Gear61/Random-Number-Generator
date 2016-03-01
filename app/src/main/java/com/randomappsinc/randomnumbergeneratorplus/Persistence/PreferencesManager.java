@@ -11,6 +11,7 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
  */
 public class PreferencesManager {
     private static final String FIRST_TIME_USER = "firstTimeUser";
+    private static final String DEFAULT_CONFIG = "defaultConfig";
 
     private SharedPreferences prefs;
     private static PreferencesManager instance;
@@ -41,5 +42,7 @@ public class PreferencesManager {
     public void rememberWelcome() {
         prefs.edit().putBoolean(FIRST_TIME_USER, false).apply();
     }
+
+
 }
 

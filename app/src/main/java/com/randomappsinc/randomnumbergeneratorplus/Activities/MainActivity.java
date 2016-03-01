@@ -1,9 +1,10 @@
 package com.randomappsinc.randomnumbergeneratorplus.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.Editable;
+import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,6 +42,7 @@ public class MainActivity extends StandardActivity {
     @Bind(R.id.duplicates_toggle) CheckBox dupesToggle;
     @Bind(R.id.results) TextView results;
     @BindString(R.string.config_name) String configHint;
+    @BindColor(R.color.app_blue) int blue;
 
     private ArrayList<Integer> excludedNumbers;
     private String currentConfiguration;
@@ -55,15 +58,15 @@ public class MainActivity extends StandardActivity {
         if (PreferencesManager.get().isFirstTimeUser()) {
             PreferencesManager.get().rememberWelcome();
             new MaterialDialog.Builder(this)
-                    .title(R.string.welcome)
-                    .content(R.string.ask_for_help)
+                    .title(R.string.instructions_title)
+                    .content(R.string.instructions)
                     .positiveText(android.R.string.yes)
                     .show();
         }
     }
 
     @OnClick(R.id.edit_excluded)
-    public void editExcluded(View view) {
+    public void editExcluded() {
         Intent intent = new Intent(this, EditExcludedActivity.class);
         intent.putExtra(EditExcludedActivity.MINIMUM_KEY, Integer.parseInt(minimumInput.getText().toString()));
         intent.putExtra(EditExcludedActivity.MAXIMUM_KEY, Integer.parseInt(maximumInput.getText().toString()));
@@ -72,12 +75,12 @@ public class MainActivity extends StandardActivity {
     }
 
     @OnTextChanged(value = R.id.minimum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void minChanged(Editable s) {
+    public void minChanged() {
         excludedNumbers.clear();
     }
 
     @OnTextChanged(value = R.id.maximum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void maxChanged(Editable s) {
+    public void maxChanged() {
         excludedNumbers.clear();
     }
 
@@ -89,7 +92,7 @@ public class MainActivity extends StandardActivity {
     }
 
     @OnClick(R.id.generate)
-    public void generate(View view) {
+    public void generate() {
         if (verifyForm()) {
             int minimum = Integer.parseInt(minimumInput.getText().toString());
             int maximum = Integer.parseInt(maximumInput.getText().toString());
@@ -137,7 +140,7 @@ public class MainActivity extends StandardActivity {
                     .itemsCallback(new MaterialDialog.ListCallback() {
                         @Override
                         public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            loadConfig(text.toString());
+                            loadConfig(text.toString(), true);
                         }
                     })
                     .show();
@@ -147,7 +150,7 @@ public class MainActivity extends StandardActivity {
         }
     }
 
-    public void loadConfig(String configName) {
+    public void loadConfig(String configName, boolean verbose) {
         RNGConfiguration config = DatabaseManager.get().getConfig(configName);
         minimumInput.setText(String.valueOf(config.getMinimum()));
         maximumInput.setText(String.valueOf(config.getMaximum()));
@@ -155,6 +158,9 @@ public class MainActivity extends StandardActivity {
         dupesToggle.setCheckedImmediately(config.isNoDupes());
         excludedNumbers = ConversionUtils.getPlainExcludes(config.getExcludedNumbers());
         currentConfiguration = configName;
+        if (verbose) {
+            confirmConfigAction(getString(R.string.config_loaded) + getString(R.string.set_preload));
+        }
     }
 
     public void showSaveDialog() {
@@ -215,7 +221,23 @@ public class MainActivity extends StandardActivity {
         configuration.setExcludedNumbers(ConversionUtils.getRealmExcludes(excludedNumbers));
         DatabaseManager.get().addOrUpdateConfig(configuration);
         currentConfiguration = configName;
-        FormUtils.showSnackbar(parent, getString(R.string.config_saved));
+        confirmConfigAction(getString(R.string.config_saved) + getString(R.string.set_preload));
+    }
+
+    public void confirmConfigAction(String message) {
+        Snackbar snackbar = Snackbar.make(parent, message, 5000);
+        View rootView = snackbar.getView();
+        snackbar.getView().setBackgroundColor(blue);
+        TextView textview = (TextView) rootView.findViewById(android.support.design.R.id.snackbar_text);
+        textview.setTextColor(Color.WHITE);
+        snackbar.setAction(R.string.yes, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FormUtils.showSnackbar(parent, getString(R.string.preload_confirm));
+            }
+        });
+        snackbar.setActionTextColor(Color.WHITE);
+        snackbar.show();
     }
 
     @Override
