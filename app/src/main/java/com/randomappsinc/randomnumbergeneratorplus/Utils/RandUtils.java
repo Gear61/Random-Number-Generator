@@ -82,4 +82,18 @@ public class RandUtils {
                 .positiveText(android.R.string.yes)
                 .show();
     }
+
+    public static String getExcludedList(List<Integer> excludedNums) {
+        StringBuilder excludedList = new StringBuilder();
+        if (excludedNums.isEmpty()) {
+            return MyApplication.getAppContext().getString(R.string.no_excluded_numbers);
+        }
+        for (Integer excludedNum : excludedNums) {
+            if (excludedList.length() != 0) {
+                excludedList.append("\n");
+            }
+            excludedList.append(String.valueOf(excludedNum));
+        }
+        return excludedList.toString();
+    }
 }

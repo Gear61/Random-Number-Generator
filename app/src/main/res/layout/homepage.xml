@@ -84,14 +84,13 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="@string/exclude"
+                    android:text="@string/excluded_numbers_prefix"
                     android:layout_gravity="center_vertical"
-                    android:textSize="20dp"
                     style="@style/input_prefix_style"/>
 
                 <com.joanzapata.iconify.widget.IconTextView
                     android:id="@+id/edit_excluded"
-                    android:text="@string/edit_icon"
+                    android:text="@string/eye_icon"
                     style="@style/edit_exclude_icon"/>
             </LinearLayout>
 

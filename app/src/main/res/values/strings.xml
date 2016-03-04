@@ -16,7 +16,6 @@
     <string name="maximum">Maximum:&#160;</string>
     <string name="default_max">100</string>
     <string name="quantity">Quantity:&#160;</string>
-    <string name="exclude">Exclude:&#160;</string>
     <string name="no_dupes">No duplicate numbers</string>
     <string name="generate">Generate</string>
 
@@ -31,13 +30,9 @@
     <string name="missing_input">Please enter in a minimum, maximum, and quantity.</string>
     <string name="no_configs">You don\'t have any RNG configurations.</string>
 
-    <string name="exclude_note">NOTE: Changing the minimum/maximum resets this list.</string>
-    <string name="not_a_number">Please enter in a number to exclude.</string>
-    <string name="already_excluded">You are already excluding this number.</string>
-    <string name="not_in_range">Please enter in a number in the proper range.&#160;</string>
-
     <!-- Font Awesome icons -->
     <string name="delete_icon">{fa-minus-circle}</string>
+    <string name="eye_icon">{fa-eye}</string>
 
     <string name="instructions_title">Instructions</string>
     <string name="instructions">

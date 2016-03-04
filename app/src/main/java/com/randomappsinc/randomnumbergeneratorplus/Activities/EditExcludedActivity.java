@@ -81,4 +81,9 @@ public class EditExcludedActivity extends StandardActivity {
         setResult(RESULT_OK, returnIntent);
         super.finish();
     }
+
+    @OnClick(R.id.submit)
+    public void submit() {
+        finish();
+    }
 }

@@ -94,6 +94,21 @@ public class MainActivity extends StandardActivity {
 
     @OnClick(R.id.edit_excluded)
     public void editExcluded() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.excluded_numbers)
+                .content(RandUtils.getExcludedList(excludedNumbers))
+                .neutralText(R.string.edit)
+                .positiveText(android.R.string.yes)
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        editExcludedNumbers();
+                    }
+                })
+                .show();
+    }
+
+    private void editExcludedNumbers() {
         Intent intent = new Intent(this, EditExcludedActivity.class);
         intent.putExtra(EditExcludedActivity.MINIMUM_KEY, Integer.parseInt(minimumInput.getText().toString()));
         intent.putExtra(EditExcludedActivity.MAXIMUM_KEY, Integer.parseInt(maximumInput.getText().toString()));
@@ -115,6 +130,7 @@ public class MainActivity extends StandardActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             excludedNumbers = data.getIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY);
+            FormUtils.showSnackbar(parent, getString(R.string.excluded_updated));
         }
     }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="excluded_numbers_prefix">Excluded numbers:&#160;</string>
+    <string name="excluded_numbers">Excluded Numbers</string>
+    <string name="no_excluded_numbers">You currently aren\'t preventing any numbers from being generated.</string>
+    <string name="edit">Edit</string>
+    <string name="submit">Submit</string>
+
+    <string name="exclude_note">NOTE: Changing the minimum/maximum resets this list.</string>
+    <string name="not_a_number">Please enter in a number to exclude.</string>
+    <string name="already_excluded">You are already excluding this number.</string>
+    <string name="not_in_range">Please enter in a number in the proper range.&#160;</string>
+
+    <string name="excluded_updated">Your excluded numbers have been updated.</string>
+</resources>
