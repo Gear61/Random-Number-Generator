@@ -8,7 +8,6 @@
     <string name="config_name">RNG configuration name</string>
     <string name="save">Save</string>
     <string name="confirm_overwrite">Confirm overwrite</string>
-    <string name="rename_config">Rename RNG configuration</string>
     <string name="confirm_delete">Confirm delete</string>
 
     <string name="minimum">Minimum:&#160;</string>
@@ -47,7 +46,6 @@
     <string name="config_saved">RNG configuration saved.</string>
     <string name="config_loaded">RNG configuration loaded.</string>
     <string name="set_preload">&#160;Load it automatically upon app start?</string>
-    <string name="yes">yes</string>
 
     <string name="preload_confirm">This RNG configuration will now automatically load when the app starts.</string>
 

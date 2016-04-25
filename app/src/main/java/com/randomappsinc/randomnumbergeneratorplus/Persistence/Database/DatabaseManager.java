@@ -92,4 +92,3 @@ public class DatabaseManager {
         return realm.where(RNGConfiguration.class).equalTo("configName", configName).findFirst();
     }
 }
-

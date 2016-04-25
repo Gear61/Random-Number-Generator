@@ -18,7 +18,7 @@
     <string name="feedback_subject">RNG Plus Feedback</string>
     <string name="send_email">Send email</string>
 
-    <!-- Font Awesome Icons -->
+    <!-- Icons -->
     <string name="edit_icon">{fa-edit}</string>
     <string name="info_icon">{fa-info-circle}</string>
     <string name="email_icon">{fa-envelope}</string>

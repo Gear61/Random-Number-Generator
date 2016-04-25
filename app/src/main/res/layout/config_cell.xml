@@ -5,19 +5,20 @@
     android:layout_height="wrap_content">
 
     <com.joanzapata.iconify.widget.IconTextView
-        android:id="@+id/delete_icon"
-        android:text="@string/delete_icon"
+        android:id="@+id/list_icon"
+        android:text="@string/list_icon"
         android:layout_alignParentRight="true"
         style="@style/action_icon"/>
 
     <com.joanzapata.iconify.widget.IconTextView
-        android:id="@+id/edit_icon"
-        android:text="@string/edit_icon"
-        android:layout_toLeftOf="@+id/delete_icon"
+        android:id="@+id/check_icon"
+        android:text="@string/check_icon"
+        android:textColor="@color/green"
+        android:layout_toLeftOf="@+id/list_icon"
         style="@style/action_icon"/>
 
     <TextView
         android:id="@+id/config_name"
-        android:layout_toLeftOf="@+id/edit_icon"
+        android:layout_toLeftOf="@+id/check_icon"
         style="@style/action_item"/>
 </RelativeLayout>

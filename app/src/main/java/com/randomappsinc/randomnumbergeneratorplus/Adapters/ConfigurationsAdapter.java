@@ -11,29 +11,36 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.DatabaseManager;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
+import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
+import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by alexanderchiou on 1/1/16.
  */
 public class ConfigurationsAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<String> content;
+    private List<String> content;
     private View noContent;
     private String configHint;
+    private View parent;
 
-    public ConfigurationsAdapter(Context context, View noContent) {
+    public ConfigurationsAdapter(Context context, View noContent, View parent) {
         this.context = context;
         this.content = new ArrayList<>(Arrays.asList(DatabaseManager.get().getAllConfigs()));
         this.noContent = noContent;
         this.configHint = context.getString(R.string.config_name);
+        this.parent = parent;
         setNoContent();
     }
 
@@ -81,6 +88,9 @@ public class ConfigurationsAdapter extends BaseAdapter {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (PreferencesManager.get().getDefaultConfig().equals(getItem(position))) {
+                            PreferencesManager.get().setDefaultConfig("");
+                        }
                         removeConfig(position);
                     }
                 })
@@ -88,8 +98,7 @@ public class ConfigurationsAdapter extends BaseAdapter {
     }
 
     public void showRenameDialog(final int position) {
-        final String currentName = content.get(position);
-
+        final String currentName = getItem(position);
         new MaterialDialog.Builder(context)
                 .title(R.string.rename_config)
                 .input(configHint, currentName, new MaterialDialog.InputCallback() {
@@ -102,14 +111,15 @@ public class ConfigurationsAdapter extends BaseAdapter {
                 })
                 .alwaysCallInputCallback()
                 .negativeText(android.R.string.no)
-                .onAny(new MaterialDialog.SingleButtonCallback() {
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (which == DialogAction.POSITIVE) {
-                            String newName = dialog.getInputEditText().getText().toString();
-                            DatabaseManager.get().renameSet(currentName, newName);
-                            changeName(position, newName);
+                        String newName = dialog.getInputEditText().getText().toString();
+                        if (PreferencesManager.get().getDefaultConfig().equals(currentName)) {
+                            PreferencesManager.get().setDefaultConfig(newName);
                         }
+                        DatabaseManager.get().renameSet(currentName, newName);
+                        changeName(position, newName);
                     }
                 })
                 .show();
@@ -117,39 +127,58 @@ public class ConfigurationsAdapter extends BaseAdapter {
 
     public class ConfigViewHolder {
         @Bind(R.id.config_name) TextView configName;
-        @Bind(R.id.edit_icon) View editIcon;
-        @Bind(R.id.delete_icon) View deleteIcon;
+        @Bind(R.id.check_icon) View checkIcon;
+
+        private int position;
 
         public ConfigViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+
+        public void loadConfig(int position) {
+            this.position = position;
+            this.configName.setText(getItem(position));
+            if (PreferencesManager.get().getDefaultConfig().equals(getItem(position))) {
+                this.checkIcon.setAlpha(1);
+            } else {
+                this.checkIcon.setAlpha(0);
+            }
+        }
+
+        @OnClick(R.id.list_icon)
+        public void showOptions() {
+            new MaterialDialog.Builder(context)
+                    .title(getItem(position))
+                    .items(RandUtils.getConfigOptions(getItem(position)))
+                    .itemsCallback(new MaterialDialog.ListCallback() {
+                        @Override
+                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            if (text.toString().equals(context.getString(R.string.load_on_start))) {
+                                PreferencesManager.get().setDefaultConfig(getItem(position));
+                                notifyDataSetChanged();
+                                FormUtils.showSnackbar(parent, context.getString(R.string.start_config_changed));
+                            } else if (text.toString().equals(context.getString(R.string.rename_config))) {
+                                showRenameDialog(position);
+                            } else if (text.toString().equals(context.getString(R.string.delete_config))) {
+                                showDeleteDialog(position);
+                            }
+                        }
+                    })
+                    .show();
+        }
     }
 
-    public View getView(final int position, View view, ViewGroup parent) {
+    public View getView(int position, View view, ViewGroup parent) {
         ConfigViewHolder holder;
         if (view == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = vi.inflate(R.layout.configuration_cell, parent, false);
+            view = vi.inflate(R.layout.config_cell, parent, false);
             holder = new ConfigViewHolder(view);
             view.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ConfigViewHolder) view.getTag();
         }
-
-        holder.configName.setText(content.get(position));
-        holder.editIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showRenameDialog(position);
-            }
-        });
-        holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDeleteDialog(position);
-            }
-        });
+        holder.loadConfig(position);
         return view;
     }
 }

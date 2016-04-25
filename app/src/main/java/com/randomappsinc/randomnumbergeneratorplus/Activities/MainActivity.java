@@ -158,16 +158,13 @@ public class MainActivity extends StandardActivity {
         if (minimum.isEmpty() || maximum.isEmpty() || quantity.isEmpty()) {
             FormUtils.showSnackbar(parent, getString(R.string.missing_input));
             return false;
-        }
-        else if (Integer.parseInt(maximum) < Integer.parseInt(minimum)) {
+        } else if (Integer.parseInt(maximum) < Integer.parseInt(minimum)) {
             FormUtils.showSnackbar(parent, getString(R.string.bigger_min));
             return false;
-        }
-        else if (Integer.parseInt(quantity) <= 0) {
+        } else if (Integer.parseInt(quantity) <= 0) {
             FormUtils.showSnackbar(parent, getString(R.string.non_zero_quantity));
             return false;
-        }
-        else if (numAvailable < quantityRestriction + excludedNumbers.size()) {
+        } else if (numAvailable < quantityRestriction + excludedNumbers.size()) {
             FormUtils.showSnackbar(parent, getString(R.string.overlimited_range));
             return false;
         }
@@ -187,8 +184,7 @@ public class MainActivity extends StandardActivity {
                         }
                     })
                     .show();
-        }
-        else {
+        } else {
             FormUtils.showSnackbar(parent, getString(R.string.no_configs));
         }
     }
@@ -221,16 +217,14 @@ public class MainActivity extends StandardActivity {
                 .alwaysCallInputCallback()
                 .positiveText(R.string.save)
                 .negativeText(android.R.string.no)
-                .onAny(new MaterialDialog.SingleButtonCallback() {
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (which == DialogAction.POSITIVE) {
-                            String configName = dialog.getInputEditText().getText().toString();
-                            if (DatabaseManager.get().doesConfigExist(configName)) {
-                                showOverwriteConfirmDialog(configName);
-                            } else {
-                                saveConfiguration(configName);
-                            }
+                        String configName = dialog.getInputEditText().getText().toString();
+                        if (DatabaseManager.get().doesConfigExist(configName)) {
+                            showOverwriteConfirmDialog(configName);
+                        } else {
+                            saveConfiguration(configName);
                         }
                     }
                 })
@@ -268,12 +262,12 @@ public class MainActivity extends StandardActivity {
     }
 
     public void confirmConfigAction(String messageBase, final String configName) {
-        Snackbar snackbar = Snackbar.make(parent, messageBase + getString(R.string.set_preload), 5000);
+        Snackbar snackbar = Snackbar.make(parent, messageBase + getString(R.string.set_preload), 7000);
         View rootView = snackbar.getView();
         snackbar.getView().setBackgroundColor(blue);
         TextView textview = (TextView) rootView.findViewById(android.support.design.R.id.snackbar_text);
         textview.setTextColor(Color.WHITE);
-        snackbar.setAction(R.string.yes, new View.OnClickListener() {
+        snackbar.setAction(android.R.string.yes, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PreferencesManager.get().setDefaultConfig(configName);

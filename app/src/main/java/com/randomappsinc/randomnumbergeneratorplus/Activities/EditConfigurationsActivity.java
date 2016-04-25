@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
  * Created by alexanderchiou on 1/1/16.
  */
 public class EditConfigurationsActivity extends StandardActivity {
+    @Bind(R.id.parent) View parent;
     @Bind(R.id.configs) ListView configs;
     @Bind(R.id.no_configs) View noConfigs;
 
@@ -24,6 +25,6 @@ public class EditConfigurationsActivity extends StandardActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        configs.setAdapter(new ConfigurationsAdapter(this, noConfigs));
+        configs.setAdapter(new ConfigurationsAdapter(this, noConfigs, parent));
     }
 }
