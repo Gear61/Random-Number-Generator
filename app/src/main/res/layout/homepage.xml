@@ -111,17 +111,6 @@
                 android:layout_marginTop="5dp"
                 style="@style/ripple_button_style"
                 app:rd_style="@style/button_ripple_attributes"/>
-
-            <TextView
-                android:id="@+id/results"
-                android:visibility="gone"
-                android:padding="10dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/app_blue"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

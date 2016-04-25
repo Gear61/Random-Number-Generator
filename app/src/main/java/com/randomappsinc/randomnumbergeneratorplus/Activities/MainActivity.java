@@ -1,6 +1,5 @@
 package com.randomappsinc.randomnumbergeneratorplus.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -42,7 +41,6 @@ public class MainActivity extends StandardActivity {
     @Bind(R.id.maximum) EditText maximumInput;
     @Bind(R.id.quantity) EditText quantityInput;
     @Bind(R.id.duplicates_toggle) CheckBox dupesToggle;
-    @Bind(R.id.results) TextView results;
     @BindString(R.string.config_name) String configHint;
     @BindColor(R.color.app_blue) int blue;
 
@@ -56,15 +54,6 @@ public class MainActivity extends StandardActivity {
         ButterKnife.bind(this);
 
         excludedNumbers = new ArrayList<>();
-
-        if (PreferencesManager.get().isFirstTimeUser()) {
-            PreferencesManager.get().rememberWelcome();
-            new MaterialDialog.Builder(this)
-                    .title(R.string.instructions_title)
-                    .content(R.string.instructions)
-                    .positiveText(android.R.string.yes)
-                    .show();
-        }
 
         if (PreferencesManager.get().shouldAskForRating()) {
             new MaterialDialog.Builder(this)
@@ -143,8 +132,7 @@ public class MainActivity extends StandardActivity {
             List<Integer> generatedNums = RandUtils.getNumbers(minimum, maximum, quantity,
                     dupesToggle.isChecked(), excludedNumbers);
             String resultsString = RandUtils.getResultsString(generatedNums);
-            results.setVisibility(View.VISIBLE);
-            results.setText(resultsString);
+            RandUtils.showResultsDialog(resultsString, this, parent);
         }
     }
 
@@ -262,40 +250,24 @@ public class MainActivity extends StandardActivity {
     }
 
     public void confirmConfigAction(String messageBase, final String configName) {
-        Snackbar snackbar = Snackbar.make(parent, messageBase + getString(R.string.set_preload), 7000);
-        View rootView = snackbar.getView();
-        snackbar.getView().setBackgroundColor(blue);
-        TextView textview = (TextView) rootView.findViewById(android.support.design.R.id.snackbar_text);
-        textview.setTextColor(Color.WHITE);
-        snackbar.setAction(android.R.string.yes, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PreferencesManager.get().setDefaultConfig(configName);
-                FormUtils.showSnackbar(parent, getString(R.string.preload_confirm));
-            }
-        });
-        snackbar.setActionTextColor(Color.WHITE);
-        snackbar.show();
-    }
-
-    @OnClick(R.id.results)
-    public void showResultsOptions() {
-        final Context context = this;
-        new MaterialDialog.Builder(this)
-                .items(R.array.results_options)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        switch (which) {
-                            case 0:
-                                RandUtils.copyNumsToClipboard(results.getText().toString(), parent);
-                                break;
-                            case 1:
-                                RandUtils.showResultsDialog(results.getText().toString(), context);
-                        }
-                    }
-                })
-                .show();
+        if (!PreferencesManager.get().getDefaultConfig().equals(configName)) {
+            Snackbar snackbar = Snackbar.make(parent, messageBase + getString(R.string.set_preload), 7000);
+            View rootView = snackbar.getView();
+            snackbar.getView().setBackgroundColor(blue);
+            TextView textview = (TextView) rootView.findViewById(android.support.design.R.id.snackbar_text);
+            textview.setTextColor(Color.WHITE);
+            snackbar.setAction(android.R.string.yes, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PreferencesManager.get().setDefaultConfig(configName);
+                    FormUtils.showSnackbar(parent, getString(R.string.preload_confirm));
+                }
+            });
+            snackbar.setActionTextColor(Color.WHITE);
+            snackbar.show();
+        } else {
+            FormUtils.showSnackbar(parent, getString(R.string.config_loaded));
+        }
     }
 
     @Override

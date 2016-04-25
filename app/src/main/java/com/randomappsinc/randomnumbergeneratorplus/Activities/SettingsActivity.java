@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.Adapters.SettingsAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
@@ -47,18 +46,15 @@ public class SettingsActivity extends StandardActivity {
                 intent = new Intent(this, EditConfigurationsActivity.class);
                 break;
             case 1:
-                showInstructionsDialog();
-                return;
-            case 2:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
                 Uri mailUri = Uri.parse(uriText);
                 Intent sendIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
                 startActivity(Intent.createChooser(sendIntent, sendEmail));
                 return;
-            case 3:
+            case 2:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OTHER_APPS_URL));
                 break;
-            case 4:
+            case 3:
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
@@ -66,18 +62,10 @@ public class SettingsActivity extends StandardActivity {
                     return;
                 }
                 break;
-            case 5:
+            case 4:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL));
                 break;
         }
         startActivity(intent);
-    }
-
-    private void showInstructionsDialog() {
-        new MaterialDialog.Builder(this)
-                .title(R.string.instructions_title)
-                .content(R.string.instructions)
-                .positiveText(android.R.string.yes)
-                .show();
     }
 }

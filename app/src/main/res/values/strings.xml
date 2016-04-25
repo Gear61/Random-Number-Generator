@@ -33,16 +33,6 @@
     <string name="delete_icon">{fa-minus-circle}</string>
     <string name="eye_icon">{fa-eye}</string>
 
-    <string name="instructions_title">Instructions</string>
-    <string name="instructions">
-        As a heads up, here are some app features that may not be immediately apparent.
-        \n\n1. Click on the buttons in the homepage\'s toolbar to save/load RNG configurations.
-        \n\n2. Rename and delete RNG configurations from the settings menu.
-        \n\n3. Click on the generated numbers box for additional options.
-        \n\nYou can view these instructions again at any given time from the settings menu.
-        Thank you very much for downloading this app, and I hope it serves you well!
-    </string>
-
     <string name="config_saved">RNG configuration saved.</string>
     <string name="config_loaded">RNG configuration loaded.</string>
     <string name="set_preload">&#160;Load it automatically upon app start?</string>
@@ -58,13 +48,7 @@
     <string name="will_rate">Sure, I\'ll help</string>
     <string name="decline_rating">No, I\'m good</string>
 
-    <string name="copy_numbers">Copy numbers to clipboard</string>
-    <string name="show_as_dialog">Show as dialog</string>
-    <string-array name="results_options">
-        <item>@string/copy_numbers</item>
-        <item>@string/show_as_dialog</item>
-    </string-array>
-
+    <string name="copy_numbers">Copy numbers</string>
     <string name="generated_numbers">Generated Numbers</string>
     <string name="copy_confirmation">The generated numbers have been copied to your clipboard.</string>
 </resources>

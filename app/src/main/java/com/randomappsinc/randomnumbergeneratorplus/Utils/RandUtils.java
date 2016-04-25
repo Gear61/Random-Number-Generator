@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
@@ -76,11 +78,18 @@ public class RandUtils {
         FormUtils.showSnackbar(parent, context.getString(R.string.copy_confirmation));
     }
 
-    public static void showResultsDialog(String results, Context context) {
+    public static void showResultsDialog(final String results, Context context, final View parent) {
         new MaterialDialog.Builder(context)
                 .title(R.string.generated_numbers)
                 .content(results)
                 .positiveText(android.R.string.yes)
+                .neutralText(R.string.copy_numbers)
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        copyNumsToClipboard(results, parent);
+                    }
+                })
                 .show();
     }
 
