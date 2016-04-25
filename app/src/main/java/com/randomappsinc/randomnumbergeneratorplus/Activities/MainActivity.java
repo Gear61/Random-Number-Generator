@@ -83,18 +83,27 @@ public class MainActivity extends StandardActivity {
 
     @OnClick(R.id.edit_excluded)
     public void editExcluded() {
-        new MaterialDialog.Builder(this)
+        MaterialDialog excludedDialog = new MaterialDialog.Builder(this)
                 .title(R.string.excluded_numbers)
                 .content(RandUtils.getExcludedList(excludedNumbers))
-                .neutralText(R.string.edit)
                 .positiveText(android.R.string.yes)
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                .negativeText(R.string.edit)
+                .onAny(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        editExcludedNumbers();
+                        if (which == DialogAction.NEGATIVE) {
+                            editExcludedNumbers();
+                        } else if (which == DialogAction.NEUTRAL) {
+                            excludedNumbers.clear();
+                            FormUtils.showSnackbar(parent, getString(R.string.excluded_clear));
+                        }
                     }
                 })
-                .show();
+                .build();
+        if (!excludedNumbers.isEmpty()) {
+            excludedDialog.setActionButton(DialogAction.NEUTRAL, R.string.clear);
+        }
+        excludedDialog.show();
     }
 
     private void editExcludedNumbers() {

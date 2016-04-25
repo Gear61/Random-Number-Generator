@@ -50,4 +50,3 @@ public class PreferencesManager {
         return currentAppOpens == 5;
     }
 }
-
