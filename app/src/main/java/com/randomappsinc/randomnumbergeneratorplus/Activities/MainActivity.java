@@ -177,13 +177,28 @@ public class MainActivity extends StandardActivity {
                     .itemsCallback(new MaterialDialog.ListCallback() {
                         @Override
                         public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            loadConfig(text.toString(), true);
+                            showConfigInfo(text.toString());
                         }
                     })
                     .show();
         } else {
             FormUtils.showSnackbar(parent, getString(R.string.no_configs));
         }
+    }
+
+    public void showConfigInfo(final String configName) {
+        new MaterialDialog.Builder(this)
+                .title(configName)
+                .content(RandUtils.getConfigSummary(configName))
+                .positiveText(R.string.load)
+                .negativeText(android.R.string.no)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        loadConfig(configName, true);
+                    }
+                })
+                .show();
     }
 
     public void loadConfig(String configName, boolean verbose) {
@@ -201,7 +216,6 @@ public class MainActivity extends StandardActivity {
 
     public void showSaveDialog() {
         String currentConfigName = currentConfiguration != null ? currentConfiguration : "";
-
         new MaterialDialog.Builder(this)
                 .title(R.string.save_config)
                 .input(configHint, currentConfigName, new MaterialDialog.InputCallback() {
@@ -260,7 +274,8 @@ public class MainActivity extends StandardActivity {
 
     public void confirmConfigAction(String messageBase, final String configName) {
         if (!PreferencesManager.get().getDefaultConfig().equals(configName)) {
-            Snackbar snackbar = Snackbar.make(parent, messageBase + getString(R.string.set_preload), 7000);
+            Snackbar snackbar = Snackbar.make(parent, messageBase + getString(R.string.set_preload),
+                    Snackbar.LENGTH_INDEFINITE);
             View rootView = snackbar.getView();
             snackbar.getView().setBackgroundColor(blue);
             TextView textview = (TextView) rootView.findViewById(android.support.design.R.id.snackbar_text);
@@ -275,7 +290,7 @@ public class MainActivity extends StandardActivity {
             snackbar.setActionTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            FormUtils.showSnackbar(parent, getString(R.string.config_loaded));
+            FormUtils.showSnackbar(parent, messageBase);
         }
     }
 

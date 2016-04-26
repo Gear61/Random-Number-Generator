@@ -5,10 +5,14 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.DatabaseManager;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.RNGConfiguration;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 
@@ -100,7 +104,7 @@ public class RandUtils {
         }
         for (Integer excludedNum : excludedNums) {
             if (excludedList.length() != 0) {
-                excludedList.append("\n");
+                excludedList.append(", ");
             }
             excludedList.append(String.valueOf(excludedNum));
         }
@@ -116,5 +120,51 @@ public class RandUtils {
         options.add(context.getString(R.string.rename_config));
         options.add(context.getString(R.string.delete_config));
         return options.toArray(new String[options.size()]);
+    }
+
+    public static Spanned getConfigSummary(String configName) {
+        Context context = MyApplication.getAppContext();
+        RNGConfiguration configuration = DatabaseManager.get().getConfig(configName);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<p><b>");
+        stringBuilder.append(context.getString(R.string.minimum));
+        stringBuilder.append("</b>");
+        stringBuilder.append(String.valueOf(configuration.getMinimum()));
+        stringBuilder.append("</p>");
+
+        stringBuilder.append("<p><b>");
+        stringBuilder.append(context.getString(R.string.maximum));
+        stringBuilder.append("</b>");
+        stringBuilder.append(String.valueOf(configuration.getMaximum()));
+        stringBuilder.append("</p>");
+
+        stringBuilder.append("<p><b>");
+        stringBuilder.append(context.getString(R.string.quantity));
+        stringBuilder.append("</b>");
+        stringBuilder.append(String.valueOf(configuration.getQuantity()));
+        stringBuilder.append("</p>");
+
+        stringBuilder.append("<p><b>");
+        stringBuilder.append(context.getString(R.string.excluded_numbers_prefix));
+        stringBuilder.append("</b>");
+        if (configuration.getExcludedNumbers().isEmpty()) {
+            stringBuilder.append(context.getString(R.string.none));
+        } else {
+            List<Integer> excludedNumbers = ConversionUtils.getPlainExcludes(configuration.getExcludedNumbers());
+            stringBuilder.append(getExcludedList(excludedNumbers));
+        }
+        stringBuilder.append("</p>");
+
+        stringBuilder.append("<b>");
+        stringBuilder.append(context.getString(R.string.prevent_duplicates));
+        stringBuilder.append("</b>");
+        if (configuration.isNoDupes()) {
+            stringBuilder.append(context.getString(R.string.yes));
+        } else {
+            stringBuilder.append(context.getString(R.string.no));
+        }
+
+        return Html.fromHtml(stringBuilder.toString());
     }
 }

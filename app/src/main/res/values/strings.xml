@@ -51,4 +51,9 @@
     <string name="copy_numbers">Copy numbers</string>
     <string name="generated_numbers">Generated Numbers</string>
     <string name="copy_confirmation">The generated numbers have been copied to your clipboard.</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="none">None</string>
+    <string name="prevent_duplicates">Prevent duplicates:&#160;</string>
 </resources>
