@@ -29,9 +29,9 @@
     <string name="missing_input">Please enter in a minimum, maximum, and quantity.</string>
     <string name="no_configs">You don\'t have any RNG configurations.</string>
 
-    <!-- Font Awesome icons -->
-    <string name="delete_icon">{fa-minus-circle}</string>
-    <string name="eye_icon">{fa-eye}</string>
+    <!-- Icons -->
+    <string name="delete_icon">{ion-android-remove-circle}</string>
+    <string name="eye_icon">{ion-eye}</string>
 
     <string name="config_saved">RNG configuration saved.</string>
     <string name="config_loaded">RNG configuration loaded.</string>

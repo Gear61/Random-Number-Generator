@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="check_icon">{fa-check}</string>
-    <string name="list_icon">{fa-list}</string>
+    <string name="check_icon">{ion-checkmark}</string>
+    <string name="list_icon">{ion-android-list}</string>
 
     <string name="load_on_start">Load RNG configuration on app start</string>
     <string name="rename_config">Rename RNG configuration</string>
