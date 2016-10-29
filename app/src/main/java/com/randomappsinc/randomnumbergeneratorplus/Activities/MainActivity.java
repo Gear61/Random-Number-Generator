@@ -294,19 +294,40 @@ public class MainActivity extends StandardActivity {
         }
     }
 
+    private void showConfigOptions() {
+        new MaterialDialog.Builder(this)
+                .items(R.array.config_options)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        switch (which) {
+                            case 0:
+                                showLoadDialog();
+                                break;
+                            case 1:
+                                if (verifyForm()) {
+                                    showSaveDialog();
+                                }
+                                break;
+                        }
+                    }
+                })
+                .show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.findItem(R.id.load_config).setIcon(
-                new IconDrawable(this, FontAwesomeIcons.fa_upload)
+        menu.findItem(R.id.config_options).setIcon(
+                new IconDrawable(this, FontAwesomeIcons.fa_list_ol)
                         .colorRes(R.color.white)
                         .actionBarSize());
-        menu.findItem(R.id.save_config).setIcon(
-                new IconDrawable(this, FontAwesomeIcons.fa_save)
-                        .colorRes(R.color.white)
-                        .actionBarSize());
-        menu.findItem(R.id.settings).setIcon(
+        menu.findItem(R.id.rng_settings).setIcon(
                 new IconDrawable(this, FontAwesomeIcons.fa_gear)
+                        .colorRes(R.color.white)
+                        .actionBarSize());
+        menu.findItem(R.id.additional_settings).setIcon(
+                new IconDrawable(this, FontAwesomeIcons.fa_gears)
                         .colorRes(R.color.white)
                         .actionBarSize());
         return true;
@@ -315,15 +336,12 @@ public class MainActivity extends StandardActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.load_config:
-                showLoadDialog();
+            case R.id.config_options:
+                showConfigOptions();
                 return true;
-            case R.id.save_config:
-                if (verifyForm()) {
-                    showSaveDialog();
-                }
+            case R.id.rng_settings:
                 return true;
-            case R.id.settings:
+            case R.id.additional_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             default:

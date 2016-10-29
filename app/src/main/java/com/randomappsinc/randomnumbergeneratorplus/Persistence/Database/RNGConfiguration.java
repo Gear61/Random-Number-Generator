@@ -16,6 +16,8 @@ public class RNGConfiguration extends RealmObject {
     private int quantity;
     private boolean noDupes;
     private RealmList<ExcludedNumber> excludedNumbers;
+    private int sortIndex;
+    private boolean showSum;
 
     public String getConfigName() {
         return configName;
@@ -63,5 +65,21 @@ public class RNGConfiguration extends RealmObject {
 
     public void setExcludedNumbers(RealmList<ExcludedNumber> excludedNumbers) {
         this.excludedNumbers = excludedNumbers;
+    }
+
+    public int getSortIndex() {
+        return sortIndex;
+    }
+
+    public void setSortIndex(int sortIndex) {
+        this.sortIndex = sortIndex;
+    }
+
+    public boolean isShowSum() {
+        return showSum;
+    }
+
+    public void setShowSum(boolean showSum) {
+        this.showSum = showSum;
     }
 }

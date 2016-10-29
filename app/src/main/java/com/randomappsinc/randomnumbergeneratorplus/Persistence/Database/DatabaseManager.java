@@ -1,19 +1,23 @@
 package com.randomappsinc.randomnumbergeneratorplus.Persistence.Database;
 
-import android.content.Context;
-
 import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.DynamicRealm;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmMigration;
 import io.realm.RealmResults;
+import io.realm.RealmSchema;
 
 /**
  * Created by alexanderchiou on 1/1/16.
  */
 public class DatabaseManager {
+    private static final int CURRENT_DB_VERSION = 1;
+
     private static DatabaseManager instance;
 
     public static DatabaseManager get() {
@@ -33,8 +37,26 @@ public class DatabaseManager {
     private Realm realm;
 
     private DatabaseManager() {
-        Context context = MyApplication.getAppContext();
-        realm = Realm.getInstance(context);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(MyApplication.getAppContext())
+                .schemaVersion(CURRENT_DB_VERSION)
+                .migration(getMigrationModule())
+                .build();
+        realm = Realm.getInstance(realmConfiguration);
+    }
+
+    private RealmMigration getMigrationModule() {
+        return new RealmMigration() {
+            @Override
+            public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
+                RealmSchema schema = realm.getSchema();
+
+                if (oldVersion == 0) {
+                    schema.get("RNGConfiguration")
+                            .addField("sortIndex", int.class)
+                            .addField("showSum", boolean.class);
+                }
+            }
+        };
     }
 
     public void addOrUpdateConfig(RNGConfiguration RNGConfiguration) {
@@ -42,8 +64,7 @@ public class DatabaseManager {
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(RNGConfiguration);
             realm.commitTransaction();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             realm.cancelTransaction();
         }
     }
@@ -56,8 +77,7 @@ public class DatabaseManager {
                     .findFirst();
             oldConfig.setConfigName(newName);
             realm.commitTransaction();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             realm.cancelTransaction();
         }
     }
@@ -72,8 +92,7 @@ public class DatabaseManager {
             RNGConfiguration config = realm.where(RNGConfiguration.class).equalTo("configName", configName).findFirst();
             config.removeFromRealm();
             realm.commitTransaction();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             realm.cancelTransaction();
         }
     }

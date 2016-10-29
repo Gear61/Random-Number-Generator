@@ -2,7 +2,16 @@
     <string name="app_name">RNG Plus</string>
     <string name="load_config">Load RNG configuration</string>
     <string name="save_config">Save RNG configuration</string>
+
+    <string name="rng_configurations">RNG configurations</string>
+    <string-array name="config_options">
+        <item>@string/load_config</item>
+        <item>@string/save_config</item>
+    </string-array>
+
+    <string name="rng_settings">RNG settings</string>
     <string name="settings">Settings</string>
+    <string name="additional_settings">Additional settings</string>
 
     <string name="load">Load</string>
     <string name="config_name">RNG configuration name</string>
