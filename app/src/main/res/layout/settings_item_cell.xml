@@ -4,7 +4,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:gravity="center_vertical"
+    android:padding="12dp">
 
     <com.joanzapata.iconify.widget.IconTextView
         android:id="@+id/icon"
@@ -12,16 +13,14 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:textColor="@color/dark_gray"
-        android:textSize="22dp"
-        android:layout_gravity="center_vertical"/>
+        android:textSize="22dp"/>
 
     <TextView
         android:id="@+id/option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="12dp"
         android:textSize="18dp"
-        android:textColor="@color/dark_gray"
-        android:layout_gravity="center_vertical"/>
+        android:textColor="@color/dark_gray"/>
 </LinearLayout>

@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="12dp">
 
     <com.joanzapata.iconify.widget.IconTextView
         android:id="@+id/list_icon"
@@ -19,6 +20,7 @@
 
     <TextView
         android:id="@+id/config_name"
+        android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/check_icon"
         style="@style/action_item"/>
 </RelativeLayout>

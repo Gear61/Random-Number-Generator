@@ -9,8 +9,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/no_configs"
@@ -25,7 +24,6 @@
         <ListView
             android:id="@+id/configs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

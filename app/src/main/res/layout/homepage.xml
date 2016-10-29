@@ -15,7 +15,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:padding="15dp"
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -98,6 +98,7 @@
                 android:id="@+id/duplicates_toggle"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_marginLeft="-4dp"
                 android:gravity="center_vertical"
                 android:text="@string/no_dupes"
                 android:textColor="@color/app_blue"
@@ -108,7 +109,7 @@
             <com.rey.material.widget.Button
                 android:id="@+id/generate"
                 android:text="@string/generate"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 style="@style/ripple_button_style"
                 app:rd_style="@style/button_ripple_attributes"/>
         </LinearLayout>

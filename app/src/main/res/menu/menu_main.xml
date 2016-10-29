@@ -5,15 +5,15 @@
     <item
         android:id="@+id/load_config"
         android:title="@string/load_config"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/save_config"
         android:title="@string/save_config"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/settings"
         android:title="@string/settings"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
 </menu>
