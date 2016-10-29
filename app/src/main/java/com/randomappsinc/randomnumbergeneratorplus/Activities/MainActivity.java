@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.randomappsinc.randomnumbergeneratorplus.Models.RNGSettingsViewHolder;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.DatabaseManager;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.RNGConfiguration;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
@@ -23,7 +24,6 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.ConversionUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
-import com.rey.material.widget.CheckBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +40,13 @@ public class MainActivity extends StandardActivity {
     @Bind(R.id.minimum) EditText minimumInput;
     @Bind(R.id.maximum) EditText maximumInput;
     @Bind(R.id.quantity) EditText quantityInput;
-    @Bind(R.id.duplicates_toggle) CheckBox dupesToggle;
     @BindString(R.string.config_name) String configHint;
     @BindColor(R.color.app_blue) int blue;
 
     private ArrayList<Integer> excludedNumbers;
     private String currentConfiguration;
+    private MaterialDialog settingsDialog;
+    private RNGSettingsViewHolder viewHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,20 @@ public class MainActivity extends StandardActivity {
                     })
                     .show();
         }
+
+        settingsDialog = new MaterialDialog.Builder(this)
+                .title(R.string.rng_settings)
+                .customView(R.layout.rng_settings, true)
+                .positiveText(R.string.apply)
+                .cancelable(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        FormUtils.showSnackbar(parent, getString(R.string.settings_applied));
+                    }
+                })
+                .build();
+        viewHolder = new RNGSettingsViewHolder(settingsDialog.getCustomView());
 
         String defaultConfig = PreferencesManager.get().getDefaultConfig();
         if (!defaultConfig.isEmpty()) {
@@ -139,7 +154,7 @@ public class MainActivity extends StandardActivity {
             int maximum = Integer.parseInt(maximumInput.getText().toString());
             int quantity = Integer.parseInt(quantityInput.getText().toString());
             List<Integer> generatedNums = RandUtils.getNumbers(minimum, maximum, quantity,
-                    dupesToggle.isChecked(), excludedNumbers);
+                    viewHolder.getNoDupes(), excludedNumbers);
             String resultsString = RandUtils.getResultsString(generatedNums);
             RandUtils.showResultsDialog(resultsString, this, parent);
         }
@@ -151,7 +166,7 @@ public class MainActivity extends StandardActivity {
         String maximum = maximumInput.getText().toString();
         String quantity = quantityInput.getText().toString();
         int numAvailable = Integer.parseInt(maximum) - Integer.parseInt(minimum) + 1;
-        int quantityRestriction = dupesToggle.isChecked() ? Integer.parseInt(quantity) : 1;
+        int quantityRestriction = viewHolder.getNoDupes() ? Integer.parseInt(quantity) : 1;
         if (minimum.isEmpty() || maximum.isEmpty() || quantity.isEmpty()) {
             FormUtils.showSnackbar(parent, getString(R.string.missing_input));
             return false;
@@ -169,15 +184,15 @@ public class MainActivity extends StandardActivity {
     }
 
     public void showLoadDialog() {
-        String[] configNames = DatabaseManager.get().getAllConfigs();
-        if (configNames.length > 0) {
+        String[] rngConfigs = DatabaseManager.get().getAllConfigs();
+        if (rngConfigs.length > 0) {
             new MaterialDialog.Builder(this)
                     .title(R.string.load_config)
-                    .items(configNames)
+                    .items(rngConfigs)
                     .itemsCallback(new MaterialDialog.ListCallback() {
                         @Override
                         public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            showConfigInfo(text.toString());
+                            loadConfig(text.toString(), true);
                         }
                     })
                     .show();
@@ -186,27 +201,12 @@ public class MainActivity extends StandardActivity {
         }
     }
 
-    public void showConfigInfo(final String configName) {
-        new MaterialDialog.Builder(this)
-                .title(configName)
-                .content(RandUtils.getConfigSummary(configName))
-                .positiveText(R.string.load)
-                .negativeText(android.R.string.no)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        loadConfig(configName, true);
-                    }
-                })
-                .show();
-    }
-
     public void loadConfig(String configName, boolean verbose) {
         RNGConfiguration config = DatabaseManager.get().getConfig(configName);
         minimumInput.setText(String.valueOf(config.getMinimum()));
         maximumInput.setText(String.valueOf(config.getMaximum()));
         quantityInput.setText(String.valueOf(config.getQuantity()));
-        dupesToggle.setCheckedImmediately(config.isNoDupes());
+        viewHolder.loadConfig(config);
         excludedNumbers = ConversionUtils.getPlainExcludes(config.getExcludedNumbers());
         currentConfiguration = configName;
         if (verbose) {
@@ -265,7 +265,7 @@ public class MainActivity extends StandardActivity {
         configuration.setMinimum(Integer.parseInt(minimumInput.getText().toString()));
         configuration.setMaximum(Integer.parseInt(maximumInput.getText().toString()));
         configuration.setQuantity(Integer.parseInt(quantityInput.getText().toString()));
-        configuration.setNoDupes(dupesToggle.isChecked());
+        viewHolder.updateConfig(configuration);
         configuration.setExcludedNumbers(ConversionUtils.getRealmExcludes(excludedNumbers));
         DatabaseManager.get().addOrUpdateConfig(configuration);
         currentConfiguration = configName;
@@ -340,6 +340,7 @@ public class MainActivity extends StandardActivity {
                 showConfigOptions();
                 return true;
             case R.id.rng_settings:
+                settingsDialog.show();
                 return true;
             case R.id.additional_settings:
                 startActivity(new Intent(this, SettingsActivity.class));

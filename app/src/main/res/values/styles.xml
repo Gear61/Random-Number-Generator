@@ -56,4 +56,13 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <style name="checkbox">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginLeft">-6dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="cbd_animDuration">@integer/shorter_anim_length</item>
+    </style>
 </resources>

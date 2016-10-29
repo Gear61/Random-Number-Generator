@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sort_by">Sort by:</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+    <string-array name="sort_options">
+        <item>@string/none</item>
+        <item>@string/ascending</item>
+        <item>@string/descending</item>
+    </string-array>
+
+    <string name="no_dupes">No duplicate numbers</string>
+    <string name="show_sum">Show sum</string>
+
+    <string name="apply">Apply</string>
+
+    <string name="settings_applied">Your RNG settings have been applied.</string>
+</resources>

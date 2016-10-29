@@ -94,18 +94,6 @@
                     style="@style/edit_exclude_icon"/>
             </LinearLayout>
 
-            <com.rey.material.widget.CheckBox
-                android:id="@+id/duplicates_toggle"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="-4dp"
-                android:gravity="center_vertical"
-                android:text="@string/no_dupes"
-                android:textColor="@color/app_blue"
-                app:cbd_animDuration="@integer/shorter_anim_length"
-                app:cbd_strokeColor="@color/app_blue"
-                app:cbd_tickColor="@color/white"/>
-
             <com.rey.material.widget.Button
                 android:id="@+id/generate"
                 android:text="@string/generate"

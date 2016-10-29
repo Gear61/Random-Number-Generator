@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:text="@string/sort_by"
+            android:textColor="@color/dark_gray"/>
+
+        <Spinner
+            android:id="@+id/sort_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/sort_options"
+            style="@style/Widget.AppCompat.Spinner.Underlined"/>
+    </LinearLayout>
+
+    <com.rey.material.widget.CheckBox
+        android:id="@+id/duplicates_toggle"
+        android:text="@string/no_dupes"
+        style="@style/checkbox"/>
+
+    <com.rey.material.widget.CheckBox
+        android:id="@+id/show_sum"
+        android:text="@string/show_sum"
+        style="@style/checkbox"/>
+</LinearLayout>
