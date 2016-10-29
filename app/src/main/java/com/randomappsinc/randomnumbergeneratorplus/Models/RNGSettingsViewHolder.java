@@ -38,4 +38,12 @@ public class RNGSettingsViewHolder {
     public boolean getNoDupes() {
         return blockDupes.isChecked();
     }
+
+    public int getSortIndex() {
+        return sortOptions.getSelectedItemPosition();
+    }
+
+    public boolean getShowSum() {
+        return showSum.isChecked();
+    }
 }

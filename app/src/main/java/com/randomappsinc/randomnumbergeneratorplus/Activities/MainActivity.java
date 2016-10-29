@@ -26,6 +26,7 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -155,7 +156,16 @@ public class MainActivity extends StandardActivity {
             int quantity = Integer.parseInt(quantityInput.getText().toString());
             List<Integer> generatedNums = RandUtils.getNumbers(minimum, maximum, quantity,
                     viewHolder.getNoDupes(), excludedNumbers);
-            String resultsString = RandUtils.getResultsString(generatedNums);
+            switch (viewHolder.getSortIndex()) {
+                case 1:
+                    Collections.sort(generatedNums);
+                    break;
+                case 2:
+                    Collections.sort(generatedNums);
+                    Collections.reverse(generatedNums);
+                    break;
+            }
+            String resultsString = RandUtils.getResultsString(generatedNums, viewHolder.getShowSum());
             RandUtils.showResultsDialog(resultsString, this, parent);
         }
     }

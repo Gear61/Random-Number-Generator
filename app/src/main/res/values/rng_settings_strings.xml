@@ -15,4 +15,8 @@
     <string name="apply">Apply</string>
 
     <string name="settings_applied">Your RNG settings have been applied.</string>
+
+    <!-- Results display -->
+    <string name="numbers_prefix">Number(s):&#160;</string>
+    <string name="sum_prefix">Sum:&#160;</string>
 </resources>
