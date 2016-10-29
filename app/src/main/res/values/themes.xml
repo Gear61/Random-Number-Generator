@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/app_blue</item>
+        <item name="colorPrimaryDark">@color/status_bar_blue</item>
+        <item name="colorAccent">@color/app_blue</item>
+
+        <!-- Dialog styling -->
+        <item name="md_positive_color">@color/app_blue</item>
+        <item name="md_negative_color">@color/app_blue</item>
+        <item name="md_neutral_color">@color/app_blue</item>
+    </style>
+</resources>

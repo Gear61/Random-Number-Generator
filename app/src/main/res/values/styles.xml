@@ -1,10 +1,4 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/app_blue</item>
-        <item name="colorPrimaryDark">@color/status_bar_blue</item>
-        <item name="colorAccent">@color/app_blue</item>
-    </style>
-
     <style name="ripple_button_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
