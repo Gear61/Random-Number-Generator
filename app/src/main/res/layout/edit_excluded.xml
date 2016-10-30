@@ -21,74 +21,79 @@
             android:layout_above="@+id/submit"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
+            android:layout_height="match_parent">
 
-            <TextView
-                style="@style/input_prefix_style"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/exclude_note"
-                android:textSize="18sp"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="10dp"/>
+                android:orientation="vertical"
+                android:padding="8dp">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-                <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/add_excluded"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    card_view:contentPadding="5dp"
-                    card_view:cardUseCompatPadding="true"
-                    card_view:cardBackgroundColor="@color/app_blue"
-                    card_view:cardCornerRadius="3dp"
-                    card_view:cardElevation="2dp">
-
-                    <ImageView
-                        android:id="@+id/add_icon"
-                        android:contentDescription="@string/add_excluded_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </android.support.v7.widget.CardView>
-
-                <EditText
-                    android:id="@+id/excluded_number_input"
-                    android:padding="8dp"
-                    android:inputType="numberSigned"
-                    android:maxLength="9"
-                    android:layout_gravity="center_vertical"
-                    android:hint="@string/excluded_hint"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="18dp"
-                    android:background="@drawable/edittext_border"
-                    android:layout_marginRight="55dp"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"
+                <TextView
+                    style="@style/input_prefix_style"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"/>
-            </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/exclude_note"
+                    android:textSize="18sp"
+                    android:gravity="center_horizontal"/>
 
-            <TextView
-                android:id="@+id/no_excluded_numbers"
-                android:text="@string/no_excluded"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="25dp"
-                android:visibility="gone"
-                android:textSize="32sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/add_excluded"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        card_view:contentPadding="5dp"
+                        card_view:cardUseCompatPadding="true"
+                        card_view:cardBackgroundColor="@color/app_blue"
+                        card_view:cardCornerRadius="3dp"
+                        card_view:cardElevation="2dp">
+
+                        <ImageView
+                            android:id="@+id/add_icon"
+                            android:contentDescription="@string/add_excluded_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </android.support.v7.widget.CardView>
+
+                    <EditText
+                        android:id="@+id/excluded_number_input"
+                        android:padding="8dp"
+                        android:inputType="numberSigned"
+                        android:maxLength="9"
+                        android:layout_gravity="center_vertical"
+                        android:hint="@string/excluded_hint"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="18dp"
+                        android:background="@drawable/edittext_border"
+                        android:layout_marginRight="55dp"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/no_excluded_numbers"
+                    android:text="@string/no_excluded"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    android:visibility="gone"
+                    android:textSize="32sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
             <ListView
                 android:id="@+id/excluded_numbers"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
