@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/excluded_numbers"
                     android:text="@string/excluded_numbers_prefix"
                     android:layout_gravity="center_vertical"
                     style="@style/input_prefix_style"/>

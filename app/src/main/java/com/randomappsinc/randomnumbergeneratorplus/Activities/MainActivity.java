@@ -97,7 +97,7 @@ public class MainActivity extends StandardActivity {
         }
     }
 
-    @OnClick(R.id.edit_excluded)
+    @OnClick({R.id.excluded_numbers, R.id.edit_excluded})
     public void editExcluded() {
         MaterialDialog excludedDialog = new MaterialDialog.Builder(this)
                 .title(R.string.excluded_numbers)

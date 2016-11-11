@@ -23,7 +23,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by alexanderchiou on 1/1/16.
@@ -125,46 +124,42 @@ public class ConfigurationsAdapter extends BaseAdapter {
                 .show();
     }
 
+    public void showOptions(final int position) {
+        new MaterialDialog.Builder(context)
+                .title(getItem(position))
+                .items(RandUtils.getConfigOptions(getItem(position)))
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (text.toString().equals(context.getString(R.string.load_on_start))) {
+                            PreferencesManager.get().setDefaultConfig(getItem(position));
+                            notifyDataSetChanged();
+                            FormUtils.showSnackbar(parent, context.getString(R.string.start_config_changed));
+                        } else if (text.toString().equals(context.getString(R.string.rename_config))) {
+                            showRenameDialog(position);
+                        } else if (text.toString().equals(context.getString(R.string.delete_config))) {
+                            showDeleteDialog(position);
+                        }
+                    }
+                })
+                .show();
+    }
+
     public class ConfigViewHolder {
         @Bind(R.id.config_name) TextView configName;
         @Bind(R.id.check_icon) View checkIcon;
-
-        private int position;
 
         public ConfigViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
 
         public void loadConfig(int position) {
-            this.position = position;
-            this.configName.setText(getItem(position));
+            configName.setText(getItem(position));
             if (PreferencesManager.get().getDefaultConfig().equals(getItem(position))) {
-                this.checkIcon.setAlpha(1);
+                checkIcon.setAlpha(1);
             } else {
-                this.checkIcon.setAlpha(0);
+                checkIcon.setAlpha(0);
             }
-        }
-
-        @OnClick(R.id.list_icon)
-        public void showOptions() {
-            new MaterialDialog.Builder(context)
-                    .title(getItem(position))
-                    .items(RandUtils.getConfigOptions(getItem(position)))
-                    .itemsCallback(new MaterialDialog.ListCallback() {
-                        @Override
-                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            if (text.toString().equals(context.getString(R.string.load_on_start))) {
-                                PreferencesManager.get().setDefaultConfig(getItem(position));
-                                notifyDataSetChanged();
-                                FormUtils.showSnackbar(parent, context.getString(R.string.start_config_changed));
-                            } else if (text.toString().equals(context.getString(R.string.rename_config))) {
-                                showRenameDialog(position);
-                            } else if (text.toString().equals(context.getString(R.string.delete_config))) {
-                                showDeleteDialog(position);
-                            }
-                        }
-                    })
-                    .show();
         }
     }
 

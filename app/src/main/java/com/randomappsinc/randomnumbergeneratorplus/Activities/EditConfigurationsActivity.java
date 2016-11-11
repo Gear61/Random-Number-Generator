@@ -9,6 +9,7 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 /**
  * Created by alexanderchiou on 1/1/16.
@@ -18,6 +19,8 @@ public class EditConfigurationsActivity extends StandardActivity {
     @Bind(R.id.configs) ListView configs;
     @Bind(R.id.no_configs) View noConfigs;
 
+    private ConfigurationsAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,12 @@ public class EditConfigurationsActivity extends StandardActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        configs.setAdapter(new ConfigurationsAdapter(this, noConfigs, parent));
+        adapter = new ConfigurationsAdapter(this, noConfigs, parent);
+        configs.setAdapter(adapter);
+    }
+
+    @OnItemClick(R.id.configs)
+    public void onConfigSelected(int position) {
+        adapter.showOptions(position);
     }
 }
