@@ -8,7 +8,7 @@
     <string name="submit">Submit</string>
 
     <string name="exclude_note">NOTE: Changing the minimum/maximum resets this list.</string>
-    <string name="not_a_number">Please enter in a number to exclude.</string>
+    <string name="not_a_number">Please make sure that your input(s) are valid numbers.</string>
     <string name="already_excluded">You are already excluding this number.</string>
     <string name="not_in_range">Please enter in a number in the proper range.&#160;</string>
 

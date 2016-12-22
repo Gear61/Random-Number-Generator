@@ -123,11 +123,15 @@ public class MainActivity extends StandardActivity {
     }
 
     private void editExcludedNumbers() {
-        Intent intent = new Intent(this, EditExcludedActivity.class);
-        intent.putExtra(EditExcludedActivity.MINIMUM_KEY, Integer.parseInt(minimumInput.getText().toString()));
-        intent.putExtra(EditExcludedActivity.MAXIMUM_KEY, Integer.parseInt(maximumInput.getText().toString()));
-        intent.putIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY, excludedNumbers);
-        startActivityForResult(intent, 1);
+        try {
+            Intent intent = new Intent(this, EditExcludedActivity.class);
+            intent.putExtra(EditExcludedActivity.MINIMUM_KEY, Integer.parseInt(minimumInput.getText().toString()));
+            intent.putExtra(EditExcludedActivity.MAXIMUM_KEY, Integer.parseInt(maximumInput.getText().toString()));
+            intent.putIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY, excludedNumbers);
+            startActivityForResult(intent, 1);
+        } catch (NumberFormatException exception) {
+            FormUtils.showSnackbar(parent, getString(R.string.not_a_number));
+        }
     }
 
     @OnTextChanged(value = R.id.minimum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
@@ -175,19 +179,24 @@ public class MainActivity extends StandardActivity {
         String minimum = minimumInput.getText().toString();
         String maximum = maximumInput.getText().toString();
         String quantity = quantityInput.getText().toString();
-        int numAvailable = Integer.parseInt(maximum) - Integer.parseInt(minimum) + 1;
-        int quantityRestriction = viewHolder.getNoDupes() ? Integer.parseInt(quantity) : 1;
-        if (minimum.isEmpty() || maximum.isEmpty() || quantity.isEmpty()) {
-            FormUtils.showSnackbar(parent, getString(R.string.missing_input));
-            return false;
-        } else if (Integer.parseInt(maximum) < Integer.parseInt(minimum)) {
-            FormUtils.showSnackbar(parent, getString(R.string.bigger_min));
-            return false;
-        } else if (Integer.parseInt(quantity) <= 0) {
-            FormUtils.showSnackbar(parent, getString(R.string.non_zero_quantity));
-            return false;
-        } else if (numAvailable < quantityRestriction + excludedNumbers.size()) {
-            FormUtils.showSnackbar(parent, getString(R.string.overlimited_range));
+        try {
+            int numAvailable = Integer.parseInt(maximum) - Integer.parseInt(minimum) + 1;
+            int quantityRestriction = viewHolder.getNoDupes() ? Integer.parseInt(quantity) : 1;
+            if (minimum.isEmpty() || maximum.isEmpty() || quantity.isEmpty()) {
+                FormUtils.showSnackbar(parent, getString(R.string.missing_input));
+                return false;
+            } else if (Integer.parseInt(maximum) < Integer.parseInt(minimum)) {
+                FormUtils.showSnackbar(parent, getString(R.string.bigger_min));
+                return false;
+            } else if (Integer.parseInt(quantity) <= 0) {
+                FormUtils.showSnackbar(parent, getString(R.string.non_zero_quantity));
+                return false;
+            } else if (numAvailable < quantityRestriction + excludedNumbers.size()) {
+                FormUtils.showSnackbar(parent, getString(R.string.overlimited_range));
+                return false;
+            }
+        } catch (NumberFormatException exception) {
+            FormUtils.showSnackbar(parent, getString(R.string.not_a_number));
             return false;
         }
         return true;
