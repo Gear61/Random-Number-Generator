@@ -11,7 +11,7 @@ import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.randomappsinc.randomnumbergeneratorplus.Adapters.ExcludedNumbersAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
+import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 
 import java.util.ArrayList;
 
@@ -61,17 +61,17 @@ public class EditExcludedActivity extends StandardActivity {
         excludedInput.setText("");
         try {
             if (enteredExcluded.isEmpty()) {
-                FormUtils.showSnackbar(parent, getString(R.string.not_a_number));
+                UIUtils.showSnackbar(parent, getString(R.string.not_a_number));
             } else if (Integer.parseInt(enteredExcluded) > maximum || Integer.parseInt(enteredExcluded) < minimum) {
                 String range = "(" + String.valueOf(minimum) + " to " + String.valueOf(maximum) + ")";
-                FormUtils.showSnackbar(parent, getString(R.string.not_in_range) + range);
+                UIUtils.showSnackbar(parent, getString(R.string.not_in_range) + range);
             } else if (adapter.containsNumber(Integer.parseInt(enteredExcluded))) {
-                FormUtils.showSnackbar(parent, getString(R.string.already_excluded));
+                UIUtils.showSnackbar(parent, getString(R.string.already_excluded));
             } else {
                 adapter.addNumber(Integer.parseInt(enteredExcluded));
             }
         } catch (NumberFormatException exception) {
-            FormUtils.showSnackbar(parent, getString(R.string.not_a_number));
+            UIUtils.showSnackbar(parent, getString(R.string.not_a_number));
         }
     }
 

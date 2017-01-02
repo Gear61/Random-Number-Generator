@@ -14,21 +14,36 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
             android:text="@string/sort_by"
-            android:textColor="@color/dark_gray"/>
+            android:textColor="@color/dark_gray"
+            android:textSize="18dp"/>
 
-        <Spinner
-            android:id="@+id/sort_options"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/sort_options"
-            style="@style/Widget.AppCompat.Spinner.Underlined"/>
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/sort_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="-10dp"
+                android:layout_below="@id/sort_options"
+                android:layout_alignLeft="@id/sort_options"
+                android:layout_alignRight="@id/sort_options"
+                android:background="@color/black"/>
+        </RelativeLayout>
     </LinearLayout>
 
     <com.rey.material.widget.CheckBox
         android:id="@+id/duplicates_toggle"
         android:text="@string/no_dupes"
+        android:layout_marginTop="-8dp"
         style="@style/checkbox"/>
 
     <com.rey.material.widget.CheckBox

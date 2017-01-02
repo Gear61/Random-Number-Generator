@@ -7,100 +7,54 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:padding="16dp"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
 
-            <RelativeLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        </android.support.design.widget.AppBarLayout>
 
-                <TextView
-                    android:id="@+id/min_prefix"
-                    android:layout_alignBaseline="@+id/minimum"
-                    android:text="@string/minimum"
-                    style="@style/input_prefix_style"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <EditText
-                    android:id="@+id/minimum"
-                    android:maxLength="9"
-                    android:layout_toRightOf="@id/min_prefix"
-                    android:layout_alignLeft="@+id/maximum"
-                    android:text="@string/default_min"
-                    android:layout_width="match_parent"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberSigned"
-                    style="@style/number_input_style"/>
-
-                <TextView
-                    android:id="@+id/max_prefix"
-                    android:layout_alignBaseline="@+id/maximum"
-                    android:text="@string/maximum"
-                    style="@style/input_prefix_style"/>
-
-                <EditText
-                    android:id="@+id/maximum"
-                    android:maxLength="9"
-                    android:layout_marginTop="15dp"
-                    android:layout_toRightOf="@id/max_prefix"
-                    android:layout_below="@id/minimum"
-                    android:text="@string/default_max"
-                    android:layout_width="match_parent"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberSigned"
-                    style="@style/number_input_style"/>
-
-                <TextView
-                    android:id="@+id/quantity_prefix"
-                    android:layout_alignBaseline="@+id/quantity"
-                    android:text="@string/quantity"
-                    style="@style/input_prefix_style"/>
-
-                <EditText
-                    android:id="@+id/quantity"
-                    android:layout_marginTop="15dp"
-                    android:layout_alignLeft="@id/maximum"
-                    android:layout_toRightOf="@id/quantity_prefix"
-                    android:layout_below="@id/maximum"
-                    android:text="@string/default_min"
-                    android:layout_width="match_parent"
-                    android:imeOptions="actionDone"
-                    android:inputType="number"
-                    style="@style/number_input_style"/>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/app_blue"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabMaxWidth="0dp"
+                app:tabIndicatorColor="@color/accent_green"
+                app:tabIndicatorHeight="4dp"
+                app:tabTextColor="@color/half_white"
+                app:tabSelectedTextColor="@color/white"/>
 
-                <TextView
-                    android:id="@+id/excluded_numbers"
-                    android:text="@string/excluded_numbers_prefix"
-                    android:layout_gravity="center_vertical"
-                    style="@style/input_prefix_style"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/tab_layout"
+                android:background="@drawable/toolbar_shadow"/>
 
-                <com.joanzapata.iconify.widget.IconTextView
-                    android:id="@+id/edit_excluded"
-                    android:text="@string/eye_icon"
-                    style="@style/edit_exclude_icon"/>
-            </LinearLayout>
-
-            <com.rey.material.widget.Button
-                android:id="@+id/generate"
-                android:text="@string/generate"
-                android:layout_marginTop="8dp"
-                style="@style/ripple_button_style"
-                app:rd_style="@style/button_ripple_attributes"/>
-        </LinearLayout>
-    </ScrollView>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tab_layout"
+                android:background="@color/white"/>
+        </RelativeLayout>
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import com.randomappsinc.randomnumbergeneratorplus.Adapters.SettingsAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
+import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 
 import butterknife.Bind;
 import butterknife.BindString;
@@ -58,7 +58,7 @@ public class SettingsActivity extends StandardActivity {
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
-                    FormUtils.showSnackbar(parent, getString(R.string.play_store_error));
+                    UIUtils.showSnackbar(parent, getString(R.string.play_store_error));
                     return;
                 }
                 break;

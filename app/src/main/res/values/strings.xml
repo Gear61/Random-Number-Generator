@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">RNG Plus</string>
+
+    <string name="rng">RNG</string>
+    <string name="dice">Dice</string>
+    <string-array name="homepage_options">
+        <item>@string/rng</item>
+        <item>@string/dice</item>
+    </string-array>
+
     <string name="load_config">Load RNG configuration</string>
     <string name="save_config">Save RNG configuration</string>
 

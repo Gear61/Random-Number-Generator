@@ -1,10 +1,13 @@
 package com.randomappsinc.randomnumbergeneratorplus.Models;
 
+import android.content.Context;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.RNGConfiguration;
 import com.randomappsinc.randomnumbergeneratorplus.R;
+import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 import com.rey.material.widget.CheckBox;
 
 import butterknife.Bind;
@@ -19,8 +22,11 @@ public class RNGSettingsViewHolder {
     @Bind(R.id.duplicates_toggle) CheckBox blockDupes;
     @Bind(R.id.show_sum) CheckBox showSum;
 
-    public RNGSettingsViewHolder(View view) {
+    public RNGSettingsViewHolder(View view, Context context) {
         ButterKnife.bind(this, view);
+
+        String[] sortChoices = MyApplication.getAppContext().getResources().getStringArray(R.array.sort_options);
+        sortOptions.setAdapter(new ArrayAdapter<>(context, R.layout.spinner_item, sortChoices));
     }
 
     public void updateConfig(RNGConfiguration configuration) {

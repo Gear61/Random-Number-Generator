@@ -93,7 +93,7 @@ public class RandUtils {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(context.getString(R.string.generated_numbers), numbers);
         clipboard.setPrimaryClip(clip);
-        FormUtils.showSnackbar(parent, context.getString(R.string.copy_confirmation));
+        UIUtils.showSnackbar(parent, context.getString(R.string.copy_confirmation));
     }
 
     public static void showResultsDialog(final String results, Context context, final View parent) {

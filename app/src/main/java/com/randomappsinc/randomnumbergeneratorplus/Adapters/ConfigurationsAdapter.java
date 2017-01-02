@@ -13,8 +13,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.DatabaseManager;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.FormUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -134,7 +134,7 @@ public class ConfigurationsAdapter extends BaseAdapter {
                         if (text.toString().equals(context.getString(R.string.load_on_start))) {
                             PreferencesManager.get().setDefaultConfig(getItem(position));
                             notifyDataSetChanged();
-                            FormUtils.showSnackbar(parent, context.getString(R.string.start_config_changed));
+                            UIUtils.showSnackbar(parent, context.getString(R.string.start_config_changed));
                         } else if (text.toString().equals(context.getString(R.string.rename_config))) {
                             showRenameDialog(position);
                         } else if (text.toString().equals(context.getString(R.string.delete_config))) {

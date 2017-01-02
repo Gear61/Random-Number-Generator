@@ -10,4 +10,13 @@
         <item name="md_negative_color">@color/app_blue</item>
         <item name="md_neutral_color">@color/app_blue</item>
     </style>
+
+    <style name="no_action_bar" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/app_blue</item>
+        <item name="colorPrimaryDark">@color/status_bar_blue</item>
+        <item name="colorAccent">@color/app_blue</item>
+
+        <!-- Dialog theming -->
+        <item name="md_dark_theme">false</item>
+    </style>
 </resources>
