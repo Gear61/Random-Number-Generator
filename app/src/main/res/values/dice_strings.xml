@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="dice_rolls">Dice Rolls</string>
     <string name="roll">Roll</string>
     <string name="num_sides"># of sides:&#160;</string>
     <string name="num_dice"># of dice:&#160;</string>
+    <string name="default_sides">6</string>
+    <string name="default_num_dice">2</string>
+    <string name="rolls_prefix">Roll(s):&#160;</string>
+
+    <string name="zero_dice">You need to roll at least 1 dice.</string>
+    <string name="zero_sides">Dice need to have at least 1 side.</string>
 </resources>

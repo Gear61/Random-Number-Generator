@@ -88,6 +88,32 @@ public class RandUtils {
         return stringBuilder.toString();
     }
 
+    public static String getDiceResults(List<Integer> rolls) {
+        Context context = MyApplication.getAppContext();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<b>");
+        stringBuilder.append(context.getString(R.string.rolls_prefix));
+        stringBuilder.append("</b>");
+
+        int sum = 0;
+        for (int i = 0; i < rolls.size(); i++) {
+            if (i != 0) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(String.valueOf(rolls.get(i)));
+
+            sum += rolls.get(i);
+        }
+
+        stringBuilder.append("<br><br><b>");
+        stringBuilder.append(context.getString(R.string.sum_prefix));
+        stringBuilder.append("</b>");
+        stringBuilder.append(String.valueOf(sum));
+
+        return stringBuilder.toString();
+    }
+
     public static void copyNumsToClipboard(String numbers, View parent) {
         Context context = MyApplication.getAppContext();
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
@@ -108,6 +134,16 @@ public class RandUtils {
                         copyNumsToClipboard(results, parent);
                     }
                 })
+                .show();
+    }
+
+    public static void showDiceDialog(int numSides, int numDice, Context context) {
+        List<Integer> rolls = getNumbers(1, numSides, numDice, false, new ArrayList<Integer>());
+
+        new MaterialDialog.Builder(context)
+                .title(R.string.dice_rolls)
+                .content(Html.fromHtml(getDiceResults(rolls)))
+                .positiveText(android.R.string.yes)
                 .show();
     }
 
