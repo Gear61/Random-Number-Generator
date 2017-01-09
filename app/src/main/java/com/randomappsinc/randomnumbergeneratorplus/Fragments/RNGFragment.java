@@ -128,6 +128,7 @@ public class RNGFragment extends Fragment {
             intent.putExtra(EditExcludedActivity.MAXIMUM_KEY, Integer.parseInt(maximumInput.getText().toString()));
             intent.putIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY, excludedNumbers);
             startActivityForResult(intent, 1);
+            getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
         } catch (NumberFormatException exception) {
             showSnackbar(getString(R.string.not_a_number));
         }
@@ -353,6 +354,7 @@ public class RNGFragment extends Fragment {
                 return true;
             case R.id.additional_settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
+                getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

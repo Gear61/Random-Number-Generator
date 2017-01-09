@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
+import com.randomappsinc.randomnumbergeneratorplus.Fragments.DiceFragment;
 import com.randomappsinc.randomnumbergeneratorplus.Fragments.RNGFragment;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
@@ -26,7 +27,7 @@ public class HomepageTabsAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new RNGFragment();
             case 1:
-                return new RNGFragment();
+                return new DiceFragment();
             default:
                 return new RNGFragment();
         }

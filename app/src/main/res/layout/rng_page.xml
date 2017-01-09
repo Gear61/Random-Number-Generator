@@ -43,7 +43,7 @@
             <EditText
                 android:id="@+id/maximum"
                 android:maxLength="9"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="16dp"
                 android:layout_toRightOf="@id/max_prefix"
                 android:layout_below="@id/minimum"
                 android:text="@string/default_max"
@@ -60,7 +60,7 @@
 
             <EditText
                 android:id="@+id/quantity"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="16dp"
                 android:layout_alignLeft="@id/maximum"
                 android:layout_toRightOf="@id/quantity_prefix"
                 android:layout_below="@id/maximum"

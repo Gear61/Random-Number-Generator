@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/num_sides_prefix"
+                android:layout_alignBaseline="@+id/num_sides"
+                android:text="@string/num_sides"
+                style="@style/input_prefix_style"/>
+
+            <EditText
+                android:id="@+id/num_sides"
+                android:maxLength="9"
+                android:layout_toRightOf="@id/num_sides_prefix"
+                android:text="@string/default_min"
+                android:layout_width="match_parent"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                style="@style/number_input_style"/>
+
+            <TextView
+                android:id="@+id/num_dice_prefix"
+                android:layout_alignBaseline="@+id/num_dice"
+                android:text="@string/num_dice"
+                style="@style/input_prefix_style"/>
+
+            <EditText
+                android:id="@+id/num_dice"
+                android:layout_marginTop="16dp"
+                android:layout_alignLeft="@id/num_sides"
+                android:layout_toRightOf="@id/num_dice_prefix"
+                android:layout_below="@id/num_sides"
+                android:text="@string/default_min"
+                android:layout_width="match_parent"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                style="@style/number_input_style"/>
+        </RelativeLayout>
+
+        <com.rey.material.widget.Button
+            android:id="@+id/roll"
+            android:text="@string/roll"
+            android:layout_marginTop="16dp"
+            style="@style/ripple_button_style"
+            app:rd_style="@style/button_ripple_attributes"/>
+    </LinearLayout>
+</ScrollView>
