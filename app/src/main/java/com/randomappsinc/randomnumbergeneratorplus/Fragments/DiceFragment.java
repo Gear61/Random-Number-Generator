@@ -3,6 +3,7 @@ package com.randomappsinc.randomnumbergeneratorplus.Fragments;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,13 +11,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.randomappsinc.randomnumbergeneratorplus.Activities.MainActivity;
 import com.randomappsinc.randomnumbergeneratorplus.Activities.SettingsActivity;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,6 +35,7 @@ import butterknife.OnClick;
 public class DiceFragment extends Fragment {
     @Bind(R.id.num_sides) EditText numSidesInput;
     @Bind(R.id.num_dice) EditText numDiceInput;
+    @Bind(R.id.results) TextView resultsText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,9 @@ public class DiceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dice_page, container, false);
         ButterKnife.bind(this, rootView);
+
+        numSidesInput.setText(PreferencesManager.get().getNumSides());
+        numDiceInput.setText(PreferencesManager.get().getNumDice());
         return rootView;
     }
 
@@ -52,7 +62,11 @@ public class DiceFragment extends Fragment {
         if (verifyForm()) {
             int numSides = Integer.parseInt(numSidesInput.getText().toString());
             int numDice = Integer.parseInt(numDiceInput.getText().toString());
-            RandUtils.showDiceDialog(numSides, numDice, getActivity());
+
+            List<Integer> rolls = RandUtils.getNumbers(1, numSides, numDice, false, new ArrayList<Integer>());
+            String results = RandUtils.getDiceResults(rolls);
+            resultsText.setVisibility(View.VISIBLE);
+            resultsText.setText(Html.fromHtml(results));
         }
     }
 
@@ -73,6 +87,13 @@ public class DiceFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        PreferencesManager.get().saveDiceSettings(numSidesInput.getText().toString(), numDiceInput.getText().toString());
+        ButterKnife.unbind(this);
     }
 
     @Override

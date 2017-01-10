@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 
 /**
@@ -12,6 +13,9 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 public class PreferencesManager {
     private static final String DEFAULT_CONFIG = "defaultConfig";
     private static final String NUM_APP_OPENS = "numAppOpens";
+
+    private static final String NUM_SIDES = "numSides";
+    private static final String NUM_DICE = "numDice";
 
     private SharedPreferences prefs;
     private static PreferencesManager instance;
@@ -48,5 +52,26 @@ public class PreferencesManager {
         currentAppOpens++;
         prefs.edit().putInt(NUM_APP_OPENS, currentAppOpens).apply();
         return currentAppOpens == 5;
+    }
+
+    public String getNumSides() {
+        int defaultNumSides = Integer.parseInt(MyApplication.getAppContext().getString(R.string.default_sides));
+        return String.valueOf(prefs.getInt(NUM_SIDES, defaultNumSides));
+    }
+
+    public String getNumDice() {
+        int defaultNumDice = Integer.parseInt(MyApplication.getAppContext().getString(R.string.default_num_dice));
+        return String.valueOf(prefs.getInt(NUM_DICE, defaultNumDice));
+    }
+
+    public void saveDiceSettings(String numSides, String numDice) {
+        Context context = MyApplication.getAppContext();
+        try {
+            prefs.edit().putInt(NUM_SIDES, Integer.parseInt(numSides)).apply();
+            prefs.edit().putInt(NUM_DICE, Integer.parseInt(numDice)).apply();
+        } catch (NumberFormatException exception) {
+            prefs.edit().putInt(NUM_SIDES, Integer.parseInt(context.getString(R.string.default_sides))).apply();
+            prefs.edit().putInt(NUM_DICE, Integer.parseInt(context.getString(R.string.default_num_dice))).apply();
+        }
     }
 }

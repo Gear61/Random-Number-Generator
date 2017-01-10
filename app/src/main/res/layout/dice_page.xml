@@ -27,7 +27,6 @@
                 android:id="@+id/num_sides"
                 android:maxLength="9"
                 android:layout_toRightOf="@id/num_sides_prefix"
-                android:text="@string/default_sides"
                 android:layout_width="match_parent"
                 android:imeOptions="actionNext"
                 android:inputType="number"
@@ -45,7 +44,6 @@
                 android:layout_alignLeft="@id/num_sides"
                 android:layout_toRightOf="@id/num_dice_prefix"
                 android:layout_below="@id/num_sides"
-                android:text="@string/default_num_dice"
                 android:layout_width="match_parent"
                 android:imeOptions="actionDone"
                 android:inputType="number"
@@ -58,5 +56,16 @@
             android:layout_marginTop="16dp"
             style="@style/ripple_button_style"
             app:rd_style="@style/button_ripple_attributes"/>
+
+        <TextView
+            android:id="@+id/results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:background="@color/app_blue"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="gone"/>
     </LinearLayout>
 </ScrollView>

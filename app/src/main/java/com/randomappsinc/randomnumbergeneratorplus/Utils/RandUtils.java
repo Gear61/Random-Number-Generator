@@ -137,16 +137,6 @@ public class RandUtils {
                 .show();
     }
 
-    public static void showDiceDialog(int numSides, int numDice, Context context) {
-        List<Integer> rolls = getNumbers(1, numSides, numDice, false, new ArrayList<Integer>());
-
-        new MaterialDialog.Builder(context)
-                .title(R.string.dice_rolls)
-                .content(Html.fromHtml(getDiceResults(rolls)))
-                .positiveText(android.R.string.yes)
-                .show();
-    }
-
     public static String getExcludedList(List<Integer> excludedNums) {
         StringBuilder excludedList = new StringBuilder();
         if (excludedNums.isEmpty()) {

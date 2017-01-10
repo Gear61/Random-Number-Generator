@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dice_rolls">Dice Rolls</string>
     <string name="roll">Roll</string>
     <string name="num_sides"># of sides:&#160;</string>
     <string name="num_dice"># of dice:&#160;</string>
