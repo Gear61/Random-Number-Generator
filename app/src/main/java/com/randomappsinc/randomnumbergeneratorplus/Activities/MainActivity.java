@@ -33,6 +33,7 @@ public class MainActivity extends StandardActivity {
         setSupportActionBar(toolbar);
 
         homePager.setAdapter(new HomepageTabsAdapter(getFragmentManager()));
+        homePager.setOffscreenPageLimit(2);
         homeTabs.setupWithViewPager(homePager);
 
         if (PreferencesManager.get().shouldAskForRating()) {
