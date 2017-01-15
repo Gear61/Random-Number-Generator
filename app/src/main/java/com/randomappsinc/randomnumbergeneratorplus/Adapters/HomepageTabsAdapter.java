@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.randomappsinc.randomnumbergeneratorplus.Fragments.DiceFragment;
+import com.randomappsinc.randomnumbergeneratorplus.Fragments.LottoFragment;
 import com.randomappsinc.randomnumbergeneratorplus.Fragments.RNGFragment;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
@@ -28,6 +29,8 @@ public class HomepageTabsAdapter extends FragmentStatePagerAdapter {
                 return new RNGFragment();
             case 1:
                 return new DiceFragment();
+            case 2:
+                return new LottoFragment();
             default:
                 return new RNGFragment();
         }

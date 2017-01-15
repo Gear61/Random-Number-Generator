@@ -58,4 +58,15 @@
         <item name="cbd_animDuration">@integer/shorter_anim_length</item>
         <item name="cbd_strokeColor">@color/app_blue</item>
     </style>
+
+    <style name="results">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:background">@color/app_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

@@ -1,0 +1,61 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lottery_type"
+                android:textColor="@color/dark_gray"
+                android:textSize="18dp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/lotto_options"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="-10dp"
+                    android:layout_below="@id/lotto_options"
+                    android:layout_alignLeft="@id/lotto_options"
+                    android:layout_alignRight="@id/lotto_options"
+                    android:background="@color/black"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <com.rey.material.widget.Button
+            android:id="@+id/generate"
+            android:text="@string/generate"
+            android:layout_marginTop="16dp"
+            style="@style/ripple_button_style"
+            app:rd_style="@style/button_ripple_attributes"/>
+
+        <TextView
+            android:id="@+id/results"
+            android:gravity="center_horizontal"
+            style="@style/results"/>
+    </LinearLayout>
+</ScrollView>

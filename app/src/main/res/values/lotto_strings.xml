@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="powerball">Powerball</string>
+    <string name="mega_millions">Mega Millions</string>
+    <string-array name="lotto_options">
+        <item>@string/powerball</item>
+        <item>@string/mega_millions</item>
+    </string-array>
+    <string name="lottery_type">Lottery type:</string>
+</resources>

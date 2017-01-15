@@ -6,6 +6,12 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -16,6 +22,7 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
@@ -23,6 +30,13 @@ import java.util.Set;
  * Created by alexanderchiou on 12/31/15.
  */
 public class RandUtils {
+    // Lotto
+    public static final int NUM_NORMAL_BALLS = 5;
+    public static final int POWERBALL_NORMAL = 69;
+    public static final int POWERBALL_SPECIAL = 26;
+    public static final int MEGA_MILLIONS_NORMAL = 75;
+    public static final int MEGA_MILLIONS_SPECIAL = 15;
+
     public static List<Integer> getNumbers(int min, int max, int quantity, boolean noDupes, List<Integer> excludedNums) {
         List<Integer> numbers = new ArrayList<>();
         Set<Integer> excludedNumsSet = new HashSet<>(excludedNums);
@@ -160,5 +174,51 @@ public class RandUtils {
         options.add(context.getString(R.string.rename_config));
         options.add(context.getString(R.string.delete_config));
         return options.toArray(new String[options.size()]);
+    }
+
+    public static SpannedString getLottoResults(int spinnerIndex) {
+        switch (spinnerIndex) {
+            // Powerball
+            case 0:
+                return getLottoTickets(POWERBALL_NORMAL, POWERBALL_SPECIAL);
+            // Mega Millions
+            case 1:
+                return getLottoTickets(MEGA_MILLIONS_NORMAL, MEGA_MILLIONS_SPECIAL);
+            default:
+                return getLottoTickets(POWERBALL_NORMAL, POWERBALL_SPECIAL);
+        }
+    }
+
+    public static SpannedString getLottoTickets(int normalMax, int specialMax) {
+        Spannable ticket1 = getLottoTicket(normalMax, specialMax, true);
+        Spannable ticket2 = getLottoTicket(normalMax, specialMax, true);
+        Spannable ticket3 = getLottoTicket(normalMax, specialMax, true);
+        Spannable ticket4 = getLottoTicket(normalMax, specialMax, true);
+        Spannable ticket5 = getLottoTicket(normalMax, specialMax, false);
+        return (SpannedString) TextUtils.concat(ticket1, ticket2, ticket3, ticket4, ticket5);
+    }
+
+    public static Spannable getLottoTicket(int normalMax, int specialMax, boolean addNewLine) {
+        List<Integer> normals = getNumbers(1, normalMax, NUM_NORMAL_BALLS, false, new ArrayList<Integer>());
+        int special = getNumbers(1, specialMax, 1, false, new ArrayList<Integer>()).get(0);
+
+        StringBuilder ticket = new StringBuilder();
+        for (int i = 0; i < NUM_NORMAL_BALLS; i++) {
+            if (i != 0) {
+                ticket.append("  ");
+            }
+            ticket.append(String.format(Locale.US, "%02d", normals.get(i)));
+        }
+        ticket.append("        ");
+        ticket.append(String.format(Locale.US, "%02d", special));
+        if (addNewLine) {
+            ticket.append("\n");
+        }
+
+        SpannableString ticketFormatted = new SpannableString(ticket.toString());
+
+        int green = MyApplication.getAppContext().getResources().getColor(R.color.accent_green);
+        ticketFormatted.setSpan(new ForegroundColorSpan(green), 26, 28, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        return ticketFormatted;
     }
 }
