@@ -59,16 +59,11 @@
 
     <string name="please_rate">
         Hey, it looks like you\'re a frequent user of Random Number Generator Plus!
-        If you have a couple seconds, I would be incredibly grateful if you could rate this app in the Play Store.
-        Don\'t worry, I won\'t bother you with this ever again no matter what you choose.
-        Thank you again for even downloading this app to begin with.
+        If you have a couple seconds, please rate this app in the Play Store.
+        Every rating goes a long way towards motivating me to continue improving this app!
     </string>
     <string name="will_rate">Sure, I\'ll help</string>
     <string name="decline_rating">No, I\'m good</string>
-
-    <string name="copy_numbers">Copy numbers</string>
-    <string name="generated_numbers">Generated Numbers</string>
-    <string name="copy_confirmation">The generated numbers have been copied to your clipboard.</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>

@@ -100,5 +100,9 @@
             android:layout_marginTop="8dp"
             style="@style/ripple_button_style"
             app:rd_style="@style/button_ripple_attributes"/>
+
+        <TextView
+            android:id="@+id/results"
+            style="@style/results"/>
     </LinearLayout>
 </ScrollView>

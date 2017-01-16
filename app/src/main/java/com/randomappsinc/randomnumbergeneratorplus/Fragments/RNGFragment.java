@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,6 +51,8 @@ public class RNGFragment extends Fragment {
     @Bind(R.id.minimum) EditText minimumInput;
     @Bind(R.id.maximum) EditText maximumInput;
     @Bind(R.id.quantity) EditText quantityInput;
+    @Bind(R.id.results) TextView results;
+
     @BindString(R.string.config_name) String configHint;
     @BindColor(R.color.app_blue) int blue;
 
@@ -170,7 +173,8 @@ public class RNGFragment extends Fragment {
                     break;
             }
             String resultsString = RandUtils.getResultsString(generatedNums, viewHolder.getShowSum());
-            RandUtils.showResultsDialog(resultsString, getActivity(), ((MainActivity) getActivity()).getParentView());
+            results.setVisibility(View.VISIBLE);
+            results.setText(Html.fromHtml(resultsString));
         }
     }
 

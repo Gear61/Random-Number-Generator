@@ -1,21 +1,13 @@
 package com.randomappsinc.randomnumbergeneratorplus.Utils;
 
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.view.View;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 
@@ -126,29 +118,6 @@ public class RandUtils {
         stringBuilder.append(String.valueOf(sum));
 
         return stringBuilder.toString();
-    }
-
-    public static void copyNumsToClipboard(String numbers, View parent) {
-        Context context = MyApplication.getAppContext();
-        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(context.getString(R.string.generated_numbers), numbers);
-        clipboard.setPrimaryClip(clip);
-        UIUtils.showSnackbar(parent, context.getString(R.string.copy_confirmation));
-    }
-
-    public static void showResultsDialog(final String results, Context context, final View parent) {
-        new MaterialDialog.Builder(context)
-                .title(R.string.generated_numbers)
-                .content(Html.fromHtml(results))
-                .positiveText(android.R.string.yes)
-                .neutralText(R.string.copy_numbers)
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        copyNumsToClipboard(results, parent);
-                    }
-                })
-                .show();
     }
 
     public static String getExcludedList(List<Integer> excludedNums) {
