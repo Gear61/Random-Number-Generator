@@ -2,6 +2,8 @@ package com.randomappsinc.randomnumbergeneratorplus.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -51,6 +53,7 @@ public class RNGFragment extends Fragment {
     @Bind(R.id.minimum) EditText minimumInput;
     @Bind(R.id.maximum) EditText maximumInput;
     @Bind(R.id.quantity) EditText quantityInput;
+    @Bind(R.id.results_container) View resultsContainer;
     @Bind(R.id.results) TextView results;
 
     @BindString(R.string.config_name) String configHint;
@@ -173,7 +176,7 @@ public class RNGFragment extends Fragment {
                     break;
             }
             String resultsString = RandUtils.getResultsString(generatedNums, viewHolder.getShowSum());
-            results.setVisibility(View.VISIBLE);
+            resultsContainer.setVisibility(View.VISIBLE);
             results.setText(Html.fromHtml(resultsString));
         }
     }
@@ -336,6 +339,15 @@ public class RNGFragment extends Fragment {
                     }
                 })
                 .show();
+    }
+
+    @OnClick(R.id.copy_numbers)
+    public void copyNumbers() {
+        String numbersText = results.getText().toString();
+        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(getString(R.string.generated_numbers), numbersText);
+        clipboard.setPrimaryClip(clip);
+        showSnackbar(getString(R.string.copied_to_clipboard));
     }
 
     @Override

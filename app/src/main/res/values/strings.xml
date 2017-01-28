@@ -69,4 +69,9 @@
     <string name="no">No</string>
     <string name="none">None</string>
     <string name="prevent_duplicates">Prevent duplicates:&#160;</string>
+
+    <string name="results">Results</string>
+    <string name="clipboard_icon">{ion-android-clipboard}</string>
+    <string name="generated_numbers">Generated Numbers</string>
+    <string name="copied_to_clipboard">Your generated numbers have been copied to your clipboard.</string>
 </resources>
