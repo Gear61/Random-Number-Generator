@@ -53,9 +53,6 @@
             style="@style/ripple_button_style"
             app:rd_style="@style/button_ripple_attributes"/>
 
-        <TextView
-            android:id="@+id/results"
-            android:gravity="center_horizontal"
-            style="@style/results"/>
+        <include layout="@layout/results"/>
     </LinearLayout>
 </ScrollView>

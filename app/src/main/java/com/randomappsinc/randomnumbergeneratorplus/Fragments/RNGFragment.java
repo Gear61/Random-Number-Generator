@@ -341,7 +341,7 @@ public class RNGFragment extends Fragment {
                 .show();
     }
 
-    @OnClick(R.id.copy_numbers)
+    @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);

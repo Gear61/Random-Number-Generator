@@ -1,6 +1,9 @@
 package com.randomappsinc.randomnumbergeneratorplus.Fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -35,6 +38,7 @@ import butterknife.OnClick;
 public class DiceFragment extends Fragment {
     @Bind(R.id.num_sides) EditText numSidesInput;
     @Bind(R.id.num_dice) EditText numDiceInput;
+    @Bind(R.id.results_container) View resultsContainer;
     @Bind(R.id.results) TextView resultsText;
 
     @Override
@@ -65,7 +69,7 @@ public class DiceFragment extends Fragment {
 
             List<Integer> rolls = RandUtils.getNumbers(1, numSides, numDice, false, new ArrayList<Integer>());
             String results = RandUtils.getDiceResults(rolls);
-            resultsText.setVisibility(View.VISIBLE);
+            resultsContainer.setVisibility(View.VISIBLE);
             resultsText.setText(Html.fromHtml(results));
         }
     }
@@ -87,6 +91,15 @@ public class DiceFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    @OnClick(R.id.copy_results)
+    public void copyNumbers() {
+        String numbersText = resultsText.getText().toString();
+        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(getString(R.string.generated_numbers), numbersText);
+        clipboard.setPrimaryClip(clip);
+        showSnackbar(getString(R.string.copied_to_clipboard));
     }
 
     @Override
