@@ -53,10 +53,13 @@ public class RNGFragment extends Fragment {
     @Bind(R.id.minimum) EditText minimumInput;
     @Bind(R.id.maximum) EditText maximumInput;
     @Bind(R.id.quantity) EditText quantityInput;
+    @Bind(R.id.excluded_numbers) TextView excludedNumsDisplay;
     @Bind(R.id.results_container) View resultsContainer;
     @Bind(R.id.results) TextView results;
 
     @BindString(R.string.config_name) String configHint;
+    @BindString(R.string.excluded_numbers_prefix) String excludedNumsBase;
+    @BindString(R.string.none_click_change) String none;
     @BindColor(R.color.app_blue) int blue;
 
     private ArrayList<Integer> excludedNumbers;
@@ -95,14 +98,25 @@ public class RNGFragment extends Fragment {
             loadConfig(defaultConfig, false);
         }
 
+        loadExcludedNumbers();
+
         return rootView;
+    }
+
+    private void loadExcludedNumbers() {
+        if (excludedNumbers.isEmpty()) {
+            excludedNumsDisplay.setText(String.format(excludedNumsBase, none));
+        } else {
+            String excludedText = String.format(excludedNumsBase, RandUtils.getExcludedList(excludedNumbers));
+            excludedNumsDisplay.setText(excludedText);
+        }
     }
 
     private void showSnackbar(String message) {
         ((MainActivity) getActivity()).showSnackbar(message);
     }
 
-    @OnClick({R.id.excluded_numbers, R.id.edit_excluded})
+    @OnClick(R.id.excluded_numbers)
     public void editExcluded() {
         MaterialDialog excludedDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.excluded_numbers)
@@ -116,6 +130,7 @@ public class RNGFragment extends Fragment {
                             editExcludedNumbers();
                         } else if (which == DialogAction.NEUTRAL) {
                             excludedNumbers.clear();
+                            loadExcludedNumbers();
                             showSnackbar(getString(R.string.excluded_clear));
                         }
                     }
@@ -143,17 +158,20 @@ public class RNGFragment extends Fragment {
     @OnTextChanged(value = R.id.minimum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void minChanged() {
         excludedNumbers.clear();
+        loadExcludedNumbers();
     }
 
     @OnTextChanged(value = R.id.maximum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void maxChanged() {
         excludedNumbers.clear();
+        loadExcludedNumbers();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             excludedNumbers = data.getIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY);
+            loadExcludedNumbers();
             showSnackbar(getString(R.string.excluded_updated));
         }
     }

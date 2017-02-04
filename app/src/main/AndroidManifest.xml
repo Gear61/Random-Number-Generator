@@ -32,7 +32,7 @@
         <activity
             android:name=".Activities.EditExcludedActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="@string/edit_excluded_numbers"
+            android:label="@string/excluded_page_label"
             android:configChanges="orientation|screenSize">
         </activity>
 
