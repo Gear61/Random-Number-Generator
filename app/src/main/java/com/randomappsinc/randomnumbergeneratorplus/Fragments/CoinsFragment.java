@@ -32,12 +32,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by alexanderchiou on 1/8/17.
+ * Created by alexanderchiou on 5/9/17.
  */
 
-public class DiceFragment extends Fragment {
-    @Bind(R.id.num_sides) EditText numSidesInput;
-    @Bind(R.id.num_dice) EditText numDiceInput;
+public class CoinsFragment extends Fragment {
+    @Bind(R.id.num_coins) EditText numCoinsInput;
     @Bind(R.id.results_container) View resultsContainer;
     @Bind(R.id.results) TextView resultsText;
 
@@ -49,11 +48,10 @@ public class DiceFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.dice_page, container, false);
+        View rootView = inflater.inflate(R.layout.coins_page, container, false);
         ButterKnife.bind(this, rootView);
 
-        numSidesInput.setText(PreferencesManager.get().getNumSides());
-        numDiceInput.setText(PreferencesManager.get().getNumDice());
+        numCoinsInput.setText(String.valueOf(PreferencesManager.get().getNumCoins()));
         return rootView;
     }
 
@@ -61,14 +59,12 @@ public class DiceFragment extends Fragment {
         ((MainActivity) getActivity()).showSnackbar(message);
     }
 
-    @OnClick(R.id.roll)
-    public void roll() {
+    @OnClick(R.id.flip)
+    public void flip() {
         if (verifyForm()) {
-            int numSides = Integer.parseInt(numSidesInput.getText().toString());
-            int numDice = Integer.parseInt(numDiceInput.getText().toString());
-
-            List<Integer> rolls = RandUtils.getNumbers(1, numSides, numDice, false, new ArrayList<Integer>());
-            String results = RandUtils.getDiceResults(rolls);
+            int numCoins = Integer.parseInt(numCoinsInput.getText().toString());
+            List<Integer> flips = RandUtils.getNumbers(0, 1, numCoins, false, new ArrayList<Integer>());
+            String results = RandUtils.getCoinResults(flips);
             resultsContainer.setVisibility(View.VISIBLE);
             resultsText.setText(Html.fromHtml(results));
         }
@@ -76,14 +72,10 @@ public class DiceFragment extends Fragment {
 
     public boolean verifyForm() {
         UIUtils.hideKeyboard(getActivity());
-        String numSides = numSidesInput.getText().toString();
-        String numDice = numDiceInput.getText().toString();
+        String numCoins = numCoinsInput.getText().toString();
         try {
-            if (Integer.parseInt(numSides) <= 0) {
-                showSnackbar(getString(R.string.zero_sides));
-                return false;
-            } else if (Integer.parseInt(numDice) <= 0) {
-                showSnackbar(getString(R.string.zero_dice));
+            if (Integer.parseInt(numCoins) <= 0) {
+                showSnackbar(getString(R.string.zero_coins));
                 return false;
             }
         } catch (NumberFormatException exception) {
@@ -105,7 +97,7 @@ public class DiceFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        PreferencesManager.get().saveDiceSettings(numSidesInput.getText().toString(), numDiceInput.getText().toString());
+        PreferencesManager.get().saveNumCoins(numCoinsInput.getText().toString());
         ButterKnife.unbind(this);
     }
 

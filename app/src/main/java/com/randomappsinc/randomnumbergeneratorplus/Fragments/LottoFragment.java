@@ -81,7 +81,7 @@ public class LottoFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.dice_menu, menu);
+        inflater.inflate(R.menu.regular_menu, menu);
         UIUtils.loadMenuIcon(menu, R.id.additional_settings, FontAwesomeIcons.fa_gears);
     }
 

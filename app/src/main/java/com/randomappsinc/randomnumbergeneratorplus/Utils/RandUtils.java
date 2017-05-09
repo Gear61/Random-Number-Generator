@@ -190,4 +190,42 @@ public class RandUtils {
         ticketFormatted.setSpan(new ForegroundColorSpan(green), 26, 28, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         return ticketFormatted;
     }
+
+    public static String getCoinResults(List<Integer> flips) {
+        Context context = MyApplication.getAppContext();
+        String heads = context.getString(R.string.heads);
+        String tails = context.getString(R.string.tails);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<b>");
+        stringBuilder.append(context.getString(R.string.sides_prefix));
+        stringBuilder.append("</b>");
+
+        int numHeads = 0;
+        int numTails = 0;
+        for (int i = 0; i < flips.size(); i++) {
+            if (i != 0) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(flips.get(i) == 0 ? heads : tails);
+
+            if (flips.get(i) == 0) {
+                numHeads++;
+            } else {
+                numTails++;
+            }
+        }
+
+        stringBuilder.append("<br><br><b>");
+        stringBuilder.append(context.getString(R.string.num_heads_prefix));
+        stringBuilder.append("</b>");
+        stringBuilder.append(String.valueOf(numHeads));
+
+        stringBuilder.append("<br><br><b>");
+        stringBuilder.append(context.getString(R.string.num_tails_prefix));
+        stringBuilder.append("</b>");
+        stringBuilder.append(String.valueOf(numTails));
+
+        return stringBuilder.toString();
+    }
 }

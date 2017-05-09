@@ -4,10 +4,12 @@
     <string name="rng">RNG</string>
     <string name="dice">Dice</string>
     <string name="lotto">Lotto</string>
+    <string name="coins">Coins</string>
     <string-array name="homepage_options">
         <item>@string/rng</item>
         <item>@string/dice</item>
         <item>@string/lotto</item>
+        <item>@string/coins</item>
     </string-array>
 
     <string name="load_config">Load RNG configuration</string>

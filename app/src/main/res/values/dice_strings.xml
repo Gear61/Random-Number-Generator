@@ -7,6 +7,6 @@
     <string name="default_num_dice">2</string>
     <string name="rolls_prefix">Roll(s):&#160;</string>
 
-    <string name="zero_dice">You need to roll at least 1 dice.</string>
+    <string name="zero_dice">You need to roll at least 1 die.</string>
     <string name="zero_sides">Dice need to have at least 1 side.</string>
 </resources>

@@ -14,8 +14,13 @@ public class PreferencesManager {
     private static final String DEFAULT_CONFIG = "defaultConfig";
     private static final String NUM_APP_OPENS = "numAppOpens";
 
+    // Dice
     private static final String NUM_SIDES = "numSides";
     private static final String NUM_DICE = "numDice";
+
+    // Coins
+    private static final String NUM_COINS = "numCoins";
+    private static final int DEFAULT_NUM_COINS = 1;
 
     private SharedPreferences prefs;
     private static PreferencesManager instance;
@@ -73,5 +78,15 @@ public class PreferencesManager {
             prefs.edit().putInt(NUM_SIDES, Integer.parseInt(context.getString(R.string.default_sides))).apply();
             prefs.edit().putInt(NUM_DICE, Integer.parseInt(context.getString(R.string.default_num_dice))).apply();
         }
+    }
+
+    public int getNumCoins() {
+        return prefs.getInt(NUM_COINS, DEFAULT_NUM_COINS);
+    }
+
+    public void saveNumCoins(String numCoins) {
+        try {
+            prefs.edit().putInt(NUM_SIDES, Integer.parseInt(numCoins)).apply();
+        } catch (NumberFormatException ignored) {}
     }
 }

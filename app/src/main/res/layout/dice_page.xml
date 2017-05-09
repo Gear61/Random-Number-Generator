@@ -40,6 +40,7 @@
 
             <EditText
                 android:id="@+id/num_dice"
+                android:maxLength="9"
                 android:layout_marginTop="16dp"
                 android:layout_alignLeft="@id/num_sides"
                 android:layout_toRightOf="@id/num_dice_prefix"
