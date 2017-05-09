@@ -16,7 +16,7 @@ import io.realm.RealmSchema;
  * Created by alexanderchiou on 1/1/16.
  */
 public class DatabaseManager {
-    private static final int CURRENT_DB_VERSION = 1;
+    private static final int CURRENT_DB_VERSION = 2;
 
     private static DatabaseManager instance;
 
@@ -54,6 +54,12 @@ public class DatabaseManager {
                     schema.get("RNGConfiguration")
                             .addField("sortIndex", int.class)
                             .addField("showSum", boolean.class);
+                    oldVersion++;
+                }
+
+                if (oldVersion == 1) {
+                    schema.get("RNGConfiguration")
+                            .addField("hideExcludes", boolean.class);
                 }
             }
         };

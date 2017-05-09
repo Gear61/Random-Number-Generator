@@ -87,6 +87,7 @@ public class RNGFragment extends Fragment {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        loadExcludedNumbers();
                         showSnackbar(getString(R.string.settings_applied));
                     }
                 })
@@ -107,8 +108,12 @@ public class RNGFragment extends Fragment {
         if (excludedNumbers.isEmpty()) {
             excludedNumsDisplay.setText(String.format(excludedNumsBase, none));
         } else {
-            String excludedText = String.format(excludedNumsBase, RandUtils.getExcludedList(excludedNumbers));
-            excludedNumsDisplay.setText(excludedText);
+            if (viewHolder.getHideExcludes()) {
+                excludedNumsDisplay.setText(R.string.excluded_numbers_hidden);
+            } else {
+                String excludedText = String.format(excludedNumsBase, RandUtils.getExcludedList(excludedNumbers));
+                excludedNumsDisplay.setText(excludedText);
+            }
         }
     }
 

@@ -21,6 +21,7 @@ public class RNGSettingsViewHolder {
     @Bind(R.id.sort_options) Spinner sortOptions;
     @Bind(R.id.duplicates_toggle) CheckBox blockDupes;
     @Bind(R.id.show_sum) CheckBox showSum;
+    @Bind(R.id.hide_excludes) CheckBox hideExcludes;
 
     public RNGSettingsViewHolder(View view, Context context) {
         ButterKnife.bind(this, view);
@@ -33,12 +34,14 @@ public class RNGSettingsViewHolder {
         configuration.setSortIndex(sortOptions.getSelectedItemPosition());
         configuration.setNoDupes(blockDupes.isChecked());
         configuration.setShowSum(showSum.isChecked());
+        configuration.setHideExcludes(showSum.isChecked());
     }
 
     public void loadConfig(RNGConfiguration configuration) {
         sortOptions.setSelection(configuration.getSortIndex());
         blockDupes.setCheckedImmediately(configuration.isNoDupes());
         showSum.setCheckedImmediately(configuration.isShowSum());
+        hideExcludes.setCheckedImmediately(configuration.isHideExcludes());
     }
 
     public boolean getNoDupes() {
@@ -51,5 +54,9 @@ public class RNGSettingsViewHolder {
 
     public boolean getShowSum() {
         return showSum.isChecked();
+    }
+
+    public boolean getHideExcludes() {
+        return hideExcludes.isChecked();
     }
 }

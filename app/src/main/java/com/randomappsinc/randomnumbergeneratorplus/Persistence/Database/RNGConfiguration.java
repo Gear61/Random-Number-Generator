@@ -18,6 +18,7 @@ public class RNGConfiguration extends RealmObject {
     private RealmList<ExcludedNumber> excludedNumbers;
     private int sortIndex;
     private boolean showSum;
+    private boolean hideExcludes;
 
     public String getConfigName() {
         return configName;
@@ -81,5 +82,13 @@ public class RNGConfiguration extends RealmObject {
 
     public void setShowSum(boolean showSum) {
         this.showSum = showSum;
+    }
+
+    public boolean isHideExcludes() {
+        return hideExcludes;
+    }
+
+    public void setHideExcludes(boolean hideExcludes) {
+        this.hideExcludes = hideExcludes;
     }
 }

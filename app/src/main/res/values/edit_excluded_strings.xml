@@ -3,6 +3,7 @@
     <string name="excluded_page_label">Edit Excluded Numbers</string>
     <string name="excluded_numbers_prefix">Excluded numbers: %s</string>
     <string name="excluded_numbers">Excluded Numbers</string>
+    <string name="excluded_numbers_hidden">Excluded numbers: (Click to show)</string>
     <string name="no_excluded_numbers">You currently aren\'t preventing any numbers from being generated.</string>
     <string name="clear">Clear</string>
     <string name="edit">Edit</string>

@@ -50,4 +50,9 @@
         android:id="@+id/show_sum"
         android:text="@string/show_sum"
         style="@style/checkbox"/>
+
+    <com.rey.material.widget.CheckBox
+        android:id="@+id/hide_excludes"
+        android:text="@string/hide_excluded"
+        style="@style/checkbox"/>
 </LinearLayout>

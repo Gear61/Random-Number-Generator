@@ -11,6 +11,7 @@
 
     <string name="no_dupes">No duplicate numbers</string>
     <string name="show_sum">Show sum</string>
+    <string name="hide_excluded">Hide excluded numbers</string>
 
     <string name="apply">Apply</string>
 
