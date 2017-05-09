@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.Adapters.ExcludedNumbersAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
@@ -44,7 +45,7 @@ public class EditExcludedActivity extends StandardActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        addIcon.setImageDrawable(new IconDrawable(this, FontAwesomeIcons.fa_plus)
+        addIcon.setImageDrawable(new IconDrawable(this, IoniconsIcons.ion_android_add)
                 .colorRes(R.color.white)
                 .actionBarSize());
 
