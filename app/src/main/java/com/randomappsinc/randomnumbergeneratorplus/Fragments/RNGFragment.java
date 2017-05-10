@@ -50,6 +50,7 @@ import butterknife.OnTextChanged;
  */
 
 public class RNGFragment extends Fragment {
+    @Bind(R.id.focal_point) View focalPoint;
     @Bind(R.id.minimum) EditText minimumInput;
     @Bind(R.id.maximum) EditText maximumInput;
     @Bind(R.id.quantity) EditText quantityInput;
@@ -206,6 +207,8 @@ public class RNGFragment extends Fragment {
 
     public boolean verifyForm() {
         UIUtils.hideKeyboard(getActivity());
+        focalPoint.requestFocus();
+
         String minimum = minimumInput.getText().toString();
         String maximum = maximumInput.getText().toString();
         String quantity = quantityInput.getText().toString();

@@ -18,6 +18,7 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnPageChange;
 
 public class MainActivity extends StandardActivity {
     @Bind(R.id.parent) View parent;
@@ -63,5 +64,10 @@ public class MainActivity extends StandardActivity {
 
     public View getParentView() {
         return parent;
+    }
+
+    @OnPageChange(R.id.view_pager)
+    public void onPageChange() {
+        UIUtils.hideKeyboard(this);
     }
 }

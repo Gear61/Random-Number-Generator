@@ -36,6 +36,7 @@ import butterknife.OnClick;
  */
 
 public class DiceFragment extends Fragment {
+    @Bind(R.id.focal_point) View focalPoint;
     @Bind(R.id.num_sides) EditText numSidesInput;
     @Bind(R.id.num_dice) EditText numDiceInput;
     @Bind(R.id.results_container) View resultsContainer;
@@ -76,6 +77,8 @@ public class DiceFragment extends Fragment {
 
     public boolean verifyForm() {
         UIUtils.hideKeyboard(getActivity());
+        focalPoint.requestFocus();
+
         String numSides = numSidesInput.getText().toString();
         String numDice = numDiceInput.getText().toString();
         try {

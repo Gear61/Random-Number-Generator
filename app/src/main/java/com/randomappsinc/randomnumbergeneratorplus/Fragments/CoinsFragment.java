@@ -36,6 +36,7 @@ import butterknife.OnClick;
  */
 
 public class CoinsFragment extends Fragment {
+    @Bind(R.id.focal_point) View focalPoint;
     @Bind(R.id.num_coins) EditText numCoinsInput;
     @Bind(R.id.results_container) View resultsContainer;
     @Bind(R.id.results) TextView resultsText;
@@ -72,6 +73,8 @@ public class CoinsFragment extends Fragment {
 
     public boolean verifyForm() {
         UIUtils.hideKeyboard(getActivity());
+        focalPoint.requestFocus();
+
         String numCoins = numCoinsInput.getText().toString();
         try {
             if (Integer.parseInt(numCoins) <= 0) {

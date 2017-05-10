@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/focal_point"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
