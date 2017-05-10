@@ -3,12 +3,14 @@ package com.randomappsinc.randomnumbergeneratorplus.Persistence.Database;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  * Created by alexanderchiou on 1/1/16.
  */
 public class RNGConfiguration extends RealmObject {
     @PrimaryKey
+    @Required
     private String configName;
 
     private int minimum;
