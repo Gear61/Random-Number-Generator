@@ -1,7 +1,5 @@
 package com.randomappsinc.randomnumbergeneratorplus.Persistence.Database;
 
-import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class DatabaseManager {
     private Realm realm;
 
     private DatabaseManager() {
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(MyApplication.getAppContext())
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
                 .schemaVersion(CURRENT_DB_VERSION)
                 .migration(getMigrationModule())
                 .build();
@@ -96,7 +94,7 @@ public class DatabaseManager {
         try {
             realm.beginTransaction();
             RNGConfiguration config = realm.where(RNGConfiguration.class).equalTo("configName", configName).findFirst();
-            config.removeFromRealm();
+            config.deleteFromRealm();
             realm.commitTransaction();
         } catch (Exception e) {
             realm.cancelTransaction();

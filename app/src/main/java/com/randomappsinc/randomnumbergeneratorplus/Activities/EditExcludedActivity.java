@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.joanzapata.iconify.IconDrawable;
-import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.Adapters.ExcludedNumbersAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.R;

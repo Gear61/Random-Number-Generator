@@ -9,6 +9,8 @@ import com.joanzapata.iconify.fonts.IoniconsModule;
 
 import java.util.Random;
 
+import io.realm.Realm;
+
 /**
  * Created by alexanderchiou on 12/30/15.
  */
@@ -20,9 +22,10 @@ public final class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Iconify.with(new IoniconsModule())
-                .with(new FontAwesomeModule());
-        instance = getApplicationContext();
+               .with(new FontAwesomeModule());
         random = new Random();
+        Realm.init(this);
+        instance = getApplicationContext();
     }
 
     public static Context getAppContext() {

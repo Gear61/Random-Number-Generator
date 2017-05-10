@@ -257,6 +257,7 @@ public class RNGFragment extends Fragment {
         quantityInput.setText(String.valueOf(config.getQuantity()));
         viewHolder.loadConfig(config);
         excludedNumbers = ConversionUtils.getPlainExcludes(config.getExcludedNumbers());
+        loadExcludedNumbers();
         currentConfiguration = configName;
         if (verbose) {
             confirmConfigAction(getString(R.string.config_loaded), configName);
