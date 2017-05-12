@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.Activities.MainActivity;
 import com.randomappsinc.randomnumbergeneratorplus.Activities.SettingsActivity;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
@@ -108,13 +108,13 @@ public class CoinsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.regular_menu, menu);
-        UIUtils.loadMenuIcon(menu, R.id.additional_settings, FontAwesomeIcons.fa_gears);
+        UIUtils.loadMenuIcon(menu, R.id.settings, IoniconsIcons.ion_android_settings);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.additional_settings:
+            case R.id.settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
                 return true;

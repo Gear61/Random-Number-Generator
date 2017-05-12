@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.Activities.EditExcludedActivity;
 import com.randomappsinc.randomnumbergeneratorplus.Activities.MainActivity;
 import com.randomappsinc.randomnumbergeneratorplus.Activities.SettingsActivity;
@@ -159,6 +160,11 @@ public class RNGFragment extends Fragment {
         } catch (NumberFormatException exception) {
             showSnackbar(getString(R.string.not_a_number));
         }
+    }
+
+    @OnClick(R.id.rng_settings)
+    public void showRNGSettings() {
+        settingsDialog.show();
     }
 
     @OnTextChanged(value = R.id.minimum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
@@ -347,27 +353,6 @@ public class RNGFragment extends Fragment {
         }
     }
 
-    private void showConfigOptions() {
-        new MaterialDialog.Builder(getActivity())
-                .items(R.array.config_options)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        switch (which) {
-                            case 0:
-                                showLoadDialog();
-                                break;
-                            case 1:
-                                if (verifyForm()) {
-                                    showSaveDialog();
-                                }
-                                break;
-                        }
-                    }
-                })
-                .show();
-    }
-
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
@@ -387,21 +372,23 @@ public class RNGFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.rng_menu, menu);
-        UIUtils.loadMenuIcon(menu, R.id.config_options, FontAwesomeIcons.fa_list_ol);
-        UIUtils.loadMenuIcon(menu, R.id.rng_settings, FontAwesomeIcons.fa_gear);
-        UIUtils.loadMenuIcon(menu, R.id.additional_settings, FontAwesomeIcons.fa_gears);
+        UIUtils.loadMenuIcon(menu, R.id.save_config, FontAwesomeIcons.fa_save);
+        UIUtils.loadMenuIcon(menu, R.id.load_config, FontAwesomeIcons.fa_upload);
+        UIUtils.loadMenuIcon(menu, R.id.settings, IoniconsIcons.ion_android_settings);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.config_options:
-                showConfigOptions();
+            case R.id.save_config:
+                if (verifyForm()) {
+                    showSaveDialog();
+                }
                 return true;
-            case R.id.rng_settings:
-                settingsDialog.show();
+            case R.id.load_config:
+                showLoadDialog();
                 return true;
-            case R.id.additional_settings:
+            case R.id.settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
                 return true;

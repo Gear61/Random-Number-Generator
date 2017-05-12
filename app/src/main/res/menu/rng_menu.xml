@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/config_options"
-        android:title="@string/rng_configurations"
+        android:id="@+id/save_config"
+        android:title="@string/save_config"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/rng_settings"
-        android:title="@string/rng_settings"
+        android:id="@+id/load_config"
+        android:title="@string/load_config"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/additional_settings"
-        android:title="@string/additional_settings"
+        android:id="@+id/settings"
+        android:title="@string/settings"
         app:showAsAction="ifRoom"/>
 </menu>
