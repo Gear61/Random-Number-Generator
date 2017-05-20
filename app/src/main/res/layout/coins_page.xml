@@ -10,24 +10,38 @@
         android:id="@+id/focal_point"
         style="@style/rng_page_container">
 
-        <LinearLayout
+        <TextView
+            android:text="@string/coin_flipper"
+            style="@style/page_title"/>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/num_coins_prefix"
-                android:text="@string/num_coins_prefix"
-                style="@style/input_prefix_style"/>
+            android:background="@color/white"
+            android:padding="16dp">
 
             <EditText
                 android:id="@+id/num_coins"
-                android:maxLength="9"
-                android:layout_width="match_parent"
-                android:imeOptions="actionDone"
+                android:layout_width="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/default_min"
                 android:inputType="number"
-                style="@style/number_input_style"/>
-        </LinearLayout>
+                android:maxLength="4"
+                android:imeOptions="actionDone"
+                style="@style/numeric_input"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/num_coins"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/num_coins_prefix"
+                android:textSize="15dp"
+                android:textColor="@color/dark_gray"/>
+        </RelativeLayout>
 
         <com.rey.material.widget.Button
             android:id="@+id/flip"

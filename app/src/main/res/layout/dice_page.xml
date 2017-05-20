@@ -10,42 +10,71 @@
         android:id="@+id/focal_point"
         style="@style/rng_page_container">
 
+        <TextView
+            android:text="@string/dice_roller"
+            style="@style/page_title"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/num_sides_prefix"
-                android:layout_alignBaseline="@+id/num_sides"
-                android:text="@string/num_sides"
-                style="@style/input_prefix_style"/>
-
-            <EditText
-                android:id="@+id/num_sides"
-                android:maxLength="9"
-                android:layout_toRightOf="@id/num_sides_prefix"
-                android:layout_width="match_parent"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                style="@style/number_input_style"/>
-
-            <TextView
-                android:id="@+id/num_dice_prefix"
-                android:layout_alignBaseline="@+id/num_dice"
-                android:text="@string/num_dice"
-                style="@style/input_prefix_style"/>
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="16dp">
 
             <EditText
                 android:id="@+id/num_dice"
-                android:maxLength="9"
-                android:layout_marginTop="16dp"
-                android:layout_alignLeft="@id/num_sides"
-                android:layout_toRightOf="@id/num_dice_prefix"
-                android:layout_below="@id/num_sides"
-                android:layout_width="match_parent"
-                android:imeOptions="actionDone"
+                android:layout_width="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/default_num_dice"
                 android:inputType="number"
-                style="@style/number_input_style"/>
+                android:maxLength="4"
+                android:imeOptions="actionNext"
+                style="@style/numeric_input"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/num_dice"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/num_dice"
+                android:textSize="15dp"
+                android:textColor="@color/dark_gray"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_gray"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/num_sides"
+                android:layout_width="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/default_sides"
+                android:inputType="number"
+                android:maxLength="4"
+                android:imeOptions="actionDone"
+                style="@style/numeric_input"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/num_sides"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/num_sides"
+                android:textSize="15dp"
+                android:textColor="@color/dark_gray"/>
         </RelativeLayout>
 
         <com.rey.material.widget.Button

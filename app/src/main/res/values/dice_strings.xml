@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="dice_roller">Dice Roller</string>
     <string name="roll">Roll</string>
-    <string name="num_sides"># of sides:&#160;</string>
-    <string name="num_dice"># of dice:&#160;</string>
+    <string name="num_dice">How many dice are you rolling?</string>
+    <string name="num_sides">How many sides does each die have?</string>
     <string name="default_sides">6</string>
     <string name="default_num_dice">2</string>
     <string name="rolls_prefix">Roll(s):&#160;</string>

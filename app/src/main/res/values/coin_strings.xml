@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="coin_flipper">Coin Flipper</string>
     <string name="flip">Flip</string>
-    <string name="num_coins_prefix"># of coins:&#160;</string>
+    <string name="num_coins_prefix">How many coins are you flipping?</string>
     <string name="sides_prefix">Side(s):&#160;</string>
     <string name="num_heads_prefix"># of heads:&#160;</string>
     <string name="num_tails_prefix"># of tails:&#160;</string>

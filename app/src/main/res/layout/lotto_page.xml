@@ -5,24 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        style="@style/rng_page_container">
+    <LinearLayout style="@style/rng_page_container">
+        <TextView
+            android:text="@string/lottery_simulator"
+            style="@style/page_title"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lottery_type"
-                android:textColor="@color/dark_gray"
-                android:textSize="18dp"/>
+            android:background="@color/white"
+            android:padding="16dp">
 
             <RelativeLayout
+                android:id="@+id/lotto_chooser"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
 
                 <Spinner
                     android:id="@+id/lotto_options"
@@ -40,11 +38,21 @@
                     android:layout_alignRight="@id/lotto_options"
                     android:background="@color/black"/>
             </RelativeLayout>
-        </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/lotto_chooser"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/lottery_type"
+                android:textSize="15dp"
+                android:textColor="@color/dark_gray"/>
+        </RelativeLayout>
 
         <com.rey.material.widget.Button
             android:id="@+id/generate"
-            android:text="@string/generate"
+            android:text="@string/simulate"
             android:layout_marginTop="16dp"
             style="@style/ripple_button_style"
             app:rd_style="@style/button_ripple_attributes"/>
