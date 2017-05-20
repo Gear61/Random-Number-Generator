@@ -32,6 +32,7 @@ public class MainActivity extends StandardActivity {
         setContentView(R.layout.homepage);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        setTitle(" ");
 
         homePager.setAdapter(new HomepageTabsAdapter(getFragmentManager()));
         homePager.setOffscreenPageLimit(3);

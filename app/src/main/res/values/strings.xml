@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">RNG Plus</string>
     <string name="random_number_generator">Random Number Generator</string>
 
     <string name="rng">RNG</string>
