@@ -1,41 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/results_container"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     android:visibility="gone"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/copy_results"
+        android:text="@string/copy"
+        android:textColor="@color/app_blue"
+        android:textAllCaps="true"
+        android:textSize="15dp"
+        android:padding="8dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/app_blue">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/results"
-            android:textColor="@color/white"
-            android:textSize="26dp"/>
-
-        <com.joanzapata.iconify.widget.IconTextView
-            android:id="@+id/copy_results"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:text="@string/clipboard_icon"
-            android:textSize="28dp"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:layout_gravity="right|center_vertical"/>
-    </FrameLayout>
+        android:layout_gravity="right"/>
 
     <TextView
         android:id="@+id/results"
-        android:visibility="visible"
-        android:layout_marginTop="0dp"
-        android:paddingTop="0dp"
-        style="@style/results"/>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/dark_gray"
+        android:textSize="21dp"/>
+</FrameLayout>

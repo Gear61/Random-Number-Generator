@@ -60,8 +60,6 @@ public class RNGFragment extends Fragment {
     @Bind(R.id.results) TextView results;
 
     @BindString(R.string.config_name) String configHint;
-    @BindString(R.string.excluded_numbers_prefix) String excludedNumsBase;
-    @BindString(R.string.none_click_change) String none;
     @BindColor(R.color.app_blue) int blue;
 
     private ArrayList<Integer> excludedNumbers;
@@ -108,13 +106,12 @@ public class RNGFragment extends Fragment {
 
     private void loadExcludedNumbers() {
         if (excludedNumbers.isEmpty()) {
-            excludedNumsDisplay.setText(String.format(excludedNumsBase, none));
+            excludedNumsDisplay.setText(R.string.none);
         } else {
             if (viewHolder.getHideExcludes()) {
-                excludedNumsDisplay.setText(R.string.excluded_numbers_hidden);
+                excludedNumsDisplay.setText(R.string.ellipsis);
             } else {
-                String excludedText = String.format(excludedNumsBase, RandUtils.getExcludedList(excludedNumbers));
-                excludedNumsDisplay.setText(excludedText);
+                excludedNumsDisplay.setText(RandUtils.getExcludedList(excludedNumbers));
             }
         }
     }
@@ -123,7 +120,7 @@ public class RNGFragment extends Fragment {
         ((MainActivity) getActivity()).showSnackbar(message);
     }
 
-    @OnClick(R.id.excluded_numbers)
+    @OnClick({R.id.excluded_numbers_container, R.id.excluded_numbers})
     public void editExcluded() {
         MaterialDialog excludedDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.excluded_numbers)

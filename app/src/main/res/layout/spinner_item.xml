@@ -1,6 +1,6 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/white"
+    android:background="@color/background_gray"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="18dp"

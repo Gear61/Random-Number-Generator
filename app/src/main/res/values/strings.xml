@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RNG Plus</string>
+    <string name="random_number_generator">Random Number Generator</string>
 
     <string name="rng">RNG</string>
     <string name="dice">Dice</string>
@@ -18,8 +18,8 @@
     <string name="rng_settings">RNG settings</string>
     <string name="settings">Settings</string>
 
-    <string name="additional_settings_icon">{fa-gears}</string>
-    <string name="additional_settings">MORE SETTINGS</string>
+    <string name="plus_icon">{ion-android-add}</string>
+    <string name="additional_settings">MORE OPTIONS</string>
 
     <string name="load">Load</string>
     <string name="config_name">RNG configuration name</string>
@@ -27,13 +27,14 @@
     <string name="confirm_overwrite">Confirm overwrite</string>
     <string name="confirm_delete">Confirm delete</string>
 
-    <string name="minimum">Minimum:&#160;</string>
+    <string name="minimum">Minimum</string>
     <string name="default_min">1</string>
-    <string name="maximum">Maximum:&#160;</string>
+    <string name="maximum">Maximum</string>
     <string name="default_max">100</string>
-    <string name="quantity">Quantity:&#160;</string>
+    <string name="quantity">How many numbers do you need?</string>
     <string name="generate">Generate</string>
 
+    <string name="exclude_these">Exclude these numbers</string>
     <string name="edit_excluded_numbers">Edit excluded numbers</string>
     <string name="add_excluded_number">Add excluded number</string>
     <string name="excluded_hint">Number to exclude</string>
@@ -64,11 +65,11 @@
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="none_click_change">None (Click to change)</string>
+    <string name="ellipsis">&#8230;</string>
     <string name="prevent_duplicates">Prevent duplicates:&#160;</string>
 
     <string name="results">Results</string>
-    <string name="clipboard_icon">{ion-android-clipboard}</string>
+    <string name="copy">Copy</string>
     <string name="generated_numbers">Generated Numbers</string>
     <string name="copied_to_clipboard">The results have been copied to your clipboard.</string>
 </resources>

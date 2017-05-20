@@ -2,94 +2,159 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/focal_point"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/rng_page_container">
+
+        <TextView
+            android:text="@string/random_number_generator"
+            style="@style/page_title"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/minimum"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="15dp"/>
+
+                <EditText
+                    android:id="@+id/minimum"
+                    android:text="@string/default_min"
+                    android:layout_marginTop="8dp"
+                    android:inputType="numberSigned"
+                    android:maxLength="9"
+                    android:imeOptions="actionNext"
+                    style="@style/numeric_input"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/background_gray"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/maximum"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="15dp"/>
+
+                <EditText
+                    android:id="@+id/maximum"
+                    android:text="@string/default_max"
+                    android:layout_marginTop="8dp"
+                    android:inputType="numberSigned"
+                    android:maxLength="9"
+                    android:imeOptions="actionNext"
+                    style="@style/numeric_input"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_gray"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/min_prefix"
-                android:layout_alignBaseline="@+id/minimum"
-                android:text="@string/minimum"
-                style="@style/input_prefix_style"/>
-
-            <EditText
-                android:id="@+id/minimum"
-                android:maxLength="9"
-                android:layout_toRightOf="@id/min_prefix"
-                android:layout_alignLeft="@+id/maximum"
-                android:text="@string/default_min"
-                android:layout_width="match_parent"
-                android:imeOptions="actionNext"
-                android:inputType="numberSigned"
-                style="@style/number_input_style"/>
-
-            <TextView
-                android:id="@+id/max_prefix"
-                android:layout_alignBaseline="@+id/maximum"
-                android:text="@string/maximum"
-                style="@style/input_prefix_style"/>
-
-            <EditText
-                android:id="@+id/maximum"
-                android:maxLength="9"
-                android:layout_marginTop="16dp"
-                android:layout_toRightOf="@id/max_prefix"
-                android:layout_below="@id/minimum"
-                android:text="@string/default_max"
-                android:layout_width="match_parent"
-                android:imeOptions="actionNext"
-                android:inputType="numberSigned"
-                style="@style/number_input_style"/>
-
-            <TextView
-                android:id="@+id/quantity_prefix"
-                android:layout_alignBaseline="@+id/quantity"
-                android:text="@string/quantity"
-                style="@style/input_prefix_style"/>
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="16dp">
 
             <EditText
                 android:id="@+id/quantity"
-                android:layout_marginTop="16dp"
-                android:layout_alignLeft="@id/maximum"
-                android:layout_toRightOf="@id/quantity_prefix"
-                android:layout_below="@id/maximum"
+                android:layout_width="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:text="@string/default_min"
-                android:layout_width="match_parent"
-                android:imeOptions="actionDone"
                 android:inputType="number"
-                style="@style/number_input_style"/>
+                android:maxLength="4"
+                android:imeOptions="actionDone"
+                style="@style/numeric_input"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/quantity"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/quantity"
+                android:textSize="15dp"
+                android:textColor="@color/dark_gray"/>
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/excluded_numbers"
-            android:layout_gravity="center_vertical"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            style="@style/input_prefix_style"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_gray"/>
+
+        <RelativeLayout
+            android:id="@+id/excluded_numbers_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/excluded_numbers"
+                android:layout_width="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:imeOptions="actionDone"
+                style="@style/numeric_input"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/excluded_numbers"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/exclude_these"
+                android:textSize="15dp"
+                android:textColor="@color/dark_gray"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/rng_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
             <com.joanzapata.iconify.widget.IconTextView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:text="@string/additional_settings_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plus_icon"
                 android:textSize="21dp"
                 android:textColor="@color/app_blue"
                 android:gravity="center"/>
@@ -97,10 +162,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="4dp"
                 android:text="@string/additional_settings"
                 android:textColor="@color/app_blue"
-                android:textSize="17dp"/>
+                android:textSize="15dp"/>
         </LinearLayout>
 
         <com.rey.material.widget.Button

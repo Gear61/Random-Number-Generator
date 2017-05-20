@@ -5,6 +5,7 @@
     <color name="white">#FFFFFF</color>
     <color name="half_white">#80FFFFFF</color>
     <color name="dark_gray">#696969</color>
+    <color name="background_gray">#F5F5F5</color>
 
     <color name="green">#4CAF50</color>
     <color name="accent_green">#00C853</color>
