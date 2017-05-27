@@ -86,7 +86,7 @@ public class PreferencesManager {
 
     public void saveNumCoins(String numCoins) {
         try {
-            prefs.edit().putInt(NUM_SIDES, Integer.parseInt(numCoins)).apply();
+            prefs.edit().putInt(NUM_COINS, Integer.parseInt(numCoins)).apply();
         } catch (NumberFormatException ignored) {}
     }
 }

@@ -37,8 +37,8 @@ import butterknife.OnClick;
 
 public class DiceFragment extends Fragment {
     @Bind(R.id.focal_point) View focalPoint;
-    @Bind(R.id.num_sides) EditText numSidesInput;
     @Bind(R.id.num_dice) EditText numDiceInput;
+    @Bind(R.id.num_sides) EditText numSidesInput;
     @Bind(R.id.results_container) View resultsContainer;
     @Bind(R.id.results) TextView resultsText;
 
@@ -53,9 +53,15 @@ public class DiceFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.dice_page, container, false);
         ButterKnife.bind(this, rootView);
 
-        numSidesInput.setText(PreferencesManager.get().getNumSides());
         numDiceInput.setText(PreferencesManager.get().getNumDice());
+        numSidesInput.setText(PreferencesManager.get().getNumSides());
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        saveSettings();
     }
 
     private void showSnackbar(String message) {
@@ -65,8 +71,8 @@ public class DiceFragment extends Fragment {
     @OnClick(R.id.roll)
     public void roll() {
         if (verifyForm()) {
-            int numSides = Integer.parseInt(numSidesInput.getText().toString());
             int numDice = Integer.parseInt(numDiceInput.getText().toString());
+            int numSides = Integer.parseInt(numSidesInput.getText().toString());
 
             List<Integer> rolls = RandUtils.getNumbers(1, numSides, numDice, false, new ArrayList<Integer>());
             String results = RandUtils.getDiceResults(rolls);
@@ -105,10 +111,14 @@ public class DiceFragment extends Fragment {
         showSnackbar(getString(R.string.copied_to_clipboard));
     }
 
+    private void saveSettings() {
+        PreferencesManager.get().saveDiceSettings(numSidesInput.getText().toString(), numDiceInput.getText().toString());
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        PreferencesManager.get().saveDiceSettings(numSidesInput.getText().toString(), numDiceInput.getText().toString());
+        saveSettings();
         ButterKnife.unbind(this);
     }
 

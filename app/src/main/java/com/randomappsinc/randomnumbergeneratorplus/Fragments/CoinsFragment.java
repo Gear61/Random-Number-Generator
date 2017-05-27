@@ -60,6 +60,12 @@ public class CoinsFragment extends Fragment {
         ((MainActivity) getActivity()).showSnackbar(message);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        saveSettings();
+    }
+
     @OnClick(R.id.flip)
     public void flip() {
         if (verifyForm()) {
@@ -97,10 +103,14 @@ public class CoinsFragment extends Fragment {
         showSnackbar(getString(R.string.copied_to_clipboard));
     }
 
+    private void saveSettings() {
+        PreferencesManager.get().saveNumCoins(numCoinsInput.getText().toString());
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        PreferencesManager.get().saveNumCoins(numCoinsInput.getText().toString());
+        saveSettings();
         ButterKnife.unbind(this);
     }
 
