@@ -82,13 +82,11 @@ public class RNGFragment extends Fragment {
         settingsDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.rng_settings)
                 .customView(R.layout.rng_settings, true)
-                .positiveText(R.string.apply)
-                .cancelable(false)
+                .positiveText(android.R.string.yes)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         loadExcludedNumbers();
-                        showSnackbar(getString(R.string.settings_applied));
                     }
                 })
                 .build();
