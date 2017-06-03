@@ -168,7 +168,7 @@ public class RandUtils {
     }
 
     public static Spannable getLottoTicket(int normalMax, int specialMax, boolean addNewLine) {
-        List<Integer> normals = getNumbers(1, normalMax, NUM_NORMAL_BALLS, false, new ArrayList<Integer>());
+        List<Integer> normals = getNumbers(1, normalMax, NUM_NORMAL_BALLS, true, new ArrayList<Integer>());
         int special = getNumbers(1, specialMax, 1, false, new ArrayList<Integer>()).get(0);
 
         StringBuilder ticket = new StringBuilder();
