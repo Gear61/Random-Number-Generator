@@ -58,6 +58,7 @@ public class LottoFragment extends Fragment {
 
     @OnClick(R.id.generate)
     public void generateTickets() {
+        RandUtils.playSound("lotto_scratch.wav", ((MainActivity) getActivity()).getMediaPlayer());
         SpannedString lottoResults = RandUtils.getLottoResults(lottoSpinner.getSelectedItemPosition());
         resultsContainer.setVisibility(View.VISIBLE);
         results.setText(lottoResults);

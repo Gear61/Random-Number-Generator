@@ -1,6 +1,8 @@
 package com.randomappsinc.randomnumbergeneratorplus.Activities;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -11,6 +13,12 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
  * Created by alexanderchiou on 12/30/15.
  */
 public class StandardActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+    }
+
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         UIUtils.hideKeyboard(this);

@@ -1,6 +1,7 @@
 package com.randomappsinc.randomnumbergeneratorplus.Activities;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,8 @@ public class MainActivity extends StandardActivity {
     @Bind(R.id.tab_layout) TabLayout homeTabs;
     @Bind(R.id.view_pager) ViewPager homePager;
 
+    private MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,8 @@ public class MainActivity extends StandardActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         setTitle(" ");
+
+        mediaPlayer = new MediaPlayer();
 
         homePager.setAdapter(new HomepageTabsAdapter(getFragmentManager()));
         homePager.setOffscreenPageLimit(3);
@@ -67,8 +72,18 @@ public class MainActivity extends StandardActivity {
         return parent;
     }
 
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
     @OnPageChange(R.id.view_pager)
     public void onPageChange() {
         UIUtils.hideKeyboard(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
     }
 }
