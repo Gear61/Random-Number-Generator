@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
     android:padding="12dp">
 
     <com.joanzapata.iconify.widget.IconTextView
@@ -12,15 +11,29 @@
         android:gravity="center"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_centerVertical="true"
         android:textColor="@color/dark_gray"
         android:textSize="22dp"/>
+
+    <com.rey.material.widget.Switch
+        android:id="@+id/sound_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        style="@style/Material.Widget.Switch"/>
 
     <TextView
         android:id="@+id/option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_toLeftOf="@id/sound_toggle"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
         android:textSize="18dp"
         android:textColor="@color/dark_gray"/>
-</LinearLayout>
+</RelativeLayout>

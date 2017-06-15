@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.joanzapata.iconify.widget.IconTextView;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
+import com.rey.material.widget.Switch;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by alexanderchiou on 12/30/15.
@@ -43,11 +45,42 @@ public class SettingsAdapter extends BaseAdapter {
     }
 
     public class SettingsViewHolder {
-        @Bind(R.id.icon) IconTextView itemIcon;
+        @Bind(R.id.icon) TextView itemIcon;
         @Bind(R.id.option) TextView itemName;
+        @Bind(R.id.sound_toggle) Switch soundToggle;
+
+        private int position;
 
         public SettingsViewHolder(View view) {
             ButterKnife.bind(this, view);
+        }
+
+        public void loadSetting(int position) {
+            this.position = position;
+
+            itemName.setText(itemNames[position]);
+            itemIcon.setText(itemIcons[position]);
+
+            if (position == 0) {
+                soundToggle.setCheckedImmediately(PreferencesManager.get().shouldPlaySounds());
+                soundToggle.setVisibility(View.VISIBLE);
+            } else {
+                soundToggle.setVisibility(View.GONE);
+            }
+        }
+
+        @OnClick(R.id.sound_toggle)
+        public void onSoundToggle() {
+            PreferencesManager.get().setPlaySounds(soundToggle.isChecked());
+        }
+
+        @OnClick(R.id.parent)
+        public void toggleSound() {
+            if (position == 0) {
+                boolean currentState = soundToggle.isChecked();
+                soundToggle.setChecked(!currentState);
+                PreferencesManager.get().setPlaySounds(!currentState);
+            }
         }
     }
 
@@ -58,14 +91,10 @@ public class SettingsAdapter extends BaseAdapter {
             view = vi.inflate(R.layout.settings_item_cell, parent, false);
             holder = new SettingsViewHolder(view);
             view.setTag(holder);
-        }
-        else {
+        } else {
             holder = (SettingsViewHolder) view.getTag();
         }
-
-        holder.itemName.setText(itemNames[position]);
-        holder.itemIcon.setText(itemIcons[position]);
-
+        holder.loadSetting(position);
         return view;
     }
 }

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.Activities.MainActivity;
 import com.randomappsinc.randomnumbergeneratorplus.Activities.SettingsActivity;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
@@ -58,7 +59,9 @@ public class LottoFragment extends Fragment {
 
     @OnClick(R.id.generate)
     public void generateTickets() {
-        RandUtils.playSound("lotto_scratch.wav", ((MainActivity) getActivity()).getMediaPlayer());
+        if (PreferencesManager.get().shouldPlaySounds()) {
+            RandUtils.playSound("lotto_scratch.wav", ((MainActivity) getActivity()).getMediaPlayer());
+        }
         SpannedString lottoResults = RandUtils.getLottoResults(lottoSpinner.getSelectedItemPosition());
         resultsContainer.setVisibility(View.VISIBLE);
         results.setText(lottoResults);

@@ -186,7 +186,9 @@ public class RNGFragment extends Fragment {
     @OnClick(R.id.generate)
     public void generate() {
         if (verifyForm()) {
-            RandUtils.playSound("rng_noise.wav", ((MainActivity) getActivity()).getMediaPlayer());
+            if (PreferencesManager.get().shouldPlaySounds()) {
+                RandUtils.playSound("rng_noise.wav", ((MainActivity) getActivity()).getMediaPlayer());
+            }
             int minimum = Integer.parseInt(minimumInput.getText().toString());
             int maximum = Integer.parseInt(maximumInput.getText().toString());
             int quantity = Integer.parseInt(quantityInput.getText().toString());

@@ -71,7 +71,9 @@ public class DiceFragment extends Fragment {
     @OnClick(R.id.roll)
     public void roll() {
         if (verifyForm()) {
-            RandUtils.playSound("dice_roll.wav", ((MainActivity) getActivity()).getMediaPlayer());
+            if (PreferencesManager.get().shouldPlaySounds()) {
+                RandUtils.playSound("dice_roll.wav", ((MainActivity) getActivity()).getMediaPlayer());
+            }
             int numDice = Integer.parseInt(numDiceInput.getText().toString());
             int numSides = Integer.parseInt(numSidesInput.getText().toString());
 

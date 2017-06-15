@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="play_sounds">Play sounds</string>
     <string name="edit_configurations">Edit RNG configurations</string>
     <string name="send_feedback">Send feedback</string>
     <string name="my_other_apps">My other apps</string>
     <string name="rate_this_app">Rate this app</string>
     <string name="source_code">Source code</string>
     <string-array name="settings_options">
+        <item>@string/play_sounds</item>
         <item>@string/edit_configurations</item>
         <item>@string/send_feedback</item>
         <item>@string/my_other_apps</item>
@@ -17,12 +19,14 @@
     <string name="send_email">Send email</string>
 
     <!-- Icons -->
+    <string name="sound_icon">{ion-speakerphone}</string>
     <string name="edit_icon">{ion-edit}</string>
     <string name="email_icon">{ion-email}</string>
     <string name="android_icon">{ion-social-android}</string>
     <string name="like_icon">{ion-thumbsup}</string>
     <string name="github_icon">{ion-social-github}</string>
     <string-array name="settings_icons">
+        <item>@string/sound_icon</item>
         <item>@string/edit_icon</item>
         <item>@string/email_icon</item>
         <item>@string/android_icon</item>

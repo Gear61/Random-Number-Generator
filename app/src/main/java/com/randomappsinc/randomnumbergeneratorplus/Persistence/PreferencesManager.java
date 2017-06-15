@@ -13,6 +13,7 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 public class PreferencesManager {
     private static final String DEFAULT_CONFIG = "defaultConfig";
     private static final String NUM_APP_OPENS = "numAppOpens";
+    private static final String PLAY_SOUNDS = "playSounds";
 
     // Dice
     private static final String NUM_SIDES = "numSides";
@@ -88,5 +89,13 @@ public class PreferencesManager {
         try {
             prefs.edit().putInt(NUM_COINS, Integer.parseInt(numCoins)).apply();
         } catch (NumberFormatException ignored) {}
+    }
+
+    public boolean shouldPlaySounds() {
+        return prefs.getBoolean(PLAY_SOUNDS, true);
+    }
+
+    public void setPlaySounds(boolean shouldPlay) {
+        prefs.edit().putBoolean(PLAY_SOUNDS, shouldPlay).apply();
     }
 }
