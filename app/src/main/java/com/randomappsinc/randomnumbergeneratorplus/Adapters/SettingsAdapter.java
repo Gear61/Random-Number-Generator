@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.randomappsinc.randomnumbergeneratorplus.Activities.SettingsActivity;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.rey.material.widget.Switch;
@@ -21,12 +22,12 @@ import butterknife.OnClick;
 public class SettingsAdapter extends BaseAdapter {
     private String[] itemNames;
     private String[] itemIcons;
-    private Context context;
+    private SettingsActivity activity;
 
-    public SettingsAdapter(Context context) {
-        this.context = context;
-        this.itemNames = context.getResources().getStringArray(R.array.settings_options);
-        this.itemIcons = context.getResources().getStringArray(R.array.settings_icons);
+    public SettingsAdapter(SettingsActivity activity) {
+        this.activity = activity;
+        this.itemNames = activity.getResources().getStringArray(R.array.settings_options);
+        this.itemIcons = activity.getResources().getStringArray(R.array.settings_icons);
     }
 
     @Override
@@ -80,6 +81,8 @@ public class SettingsAdapter extends BaseAdapter {
                 boolean currentState = soundToggle.isChecked();
                 soundToggle.setChecked(!currentState);
                 PreferencesManager.get().setPlaySounds(!currentState);
+            } else {
+                activity.handleSettingsClick(position);
             }
         }
     }
@@ -87,7 +90,7 @@ public class SettingsAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         SettingsViewHolder holder;
         if (view == null) {
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = vi.inflate(R.layout.settings_item_cell, parent, false);
             holder = new SettingsViewHolder(view);
             view.setTag(holder);

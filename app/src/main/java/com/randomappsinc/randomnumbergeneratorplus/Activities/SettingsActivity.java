@@ -13,7 +13,6 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 
 /**
  * Created by alexanderchiou on 12/30/15.
@@ -38,23 +37,22 @@ public class SettingsActivity extends StandardActivity {
         settingsOptions.setAdapter(new SettingsAdapter(this));
     }
 
-    @OnItemClick(R.id.settings_options)
-    public void onItemClick(int position) {
+    public void handleSettingsClick(int position) {
         Intent intent = null;
         switch (position) {
-            case 0:
+            case 1:
                 intent = new Intent(this, EditConfigurationsActivity.class);
                 break;
-            case 1:
+            case 2:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
                 Uri mailUri = Uri.parse(uriText);
                 Intent sendIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
                 startActivity(Intent.createChooser(sendIntent, sendEmail));
                 return;
-            case 2:
+            case 3:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OTHER_APPS_URL));
                 break;
-            case 3:
+            case 4:
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
@@ -62,7 +60,7 @@ public class SettingsActivity extends StandardActivity {
                     return;
                 }
                 break;
-            case 4:
+            case 5:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL));
                 break;
         }
