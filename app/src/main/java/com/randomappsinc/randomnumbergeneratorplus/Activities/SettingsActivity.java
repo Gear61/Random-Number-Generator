@@ -7,12 +7,15 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.randomappsinc.randomnumbergeneratorplus.Adapters.SettingsAdapter;
+import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.rey.material.widget.Switch;
 
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 /**
  * Created by alexanderchiou on 12/30/15.
@@ -23,7 +26,7 @@ public class SettingsActivity extends StandardActivity {
     public static final String REPO_URL = "https://github.com/Gear61/Random-Number-Generator";
 
     @Bind(R.id.parent) View parent;
-    @Bind(R.id.settings_options) ListView settingsOptions;
+    @Bind(R.id.settings) ListView settingsOptions;
     @BindString(R.string.feedback_subject) String feedbackSubject;
     @BindString(R.string.send_email) String sendEmail;
 
@@ -37,9 +40,17 @@ public class SettingsActivity extends StandardActivity {
         settingsOptions.setAdapter(new SettingsAdapter(this));
     }
 
+    @OnItemClick(R.id.settings)
     public void handleSettingsClick(int position) {
         Intent intent = null;
         switch (position) {
+            case 0:
+                View firstCell = settingsOptions.getChildAt(0);
+                Switch soundToggle = (Switch) firstCell.findViewById(R.id.sound_toggle);
+                boolean currentState = soundToggle.isChecked();
+                soundToggle.setChecked(!currentState);
+                PreferencesManager.get().setPlaySounds(!currentState);
+                return;
             case 1:
                 intent = new Intent(this, EditConfigurationsActivity.class);
                 break;

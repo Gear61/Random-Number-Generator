@@ -50,15 +50,11 @@ public class SettingsAdapter extends BaseAdapter {
         @Bind(R.id.option) TextView itemName;
         @Bind(R.id.sound_toggle) Switch soundToggle;
 
-        private int position;
-
         public SettingsViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
 
         public void loadSetting(int position) {
-            this.position = position;
-
             itemName.setText(itemNames[position]);
             itemIcon.setText(itemIcons[position]);
 
@@ -73,17 +69,6 @@ public class SettingsAdapter extends BaseAdapter {
         @OnClick(R.id.sound_toggle)
         public void onSoundToggle() {
             PreferencesManager.get().setPlaySounds(soundToggle.isChecked());
-        }
-
-        @OnClick(R.id.parent)
-        public void toggleSound() {
-            if (position == 0) {
-                boolean currentState = soundToggle.isChecked();
-                soundToggle.setChecked(!currentState);
-                PreferencesManager.get().setPlaySounds(!currentState);
-            } else {
-                activity.handleSettingsClick(position);
-            }
         }
     }
 
