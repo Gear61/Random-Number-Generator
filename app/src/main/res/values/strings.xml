@@ -73,4 +73,11 @@
     <string name="copy">Copy</string>
     <string name="generated_numbers">Generated Numbers</string>
     <string name="copied_to_clipboard">The results have been copied to your clipboard.</string>
+
+    <string name="dislike_sound">Dislike the app sounds? You can turn them off here.</string>
+    <string name="turn_off">TURN OFF</string>
+    <string name="sounds_muted">
+        App sounds muted.
+        You can also customize this behavior in the settings menu.
+    </string>
 </resources>

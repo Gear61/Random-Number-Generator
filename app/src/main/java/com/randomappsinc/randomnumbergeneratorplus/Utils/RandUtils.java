@@ -1,8 +1,6 @@
 package com.randomappsinc.randomnumbergeneratorplus.Utils;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
-import android.media.MediaPlayer;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -229,15 +227,5 @@ public class RandUtils {
         stringBuilder.append(String.valueOf(numTails));
 
         return stringBuilder.toString();
-    }
-
-    public static void playSound(String filePath, MediaPlayer player) {
-        try {
-            player.reset();
-            AssetFileDescriptor fileDescriptor = MyApplication.getAppContext().getAssets().openFd(filePath);
-            player.setDataSource(fileDescriptor.getFileDescriptor(), fileDescriptor.getStartOffset(), fileDescriptor.getLength());
-            player.prepare();
-            player.start();
-        } catch (Exception ignored) {}
     }
 }

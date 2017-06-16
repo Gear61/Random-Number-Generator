@@ -14,6 +14,7 @@ public class PreferencesManager {
     private static final String DEFAULT_CONFIG = "defaultConfig";
     private static final String NUM_APP_OPENS = "numAppOpens";
     private static final String PLAY_SOUNDS = "playSounds";
+    private static final String ASK_FOR_MUTE = "askForMute";
 
     // Dice
     private static final String NUM_SIDES = "numSides";
@@ -97,5 +98,13 @@ public class PreferencesManager {
 
     public void setPlaySounds(boolean shouldPlay) {
         prefs.edit().putBoolean(PLAY_SOUNDS, shouldPlay).apply();
+    }
+
+    public boolean shouldAskForMute() {
+        boolean shouldAsk = prefs.getBoolean(ASK_FOR_MUTE, true);
+        if (shouldAsk) {
+            prefs.edit().putBoolean(ASK_FOR_MUTE, false).apply();
+        }
+        return shouldAsk;
     }
 }
