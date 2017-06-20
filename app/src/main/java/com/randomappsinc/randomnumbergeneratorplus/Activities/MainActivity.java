@@ -3,6 +3,7 @@ package com.randomappsinc.randomnumbergeneratorplus.Activities;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
+import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,20 +22,24 @@ import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManage
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.squareup.seismic.ShakeDetector;
 
 import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
 import butterknife.OnPageChange;
 
-public class MainActivity extends StandardActivity {
+public class MainActivity extends StandardActivity implements ShakeDetector.Listener {
     @Bind(R.id.parent) View parent;
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.tab_layout) TabLayout homeTabs;
     @Bind(R.id.view_pager) ViewPager homePager;
     @BindColor(R.color.app_blue) int blue;
 
+    private HomepageTabsAdapter tabsAdapter;
     private MediaPlayer mediaPlayer;
+    private ShakeDetector shakeDetector;
+    private boolean disableGeneration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +50,19 @@ public class MainActivity extends StandardActivity {
         setTitle(" ");
 
         mediaPlayer = new MediaPlayer();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                disableGeneration = false;
+            }
+        });
 
-        homePager.setAdapter(new HomepageTabsAdapter(getFragmentManager()));
+        tabsAdapter = new HomepageTabsAdapter(getFragmentManager());
+        homePager.setAdapter(tabsAdapter);
         homePager.setOffscreenPageLimit(3);
         homeTabs.setupWithViewPager(homePager);
+
+        shakeDetector = new ShakeDetector(this);
 
         if (PreferencesManager.get().shouldAskForRating()) {
             new MaterialDialog.Builder(this)
@@ -68,7 +82,26 @@ public class MainActivity extends StandardActivity {
                         }
                     })
                     .show();
+        } else if (PreferencesManager.get().shouldShowShake()) {
+            new MaterialDialog.Builder(this)
+                    .title(R.string.shake_it)
+                    .content(R.string.shake_now_supported)
+                    .positiveText(android.R.string.yes)
+                    .cancelable(false)
+                    .show();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        shakeDetector.stop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shakeDetector.start((SensorManager) getSystemService(SENSOR_SERVICE));
     }
 
     public void showSnackbar(String message) {
@@ -115,8 +148,27 @@ public class MainActivity extends StandardActivity {
     }
 
     @Override
+    public void hearShake() {
+        if (PreferencesManager.get().shouldPlaySounds()) {
+            if (!disableGeneration) {
+                disableGeneration = true;
+                tabsAdapter.generate(homePager.getCurrentItem());
+            }
+        } else {
+            tabsAdapter.generate(homePager.getCurrentItem());
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        shakeDetector.stop();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mediaPlayer.stop();
+        shakeDetector.stop();
     }
 }

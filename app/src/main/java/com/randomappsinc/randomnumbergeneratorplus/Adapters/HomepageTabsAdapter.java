@@ -17,25 +17,58 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 
 public class HomepageTabsAdapter extends FragmentStatePagerAdapter {
     private String[] tabNames;
+    private RNGFragment rngFragment;
+    private DiceFragment diceFragment;
+    private LottoFragment lottoFragment;
+    private CoinsFragment coinsFragment;
 
     public HomepageTabsAdapter (FragmentManager fragmentManager) {
         super(fragmentManager);
         tabNames = MyApplication.getAppContext().getResources().getStringArray(R.array.homepage_options);
     }
 
+    public void generate(int position) {
+        switch (position) {
+            case 0:
+                rngFragment.generate();
+                break;
+            case 1:
+                diceFragment.roll();
+                break;
+            case 2:
+                lottoFragment.generateTickets();
+                break;
+            case 3:
+                coinsFragment.flip();
+                break;
+        }
+    }
+
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new RNGFragment();
+                if (rngFragment == null) {
+                    rngFragment = new RNGFragment();
+                }
+                return rngFragment;
             case 1:
-                return new DiceFragment();
+                if (diceFragment == null) {
+                    diceFragment = new DiceFragment();
+                }
+                return diceFragment;
             case 2:
-                return new LottoFragment();
+                if (lottoFragment == null) {
+                    lottoFragment = new LottoFragment();
+                }
+                return lottoFragment;
             case 3:
-                return new CoinsFragment();
+                if (coinsFragment == null) {
+                    coinsFragment = new CoinsFragment();
+                }
+                return coinsFragment;
             default:
-                return new RNGFragment();
+                return null;
         }
     }
 

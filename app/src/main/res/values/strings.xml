@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">RNG Plus</string>
-    <string name="random_number_generator">Random Number Generator</string>
+    <string name="app_name">Random Number Generator</string>
 
     <string name="rng">RNG</string>
     <string name="dice">Dice</string>
@@ -57,7 +56,7 @@
     <string name="preload_confirm">This RNG configuration will now automatically load when the app starts.</string>
 
     <string name="please_rate">
-        Hey, it looks like you\'re a frequent user of Random Number Generator Plus!
+        Hey, it looks like you\'re a frequent user of Random Number Generator!
         If you have a couple seconds, please rate this app in the Play Store.
         Every rating goes a long way towards motivating me to continue improving this app!
     </string>
@@ -79,5 +78,11 @@
     <string name="sounds_muted">
         App sounds muted.
         You can also customize this behavior in the settings menu.
+    </string>
+
+    <string name="shake_it">Shake It!</string>
+    <string name="shake_now_supported">
+        Tired of clicking buttons? Don\'t worry, Random Number Generator has got you covered!
+        You can now shake your device to generate numbers!
     </string>
 </resources>

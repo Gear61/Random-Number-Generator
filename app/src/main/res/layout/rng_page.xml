@@ -11,7 +11,7 @@
         style="@style/rng_page_container">
 
         <TextView
-            android:text="@string/random_number_generator"
+            android:text="@string/app_name"
             style="@style/page_title"/>
 
         <LinearLayout
