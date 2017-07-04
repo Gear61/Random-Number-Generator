@@ -1,5 +1,6 @@
 package com.randomappsinc.randomnumbergeneratorplus.Activities;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
@@ -18,6 +19,10 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.Adapters.HomepageTabsAdapter;
+import com.randomappsinc.randomnumbergeneratorplus.Fragments.CoinsFragment;
+import com.randomappsinc.randomnumbergeneratorplus.Fragments.DiceFragment;
+import com.randomappsinc.randomnumbergeneratorplus.Fragments.LottoFragment;
+import com.randomappsinc.randomnumbergeneratorplus.Fragments.RNGFragment;
 import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
@@ -57,7 +62,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
             }
         });
 
-        tabsAdapter = new HomepageTabsAdapter(getFragmentManager());
+        tabsAdapter = new HomepageTabsAdapter(getFragmentManager(), savedInstanceState);
         homePager.setAdapter(tabsAdapter);
         homePager.setOffscreenPageLimit(3);
         homeTabs.setupWithViewPager(homePager);
@@ -94,8 +99,25 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
+        RNGFragment rngFragment = tabsAdapter.getRngFragment();
+        if (rngFragment != null) {
+            getFragmentManager().putFragment(savedInstanceState, RNGFragment.TAG, rngFragment);
+        }
+        DiceFragment diceFragment = tabsAdapter.getDiceFragment();
+        if (diceFragment != null) {
+            getFragmentManager().putFragment(savedInstanceState, DiceFragment.TAG, diceFragment);
+        }
+        LottoFragment lottoFragment = tabsAdapter.getLottoFragment();
+        if (lottoFragment != null) {
+            getFragmentManager().putFragment(savedInstanceState, LottoFragment.TAG, lottoFragment);
+        }
+        CoinsFragment coinsFragment = tabsAdapter.getCoinsFragment();
+        if (coinsFragment != null) {
+            getFragmentManager().putFragment(savedInstanceState, CoinsFragment.TAG, coinsFragment);
+        }
+
         shakeDetector.stop();
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

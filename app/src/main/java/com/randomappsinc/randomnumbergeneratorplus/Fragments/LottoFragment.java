@@ -35,6 +35,8 @@ import butterknife.OnClick;
  */
 
 public class LottoFragment extends Fragment {
+    public static final String TAG = LottoFragment.class.getSimpleName();
+
     @Bind(R.id.lotto_options) Spinner lottoSpinner;
     @Bind(R.id.results_container) View resultsContainer;
     @Bind(R.id.results) TextView results;

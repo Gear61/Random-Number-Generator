@@ -2,6 +2,7 @@ package com.randomappsinc.randomnumbergeneratorplus.Adapters;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.randomappsinc.randomnumbergeneratorplus.Fragments.CoinsFragment;
@@ -22,9 +23,32 @@ public class HomepageTabsAdapter extends FragmentStatePagerAdapter {
     private LottoFragment lottoFragment;
     private CoinsFragment coinsFragment;
 
-    public HomepageTabsAdapter (FragmentManager fragmentManager) {
+    public HomepageTabsAdapter (FragmentManager fragmentManager, Bundle bundle) {
         super(fragmentManager);
         tabNames = MyApplication.getAppContext().getResources().getStringArray(R.array.homepage_options);
+
+        if (bundle != null) {
+            this.rngFragment = (RNGFragment) fragmentManager.getFragment(bundle, RNGFragment.TAG);
+            this.diceFragment = (DiceFragment) fragmentManager.getFragment(bundle, DiceFragment.TAG);
+            this.lottoFragment = (LottoFragment) fragmentManager.getFragment(bundle, LottoFragment.TAG);
+            this.coinsFragment = (CoinsFragment) fragmentManager.getFragment(bundle, CoinsFragment.TAG);
+        }
+    }
+
+    public RNGFragment getRngFragment() {
+        return rngFragment;
+    }
+
+    public DiceFragment getDiceFragment() {
+        return diceFragment;
+    }
+
+    public LottoFragment getLottoFragment() {
+        return lottoFragment;
+    }
+
+    public CoinsFragment getCoinsFragment() {
+        return coinsFragment;
     }
 
     public void generate(int position) {

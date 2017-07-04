@@ -36,6 +36,8 @@ import butterknife.OnClick;
  */
 
 public class DiceFragment extends Fragment {
+    public static final String TAG = DiceFragment.class.getSimpleName();
+
     @Bind(R.id.focal_point) View focalPoint;
     @Bind(R.id.num_dice) EditText numDiceInput;
     @Bind(R.id.num_sides) EditText numSidesInput;

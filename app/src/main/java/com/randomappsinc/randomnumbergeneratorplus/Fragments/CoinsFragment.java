@@ -36,6 +36,8 @@ import butterknife.OnClick;
  */
 
 public class CoinsFragment extends Fragment {
+    public static final String TAG = CoinsFragment.class.getSimpleName();
+
     @Bind(R.id.focal_point) View focalPoint;
     @Bind(R.id.num_coins) EditText numCoinsInput;
     @Bind(R.id.results_container) View resultsContainer;

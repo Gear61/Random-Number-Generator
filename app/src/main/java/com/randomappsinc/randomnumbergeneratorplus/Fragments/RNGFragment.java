@@ -51,6 +51,8 @@ import butterknife.OnTextChanged;
  */
 
 public class RNGFragment extends Fragment {
+    public static final String TAG = RNGFragment.class.getSimpleName();
+
     @Bind(R.id.focal_point) View focalPoint;
     @Bind(R.id.minimum) EditText minimumInput;
     @Bind(R.id.maximum) EditText maximumInput;
