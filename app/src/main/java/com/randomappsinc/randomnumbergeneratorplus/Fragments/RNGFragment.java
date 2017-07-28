@@ -261,15 +261,19 @@ public class RNGFragment extends Fragment {
 
     public void loadConfig(String configName, boolean verbose) {
         RNGConfiguration config = DatabaseManager.get().getConfig(configName);
-        minimumInput.setText(String.valueOf(config.getMinimum()));
-        maximumInput.setText(String.valueOf(config.getMaximum()));
-        quantityInput.setText(String.valueOf(config.getQuantity()));
-        viewHolder.loadConfig(config);
-        excludedNumbers = ConversionUtils.getPlainExcludes(config.getExcludedNumbers());
-        loadExcludedNumbers();
-        currentConfiguration = configName;
-        if (verbose) {
-            confirmConfigAction(getString(R.string.config_loaded), configName);
+        if (config != null) {
+            minimumInput.setText(String.valueOf(config.getMinimum()));
+            maximumInput.setText(String.valueOf(config.getMaximum()));
+            quantityInput.setText(String.valueOf(config.getQuantity()));
+            viewHolder.loadConfig(config);
+            excludedNumbers = ConversionUtils.getPlainExcludes(config.getExcludedNumbers());
+            loadExcludedNumbers();
+            currentConfiguration = configName;
+            if (verbose) {
+                confirmConfigAction(getString(R.string.config_loaded), configName);
+            }
+        } else {
+            PreferencesManager.get().setDefaultConfig("");
         }
     }
 
