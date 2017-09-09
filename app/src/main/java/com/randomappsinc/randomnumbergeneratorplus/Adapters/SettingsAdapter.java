@@ -16,10 +16,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by alexanderchiou on 12/30/15.
- */
 public class SettingsAdapter extends BaseAdapter {
+
     private String[] itemNames;
     private String[] itemIcons;
     private SettingsActivity activity;
@@ -46,6 +44,7 @@ public class SettingsAdapter extends BaseAdapter {
     }
 
     public class SettingsViewHolder {
+
         @Bind(R.id.icon) TextView itemIcon;
         @Bind(R.id.option) TextView itemName;
         @Bind(R.id.sound_toggle) Switch soundToggle;
