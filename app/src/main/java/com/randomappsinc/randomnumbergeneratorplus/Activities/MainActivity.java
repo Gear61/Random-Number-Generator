@@ -1,6 +1,5 @@
 package com.randomappsinc.randomnumbergeneratorplus.Activities;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;

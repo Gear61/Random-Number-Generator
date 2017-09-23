@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:padding="12dp">
+    android:padding="12dp"
+    tools:ignore="RtlHardcoded, SpUsage">
 
     <com.joanzapata.iconify.widget.IconTextView
         android:id="@+id/icon"
@@ -21,6 +24,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:gravity="center"
+        app:sw_trackColor="@color/switch_track_color"
+        app:sw_thumbColor="@color/switch_thumb_color"
         style="@style/Material.Widget.Switch"/>
 
     <TextView

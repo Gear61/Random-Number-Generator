@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="app_blue">#2196F3</color>
-    <color name="status_bar_blue">#1976D2</color>
+    <color name="dark_blue">#1976D2</color>
     <color name="white">#FFFFFF</color>
     <color name="half_white">#80FFFFFF</color>
     <color name="dark_gray">#696969</color>
@@ -11,5 +11,10 @@
     <color name="accent_green">#00C853</color>
     <color name="black">#000000</color>
     <color name="shadow_black">#3D000000</color>
+
+    <color name="blue_400">#42A5F5</color>
+    <color name="blue_200">#90CAF9</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_100">#F5F5F5</color>
 </resources>
 

@@ -9,8 +9,8 @@ android {
         applicationId "com.randomappsinc.randomnumbergeneratorplus"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 216
-        versionName "2.1.6"
+        versionCode 217
+        versionName "2.1.7"
     }
     buildTypes {
         release {
@@ -24,6 +24,7 @@ android {
     lintOptions {
         disable "ResourceType"
     }
+    android.defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
 }
 
 dependencies {
