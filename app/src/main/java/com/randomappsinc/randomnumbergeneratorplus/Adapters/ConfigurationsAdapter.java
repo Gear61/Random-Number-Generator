@@ -21,13 +21,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by alexanderchiou on 1/1/16.
- */
 public class ConfigurationsAdapter extends BaseAdapter {
+
     private Context context;
     private List<String> content;
     private View noContent;
@@ -146,8 +144,8 @@ public class ConfigurationsAdapter extends BaseAdapter {
     }
 
     public class ConfigViewHolder {
-        @Bind(R.id.config_name) TextView configName;
-        @Bind(R.id.check_icon) View checkIcon;
+        @BindView(R.id.config_name) TextView configName;
+        @BindView(R.id.check_icon) View checkIcon;
 
         public ConfigViewHolder(View view) {
             ButterKnife.bind(this, view);

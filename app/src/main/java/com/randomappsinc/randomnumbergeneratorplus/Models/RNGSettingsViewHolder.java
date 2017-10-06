@@ -10,18 +10,15 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 import com.rey.material.widget.CheckBox;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by alexanderchiou on 10/28/16.
- */
-
 public class RNGSettingsViewHolder {
-    @Bind(R.id.sort_options) Spinner sortOptions;
-    @Bind(R.id.duplicates_toggle) CheckBox blockDupes;
-    @Bind(R.id.show_sum) CheckBox showSum;
-    @Bind(R.id.hide_excludes) CheckBox hideExcludes;
+
+    @BindView(R.id.sort_options) Spinner sortOptions;
+    @BindView(R.id.duplicates_toggle) CheckBox blockDupes;
+    @BindView(R.id.show_sum) CheckBox showSum;
+    @BindView(R.id.hide_excludes) CheckBox hideExcludes;
 
     public RNGSettingsViewHolder(View view, Context context) {
         ButterKnife.bind(this, view);

@@ -26,20 +26,20 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-/**
- * Created by alexanderchiou on 1/14/17.
- */
+import butterknife.Unbinder;
 
 public class LottoFragment extends Fragment {
+
     public static final String TAG = LottoFragment.class.getSimpleName();
 
-    @Bind(R.id.lotto_options) Spinner lottoSpinner;
-    @Bind(R.id.results_container) View resultsContainer;
-    @Bind(R.id.results) TextView results;
+    @BindView(R.id.lotto_options) Spinner lottoSpinner;
+    @BindView(R.id.results_container) View resultsContainer;
+    @BindView(R.id.results) TextView results;
+
+    private Unbinder mUnbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class LottoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.lotto_page, container, false);
-        ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         results.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -74,14 +74,19 @@ public class LottoFragment extends Fragment {
         String numbersText = results.getText().toString();
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(getString(R.string.generated_numbers), numbersText);
-        clipboard.setPrimaryClip(clip);
-        ((MainActivity) getActivity()).showSnackbar(getString(R.string.copied_to_clipboard));
+
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(clip);
+            ((MainActivity) getActivity()).showSnackbar(getString(R.string.copied_to_clipboard));
+        } else {
+            ((MainActivity) getActivity()).showSnackbar(getString(R.string.clipboard_fail));
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        mUnbinder.unbind();
     }
 
     @Override

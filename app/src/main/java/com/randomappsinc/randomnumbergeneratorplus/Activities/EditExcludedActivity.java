@@ -15,23 +15,21 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by alexanderchiou on 12/31/15.
- */
 public class EditExcludedActivity extends StandardActivity {
+
     public static final String EXCLUDED_NUMBERS_KEY = "excludedNumbers";
     public static final String MINIMUM_KEY = "minimum";
     public static final String MAXIMUM_KEY = "maximum";
 
-    @Bind(R.id.parent) View parent;
-    @Bind(R.id.add_icon) ImageView addIcon;
-    @Bind(R.id.no_excluded_numbers) View noExcluded;
-    @Bind(R.id.excluded_numbers) ListView excludedList;
-    @Bind(R.id.excluded_number_input) EditText excludedInput;
+    @BindView(R.id.parent) View parent;
+    @BindView(R.id.add_icon) ImageView addIcon;
+    @BindView(R.id.no_excluded_numbers) View noExcluded;
+    @BindView(R.id.excluded_numbers) ListView excludedList;
+    @BindView(R.id.excluded_number_input) EditText excludedInput;
 
     private ExcludedNumbersAdapter adapter;
     private int minimum;

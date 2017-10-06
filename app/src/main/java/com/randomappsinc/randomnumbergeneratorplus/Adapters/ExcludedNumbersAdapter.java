@@ -12,13 +12,11 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by alexanderchiou on 1/1/16.
- */
 public class ExcludedNumbersAdapter extends BaseAdapter {
+
     private Context context;
     private ArrayList<Integer> excludedNumbers;
     private View noExcludes;
@@ -77,8 +75,8 @@ public class ExcludedNumbersAdapter extends BaseAdapter {
     }
 
     public class ExcludedNumberViewHolder {
-        @Bind(R.id.excluded_number) TextView excludedNumber;
-        @Bind(R.id.delete_icon) View deleteIcon;
+        @BindView(R.id.excluded_number) TextView excludedNumber;
+        @BindView(R.id.delete_icon) View deleteIcon;
 
         public ExcludedNumberViewHolder(View view) {
             ButterKnife.bind(this, view);

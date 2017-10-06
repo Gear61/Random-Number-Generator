@@ -39,27 +39,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-
-/**
- * Created by alexanderchiou on 1/1/17.
- */
+import butterknife.Unbinder;
 
 public class RNGFragment extends Fragment {
+
     public static final String TAG = RNGFragment.class.getSimpleName();
 
-    @Bind(R.id.focal_point) View focalPoint;
-    @Bind(R.id.minimum) EditText minimumInput;
-    @Bind(R.id.maximum) EditText maximumInput;
-    @Bind(R.id.quantity) EditText quantityInput;
-    @Bind(R.id.excluded_numbers) TextView excludedNumsDisplay;
-    @Bind(R.id.results_container) View resultsContainer;
-    @Bind(R.id.results) TextView results;
+    @BindView(R.id.focal_point) View focalPoint;
+    @BindView(R.id.minimum) EditText minimumInput;
+    @BindView(R.id.maximum) EditText maximumInput;
+    @BindView(R.id.quantity) EditText quantityInput;
+    @BindView(R.id.excluded_numbers) TextView excludedNumsDisplay;
+    @BindView(R.id.results_container) View resultsContainer;
+    @BindView(R.id.results) TextView results;
 
     @BindString(R.string.config_name) String configHint;
     @BindColor(R.color.app_blue) int blue;
@@ -68,6 +66,7 @@ public class RNGFragment extends Fragment {
     private String currentConfiguration;
     private MaterialDialog settingsDialog;
     private RNGSettingsViewHolder viewHolder;
+    private Unbinder mUnbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +77,7 @@ public class RNGFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.rng_page, container, false);
-        ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         excludedNumbers = new ArrayList<>();
         settingsDialog = new MaterialDialog.Builder(getActivity())
@@ -369,7 +368,7 @@ public class RNGFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        mUnbinder.unbind();
     }
 
     @Override

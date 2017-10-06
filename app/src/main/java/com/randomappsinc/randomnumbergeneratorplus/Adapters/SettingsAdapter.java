@@ -12,7 +12,7 @@ import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManage
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.rey.material.widget.Switch;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -44,10 +44,9 @@ public class SettingsAdapter extends BaseAdapter {
     }
 
     public class SettingsViewHolder {
-
-        @Bind(R.id.icon) TextView itemIcon;
-        @Bind(R.id.option) TextView itemName;
-        @Bind(R.id.sound_toggle) Switch soundToggle;
+        @BindView(R.id.icon) TextView itemIcon;
+        @BindView(R.id.option) TextView itemName;
+        @BindView(R.id.sound_toggle) Switch soundToggle;
 
         public SettingsViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -27,22 +27,22 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-/**
- * Created by alexanderchiou on 1/8/17.
- */
+import butterknife.Unbinder;
 
 public class DiceFragment extends Fragment {
+
     public static final String TAG = DiceFragment.class.getSimpleName();
 
-    @Bind(R.id.focal_point) View focalPoint;
-    @Bind(R.id.num_dice) EditText numDiceInput;
-    @Bind(R.id.num_sides) EditText numSidesInput;
-    @Bind(R.id.results_container) View resultsContainer;
-    @Bind(R.id.results) TextView resultsText;
+    @BindView(R.id.focal_point) View focalPoint;
+    @BindView(R.id.num_dice) EditText numDiceInput;
+    @BindView(R.id.num_sides) EditText numSidesInput;
+    @BindView(R.id.results_container) View resultsContainer;
+    @BindView(R.id.results) TextView resultsText;
+
+    private Unbinder mUnbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class DiceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dice_page, container, false);
-        ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         numDiceInput.setText(PreferencesManager.get().getNumDice());
         numSidesInput.setText(PreferencesManager.get().getNumSides());
@@ -124,7 +124,7 @@ public class DiceFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         saveSettings();
-        ButterKnife.unbind(this);
+        mUnbinder.unbind();
     }
 
     @Override

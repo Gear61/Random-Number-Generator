@@ -28,16 +28,17 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
 import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 import com.squareup.seismic.ShakeDetector;
 
-import butterknife.Bind;
 import butterknife.BindColor;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnPageChange;
 
 public class MainActivity extends StandardActivity implements ShakeDetector.Listener {
-    @Bind(R.id.parent) View parent;
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.tab_layout) TabLayout homeTabs;
-    @Bind(R.id.view_pager) ViewPager homePager;
+
+    @BindView(R.id.parent) View parent;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.tab_layout) TabLayout homeTabs;
+    @BindView(R.id.view_pager) ViewPager homePager;
     @BindColor(R.color.app_blue) int blue;
 
     private HomepageTabsAdapter tabsAdapter;

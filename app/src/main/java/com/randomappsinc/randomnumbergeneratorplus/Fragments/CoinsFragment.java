@@ -27,21 +27,21 @@ import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-/**
- * Created by alexanderchiou on 5/9/17.
- */
+import butterknife.Unbinder;
 
 public class CoinsFragment extends Fragment {
+
     public static final String TAG = CoinsFragment.class.getSimpleName();
 
-    @Bind(R.id.focal_point) View focalPoint;
-    @Bind(R.id.num_coins) EditText numCoinsInput;
-    @Bind(R.id.results_container) View resultsContainer;
-    @Bind(R.id.results) TextView resultsText;
+    @BindView(R.id.focal_point) View focalPoint;
+    @BindView(R.id.num_coins) EditText numCoinsInput;
+    @BindView(R.id.results_container) View resultsContainer;
+    @BindView(R.id.results) TextView resultsText;
+
+    private Unbinder mUnbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class CoinsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.coins_page, container, false);
-        ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         numCoinsInput.setText(String.valueOf(PreferencesManager.get().getNumCoins()));
         return rootView;
@@ -116,7 +116,7 @@ public class CoinsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         saveSettings();
-        ButterKnife.unbind(this);
+        mUnbinder.unbind();
     }
 
     @Override
