@@ -38,7 +38,7 @@ public class DiceFragment extends Fragment {
     @BindView(R.id.num_dice) EditText numDiceInput;
     @BindView(R.id.num_sides) EditText numSidesInput;
     @BindView(R.id.results_container) View resultsContainer;
-    @BindView(R.id.results) TextView resultsText;
+    @BindView(R.id.results) TextView results;
 
     private final TextUtils.SnackbarDisplay mSnackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
@@ -81,9 +81,9 @@ public class DiceFragment extends Fragment {
             int numSides = Integer.parseInt(numSidesInput.getText().toString());
 
             List<Integer> rolls = RandUtils.getNumbers(1, numSides, numDice, false, new ArrayList<Integer>());
-            String results = RandUtils.getDiceResults(rolls);
             resultsContainer.setVisibility(View.VISIBLE);
-            resultsText.setText(Html.fromHtml(results));
+            String rollsText = RandUtils.getDiceResults(rolls);
+            UIUtils.animateResults(results, Html.fromHtml(rollsText));
         }
     }
 
@@ -110,7 +110,7 @@ public class DiceFragment extends Fragment {
 
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
-        String numbersText = resultsText.getText().toString();
+        String numbersText = results.getText().toString();
         TextUtils.copyTextToClipboard(numbersText, mSnackbarDisplay);
     }
 

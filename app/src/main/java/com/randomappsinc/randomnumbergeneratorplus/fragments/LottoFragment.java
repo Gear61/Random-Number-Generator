@@ -69,9 +69,9 @@ public class LottoFragment extends Fragment {
         if (PreferencesManager.get().shouldPlaySounds()) {
             ((MainActivity) getActivity()).playSound("lotto_scratch.wav");
         }
-        SpannedString lottoResults = RandUtils.getLottoResults(lottoSpinner.getSelectedItemPosition());
         resultsContainer.setVisibility(View.VISIBLE);
-        results.setText(lottoResults);
+        SpannedString lottoResults = RandUtils.getLottoResults(lottoSpinner.getSelectedItemPosition());
+        UIUtils.animateResults(results, lottoResults);
     }
 
     @OnClick(R.id.copy_results)

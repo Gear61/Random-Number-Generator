@@ -53,15 +53,16 @@ public class UIUtils {
     }
 
     /** Animates a results text view to indicate that the app is doing something. */
-    public static void animateResults(final TextView resultsText, final String newText) {
+    public static void animateResults(final TextView resultsText, final CharSequence newText) {
         Context context = MyApplication.getAppContext();
         final int animLength = context.getResources().getInteger(R.integer.shorter_anim_length);
 
         if (resultsText.getAnimation() == null || resultsText.getAnimation().hasEnded()) {
             ObjectAnimator animX = ObjectAnimator.ofFloat(resultsText, "scaleX", 0.75f);
             ObjectAnimator animY = ObjectAnimator.ofFloat(resultsText, "scaleY", 0.75f);
+            ObjectAnimator fadeOut = ObjectAnimator.ofFloat(resultsText, "alpha", 0.0f);
             AnimatorSet shrink = new AnimatorSet();
-            shrink.playTogether(animX, animY);
+            shrink.playTogether(animX, animY, fadeOut);
             shrink.setDuration(animLength);
             shrink.setInterpolator(new AccelerateInterpolator());
             shrink.addListener(new Animator.AnimatorListener() {
@@ -74,8 +75,9 @@ public class UIUtils {
 
                     ObjectAnimator animX = ObjectAnimator.ofFloat(resultsText, "scaleX", 1.0f);
                     ObjectAnimator animY = ObjectAnimator.ofFloat(resultsText, "scaleY", 1.0f);
+                    ObjectAnimator fadeIn = ObjectAnimator.ofFloat(resultsText, "alpha", 1.0f);
                     AnimatorSet grow = new AnimatorSet();
-                    grow.playTogether(animX, animY);
+                    grow.playTogether(animX, animY, fadeIn);
                     grow.setDuration(animLength);
                     grow.setInterpolator(new AnticipateOvershootInterpolator());
                     grow.start();

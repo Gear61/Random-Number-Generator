@@ -206,9 +206,9 @@ public class RNGFragment extends Fragment {
                     Collections.reverse(generatedNums);
                     break;
             }
-            String resultsString = RandUtils.getResultsString(generatedNums, viewHolder.getShowSum());
             resultsContainer.setVisibility(View.VISIBLE);
-            results.setText(Html.fromHtml(resultsString));
+            String resultsString = RandUtils.getResultsString(generatedNums, viewHolder.getShowSum());
+            UIUtils.animateResults(results, Html.fromHtml(resultsString));
         }
     }
 

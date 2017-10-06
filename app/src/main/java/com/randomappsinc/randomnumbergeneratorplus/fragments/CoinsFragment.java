@@ -37,7 +37,7 @@ public class CoinsFragment extends Fragment {
     @BindView(R.id.focal_point) View focalPoint;
     @BindView(R.id.num_coins) EditText numCoinsInput;
     @BindView(R.id.results_container) View resultsContainer;
-    @BindView(R.id.results) TextView resultsText;
+    @BindView(R.id.results) TextView results;
 
     private final TextUtils.SnackbarDisplay mSnackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
@@ -77,9 +77,9 @@ public class CoinsFragment extends Fragment {
             }
             int numCoins = Integer.parseInt(numCoinsInput.getText().toString());
             List<Integer> flips = RandUtils.getNumbers(0, 1, numCoins, false, new ArrayList<Integer>());
-            String results = RandUtils.getCoinResults(flips);
             resultsContainer.setVisibility(View.VISIBLE);
-            resultsText.setText(Html.fromHtml(results));
+            String flipText = RandUtils.getCoinResults(flips);
+            UIUtils.animateResults(results, Html.fromHtml(flipText));
         }
     }
 
@@ -102,7 +102,7 @@ public class CoinsFragment extends Fragment {
 
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
-        String numbersText = resultsText.getText().toString();
+        String numbersText = results.getText().toString();
         TextUtils.copyTextToClipboard(numbersText, mSnackbarDisplay);
     }
 
