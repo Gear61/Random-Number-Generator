@@ -1,9 +1,6 @@
 package com.randomappsinc.randomnumbergeneratorplus.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -22,6 +19,7 @@ import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
 import com.randomappsinc.randomnumbergeneratorplus.activities.SettingsActivity;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -41,6 +39,13 @@ public class CoinsFragment extends Fragment {
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView resultsText;
 
+    private final TextUtils.SnackbarDisplay mSnackbarDisplay = new TextUtils.SnackbarDisplay() {
+        @Override
+        public void showSnackbar(String message) {
+            ((MainActivity) getActivity()).showSnackbar(message);
+        }
+    };
+
     private Unbinder mUnbinder;
 
     @Override
@@ -56,10 +61,6 @@ public class CoinsFragment extends Fragment {
 
         numCoinsInput.setText(String.valueOf(PreferencesManager.get().getNumCoins()));
         return rootView;
-    }
-
-    private void showSnackbar(String message) {
-        ((MainActivity) getActivity()).showSnackbar(message);
     }
 
     @Override
@@ -89,11 +90,11 @@ public class CoinsFragment extends Fragment {
         String numCoins = numCoinsInput.getText().toString();
         try {
             if (Integer.parseInt(numCoins) <= 0) {
-                showSnackbar(getString(R.string.zero_coins));
+                mSnackbarDisplay.showSnackbar(getString(R.string.zero_coins));
                 return false;
             }
         } catch (NumberFormatException exception) {
-            showSnackbar(getString(R.string.not_a_number));
+            mSnackbarDisplay.showSnackbar(getString(R.string.not_a_number));
             return false;
         }
         return true;
@@ -102,10 +103,7 @@ public class CoinsFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = resultsText.getText().toString();
-        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(getString(R.string.generated_numbers), numbersText);
-        clipboard.setPrimaryClip(clip);
-        showSnackbar(getString(R.string.copied_to_clipboard));
+        TextUtils.copyTextToClipboard(numbersText, mSnackbarDisplay);
     }
 
     private void saveSettings() {

@@ -1,9 +1,6 @@
 package com.randomappsinc.randomnumbergeneratorplus.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannedString;
@@ -24,6 +21,7 @@ import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
 import com.randomappsinc.randomnumbergeneratorplus.activities.SettingsActivity;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import butterknife.BindView;
@@ -38,6 +36,13 @@ public class LottoFragment extends Fragment {
     @BindView(R.id.lotto_options) Spinner lottoSpinner;
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView results;
+
+    private final TextUtils.SnackbarDisplay mSnackbarDisplay = new TextUtils.SnackbarDisplay() {
+        @Override
+        public void showSnackbar(String message) {
+            ((MainActivity) getActivity()).showSnackbar(message);
+        }
+    };
 
     private Unbinder mUnbinder;
 
@@ -72,15 +77,7 @@ public class LottoFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(getString(R.string.generated_numbers), numbersText);
-
-        if (clipboard != null) {
-            clipboard.setPrimaryClip(clip);
-            ((MainActivity) getActivity()).showSnackbar(getString(R.string.copied_to_clipboard));
-        } else {
-            ((MainActivity) getActivity()).showSnackbar(getString(R.string.clipboard_fail));
-        }
+        TextUtils.copyTextToClipboard(numbersText, mSnackbarDisplay);
     }
 
     @Override

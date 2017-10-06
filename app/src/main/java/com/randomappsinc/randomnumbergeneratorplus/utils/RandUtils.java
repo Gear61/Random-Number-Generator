@@ -18,16 +18,14 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
-/**
- * Created by alexanderchiou on 12/31/15.
- */
 public class RandUtils {
+
     // Lotto
-    public static final int NUM_NORMAL_BALLS = 5;
-    public static final int POWERBALL_NORMAL = 69;
-    public static final int POWERBALL_SPECIAL = 26;
-    public static final int MEGA_MILLIONS_NORMAL = 75;
-    public static final int MEGA_MILLIONS_SPECIAL = 15;
+    private static final int NUM_NORMAL_BALLS = 5;
+    private static final int POWERBALL_NORMAL = 69;
+    private static final int POWERBALL_SPECIAL = 26;
+    private static final int MEGA_MILLIONS_NORMAL = 75;
+    private static final int MEGA_MILLIONS_SPECIAL = 15;
 
     public static List<Integer> getNumbers(int min, int max, int quantity, boolean noDupes, List<Integer> excludedNums) {
         List<Integer> numbers = new ArrayList<>();
@@ -46,7 +44,7 @@ public class RandUtils {
         return numbers;
     }
 
-    public static int generateNumInRange(int min, int max) {
+    private static int generateNumInRange(int min, int max) {
         if (min >= 0 && max >= 0) {
             return generateNumInPosRange(min, max);
         }
@@ -61,7 +59,7 @@ public class RandUtils {
         }
     }
 
-    public static int generateNumInPosRange(int min, int max) {
+    private static int generateNumInPosRange(int min, int max) {
         Random random = MyApplication.getRandom();
         return random.nextInt((max - min) + 1) + min;
     }
@@ -158,7 +156,7 @@ public class RandUtils {
         }
     }
 
-    public static SpannedString getLottoTickets(int normalMax, int specialMax) {
+    private static SpannedString getLottoTickets(int normalMax, int specialMax) {
         Spannable ticket1 = getLottoTicket(normalMax, specialMax, true);
         Spannable ticket2 = getLottoTicket(normalMax, specialMax, true);
         Spannable ticket3 = getLottoTicket(normalMax, specialMax, true);
@@ -167,7 +165,7 @@ public class RandUtils {
         return (SpannedString) TextUtils.concat(ticket1, ticket2, ticket3, ticket4, ticket5);
     }
 
-    public static Spannable getLottoTicket(int normalMax, int specialMax, boolean addNewLine) {
+    private static Spannable getLottoTicket(int normalMax, int specialMax, boolean addNewLine) {
         List<Integer> normals = getNumbers(1, normalMax, NUM_NORMAL_BALLS, true, new ArrayList<Integer>());
         int special = getNumbers(1, specialMax, 1, false, new ArrayList<Integer>()).get(0);
 

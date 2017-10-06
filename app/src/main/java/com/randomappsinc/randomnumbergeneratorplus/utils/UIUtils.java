@@ -1,11 +1,16 @@
 package com.randomappsinc.randomnumbergeneratorplus.utils;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -13,10 +18,8 @@ import com.joanzapata.iconify.Icon;
 import com.joanzapata.iconify.IconDrawable;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 
-/**
- * Created by alexanderchiou on 12/30/15.
- */
 public class UIUtils {
+
     public static void showSnackbar(View parent, String message) {
         Context context = MyApplication.getAppContext();
         Snackbar snackbar = Snackbar.make(parent, message, Snackbar.LENGTH_LONG);
@@ -36,7 +39,10 @@ public class UIUtils {
         if (view == null) {
             view = new View(activity);
         }
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+        if (inputMethodManager != null) {
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     public static void loadMenuIcon(Menu menu, int itemId, Icon icon) {
@@ -44,5 +50,44 @@ public class UIUtils {
                 new IconDrawable(MyApplication.getAppContext().getApplicationContext(), icon)
                         .colorRes(R.color.white)
                         .actionBarSize());
+    }
+
+    /** Animates a results text view to indicate that the app is doing something. */
+    public static void animateResults(final TextView resultsText, final String newText) {
+        Context context = MyApplication.getAppContext();
+        final int animLength = context.getResources().getInteger(R.integer.shorter_anim_length);
+
+        if (resultsText.getAnimation() == null || resultsText.getAnimation().hasEnded()) {
+            ObjectAnimator animX = ObjectAnimator.ofFloat(resultsText, "scaleX", 0.75f);
+            ObjectAnimator animY = ObjectAnimator.ofFloat(resultsText, "scaleY", 0.75f);
+            AnimatorSet shrink = new AnimatorSet();
+            shrink.playTogether(animX, animY);
+            shrink.setDuration(animLength);
+            shrink.setInterpolator(new AccelerateInterpolator());
+            shrink.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {}
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    resultsText.setText(newText);
+
+                    ObjectAnimator animX = ObjectAnimator.ofFloat(resultsText, "scaleX", 1.0f);
+                    ObjectAnimator animY = ObjectAnimator.ofFloat(resultsText, "scaleY", 1.0f);
+                    AnimatorSet grow = new AnimatorSet();
+                    grow.playTogether(animX, animY);
+                    grow.setDuration(animLength);
+                    grow.setInterpolator(new AnticipateOvershootInterpolator());
+                    grow.start();
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {}
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {}
+            });
+            shrink.start();
+        }
     }
 }
