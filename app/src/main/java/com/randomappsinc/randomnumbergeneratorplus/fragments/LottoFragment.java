@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Fragments;
+package com.randomappsinc.randomnumbergeneratorplus.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -19,12 +19,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.fonts.IoniconsIcons;
-import com.randomappsinc.randomnumbergeneratorplus.Activities.MainActivity;
-import com.randomappsinc.randomnumbergeneratorplus.Activities.SettingsActivity;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
+import com.randomappsinc.randomnumbergeneratorplus.activities.SettingsActivity;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

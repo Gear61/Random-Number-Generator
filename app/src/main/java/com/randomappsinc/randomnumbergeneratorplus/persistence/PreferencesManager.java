@@ -1,11 +1,11 @@
-package com.randomappsinc.randomnumbergeneratorplus.Persistence;
+package com.randomappsinc.randomnumbergeneratorplus.persistence;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
+import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 
 /**
  * Created by alexanderchiou on 1/1/16.

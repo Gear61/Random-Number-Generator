@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Utils;
+package com.randomappsinc.randomnumbergeneratorplus.utils;
 
 import android.app.Application;
 import android.content.Context;

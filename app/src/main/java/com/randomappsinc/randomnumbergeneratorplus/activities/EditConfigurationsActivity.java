@@ -1,11 +1,11 @@
-package com.randomappsinc.randomnumbergeneratorplus.Activities;
+package com.randomappsinc.randomnumbergeneratorplus.activities;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.randomappsinc.randomnumbergeneratorplus.Adapters.ConfigurationsAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.R;
+import com.randomappsinc.randomnumbergeneratorplus.adapters.ConfigurationsAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

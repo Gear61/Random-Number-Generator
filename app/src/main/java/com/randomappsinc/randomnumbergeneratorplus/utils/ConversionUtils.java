@@ -1,6 +1,6 @@
-package com.randomappsinc.randomnumbergeneratorplus.Utils;
+package com.randomappsinc.randomnumbergeneratorplus.utils;
 
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.ExcludedNumber;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.database.ExcludedNumber;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Adapters;
+package com.randomappsinc.randomnumbergeneratorplus.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.randomappsinc.randomnumbergeneratorplus.Activities.SettingsActivity;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
+import com.randomappsinc.randomnumbergeneratorplus.activities.SettingsActivity;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.rey.material.widget.Switch;
 
 import butterknife.BindView;

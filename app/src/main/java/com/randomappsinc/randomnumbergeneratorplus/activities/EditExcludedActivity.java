@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Activities;
+package com.randomappsinc.randomnumbergeneratorplus.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import android.widget.ListView;
 
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
-import com.randomappsinc.randomnumbergeneratorplus.Adapters.ExcludedNumbersAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.randomappsinc.randomnumbergeneratorplus.adapters.ExcludedNumbersAdapter;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import java.util.ArrayList;
 

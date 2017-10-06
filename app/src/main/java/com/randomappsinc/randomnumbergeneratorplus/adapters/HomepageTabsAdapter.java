@@ -1,16 +1,16 @@
-package com.randomappsinc.randomnumbergeneratorplus.Adapters;
+package com.randomappsinc.randomnumbergeneratorplus.adapters;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
-import com.randomappsinc.randomnumbergeneratorplus.Fragments.CoinsFragment;
-import com.randomappsinc.randomnumbergeneratorplus.Fragments.DiceFragment;
-import com.randomappsinc.randomnumbergeneratorplus.Fragments.LottoFragment;
-import com.randomappsinc.randomnumbergeneratorplus.Fragments.RNGFragment;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
+import com.randomappsinc.randomnumbergeneratorplus.fragments.CoinsFragment;
+import com.randomappsinc.randomnumbergeneratorplus.fragments.DiceFragment;
+import com.randomappsinc.randomnumbergeneratorplus.fragments.LottoFragment;
+import com.randomappsinc.randomnumbergeneratorplus.fragments.RNGFragment;
+import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 
 /**
  * Created by alexanderchiou on 1/1/17.

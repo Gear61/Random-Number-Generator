@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Persistence.Database;
+package com.randomappsinc.randomnumbergeneratorplus.persistence.database;
 
 import java.util.ArrayList;
 import java.util.List;

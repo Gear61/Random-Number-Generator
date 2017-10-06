@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Utils;
+package com.randomappsinc.randomnumbergeneratorplus.utils;
 
 import android.content.Context;
 import android.text.Spannable;
@@ -8,8 +8,8 @@ import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;

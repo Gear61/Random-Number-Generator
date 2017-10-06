@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Adapters;
+package com.randomappsinc.randomnumbergeneratorplus.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -32,13 +32,8 @@ public class ExcludedNumbersAdapter extends BaseAdapter {
         return excludedNumbers;
     }
 
-    public void setNoContent() {
-        if (getCount() == 0) {
-            noExcludes.setVisibility(View.VISIBLE);
-        }
-        else {
-            noExcludes.setVisibility(View.GONE);
-        }
+    private void setNoContent() {
+        noExcludes.setVisibility(getCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     public boolean containsNumber(Integer number) {

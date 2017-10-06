@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Adapters;
+package com.randomappsinc.randomnumbergeneratorplus.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.DatabaseManager;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.database.DatabaseManager;
+import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Fragments;
+package com.randomappsinc.randomnumbergeneratorplus.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -17,12 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.fonts.IoniconsIcons;
-import com.randomappsinc.randomnumbergeneratorplus.Activities.MainActivity;
-import com.randomappsinc.randomnumbergeneratorplus.Activities.SettingsActivity;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
+import com.randomappsinc.randomnumbergeneratorplus.activities.SettingsActivity;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +32,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class CoinsFragment extends Fragment {
+public class DiceFragment extends Fragment {
 
-    public static final String TAG = CoinsFragment.class.getSimpleName();
+    public static final String TAG = DiceFragment.class.getSimpleName();
 
     @BindView(R.id.focal_point) View focalPoint;
-    @BindView(R.id.num_coins) EditText numCoinsInput;
+    @BindView(R.id.num_dice) EditText numDiceInput;
+    @BindView(R.id.num_sides) EditText numSidesInput;
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView resultsText;
 
@@ -51,15 +52,12 @@ public class CoinsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.coins_page, container, false);
+        View rootView = inflater.inflate(R.layout.dice_page, container, false);
         mUnbinder = ButterKnife.bind(this, rootView);
 
-        numCoinsInput.setText(String.valueOf(PreferencesManager.get().getNumCoins()));
+        numDiceInput.setText(PreferencesManager.get().getNumDice());
+        numSidesInput.setText(PreferencesManager.get().getNumSides());
         return rootView;
-    }
-
-    private void showSnackbar(String message) {
-        ((MainActivity) getActivity()).showSnackbar(message);
     }
 
     @Override
@@ -68,15 +66,21 @@ public class CoinsFragment extends Fragment {
         saveSettings();
     }
 
-    @OnClick(R.id.flip)
-    public void flip() {
+    private void showSnackbar(String message) {
+        ((MainActivity) getActivity()).showSnackbar(message);
+    }
+
+    @OnClick(R.id.roll)
+    public void roll() {
         if (verifyForm()) {
             if (PreferencesManager.get().shouldPlaySounds()) {
-                ((MainActivity) getActivity()).playSound("coin_flip.wav");
+                ((MainActivity) getActivity()).playSound("dice_roll.wav");
             }
-            int numCoins = Integer.parseInt(numCoinsInput.getText().toString());
-            List<Integer> flips = RandUtils.getNumbers(0, 1, numCoins, false, new ArrayList<Integer>());
-            String results = RandUtils.getCoinResults(flips);
+            int numDice = Integer.parseInt(numDiceInput.getText().toString());
+            int numSides = Integer.parseInt(numSidesInput.getText().toString());
+
+            List<Integer> rolls = RandUtils.getNumbers(1, numSides, numDice, false, new ArrayList<Integer>());
+            String results = RandUtils.getDiceResults(rolls);
             resultsContainer.setVisibility(View.VISIBLE);
             resultsText.setText(Html.fromHtml(results));
         }
@@ -86,10 +90,14 @@ public class CoinsFragment extends Fragment {
         UIUtils.hideKeyboard(getActivity());
         focalPoint.requestFocus();
 
-        String numCoins = numCoinsInput.getText().toString();
+        String numSides = numSidesInput.getText().toString();
+        String numDice = numDiceInput.getText().toString();
         try {
-            if (Integer.parseInt(numCoins) <= 0) {
-                showSnackbar(getString(R.string.zero_coins));
+            if (Integer.parseInt(numSides) <= 0) {
+                showSnackbar(getString(R.string.zero_sides));
+                return false;
+            } else if (Integer.parseInt(numDice) <= 0) {
+                showSnackbar(getString(R.string.zero_dice));
                 return false;
             }
         } catch (NumberFormatException exception) {
@@ -109,7 +117,7 @@ public class CoinsFragment extends Fragment {
     }
 
     private void saveSettings() {
-        PreferencesManager.get().saveNumCoins(numCoinsInput.getText().toString());
+        PreferencesManager.get().saveDiceSettings(numSidesInput.getText().toString(), numDiceInput.getText().toString());
     }
 
     @Override

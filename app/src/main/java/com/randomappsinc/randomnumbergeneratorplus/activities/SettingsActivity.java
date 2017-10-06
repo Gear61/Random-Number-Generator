@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Activities;
+package com.randomappsinc.randomnumbergeneratorplus.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.randomappsinc.randomnumbergeneratorplus.Adapters.SettingsAdapter;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.randomappsinc.randomnumbergeneratorplus.adapters.SettingsAdapter;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 import com.rey.material.widget.Switch;
 
 import butterknife.BindString;

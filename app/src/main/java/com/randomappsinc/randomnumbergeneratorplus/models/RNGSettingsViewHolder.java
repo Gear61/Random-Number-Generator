@@ -1,13 +1,13 @@
-package com.randomappsinc.randomnumbergeneratorplus.Models;
+package com.randomappsinc.randomnumbergeneratorplus.models;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.RNGConfiguration;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.database.RNGConfiguration;
+import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 import com.rey.material.widget.CheckBox;
 
 import butterknife.BindView;

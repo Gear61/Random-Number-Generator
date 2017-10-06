@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Persistence.Database;
+package com.randomappsinc.randomnumbergeneratorplus.persistence.database;
 
 import io.realm.RealmObject;
 

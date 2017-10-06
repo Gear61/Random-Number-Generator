@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Activities;
+package com.randomappsinc.randomnumbergeneratorplus.activities;
 
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
@@ -17,15 +17,15 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.randomappsinc.randomnumbergeneratorplus.Adapters.HomepageTabsAdapter;
-import com.randomappsinc.randomnumbergeneratorplus.Fragments.CoinsFragment;
-import com.randomappsinc.randomnumbergeneratorplus.Fragments.DiceFragment;
-import com.randomappsinc.randomnumbergeneratorplus.Fragments.LottoFragment;
-import com.randomappsinc.randomnumbergeneratorplus.Fragments.RNGFragment;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.MyApplication;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.randomappsinc.randomnumbergeneratorplus.adapters.HomepageTabsAdapter;
+import com.randomappsinc.randomnumbergeneratorplus.fragments.CoinsFragment;
+import com.randomappsinc.randomnumbergeneratorplus.fragments.DiceFragment;
+import com.randomappsinc.randomnumbergeneratorplus.fragments.LottoFragment;
+import com.randomappsinc.randomnumbergeneratorplus.fragments.RNGFragment;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 import com.squareup.seismic.ShakeDetector;
 
 import butterknife.BindColor;

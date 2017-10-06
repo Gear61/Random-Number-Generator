@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Activities;
+package com.randomappsinc.randomnumbergeneratorplus.activities;
 
 import android.content.Intent;
 import android.media.AudioManager;
@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 /**
  * Created by alexanderchiou on 12/30/15.

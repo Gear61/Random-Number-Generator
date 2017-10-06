@@ -1,4 +1,4 @@
-package com.randomappsinc.randomnumbergeneratorplus.Fragments;
+package com.randomappsinc.randomnumbergeneratorplus.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -23,17 +23,17 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
-import com.randomappsinc.randomnumbergeneratorplus.Activities.EditExcludedActivity;
-import com.randomappsinc.randomnumbergeneratorplus.Activities.MainActivity;
-import com.randomappsinc.randomnumbergeneratorplus.Activities.SettingsActivity;
-import com.randomappsinc.randomnumbergeneratorplus.Models.RNGSettingsViewHolder;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.DatabaseManager;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.Database.RNGConfiguration;
-import com.randomappsinc.randomnumbergeneratorplus.Persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.ConversionUtils;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.RandUtils;
-import com.randomappsinc.randomnumbergeneratorplus.Utils.UIUtils;
+import com.randomappsinc.randomnumbergeneratorplus.activities.EditExcludedActivity;
+import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
+import com.randomappsinc.randomnumbergeneratorplus.activities.SettingsActivity;
+import com.randomappsinc.randomnumbergeneratorplus.models.RNGSettingsViewHolder;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.database.DatabaseManager;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.database.RNGConfiguration;
+import com.randomappsinc.randomnumbergeneratorplus.utils.ConversionUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
