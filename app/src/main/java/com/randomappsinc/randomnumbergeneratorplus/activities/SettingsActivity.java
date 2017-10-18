@@ -44,24 +44,31 @@ public class SettingsActivity extends StandardActivity {
         switch (position) {
             case 0:
                 View firstCell = settingsOptions.getChildAt(0);
-                Switch soundToggle = (Switch) firstCell.findViewById(R.id.sound_toggle);
-                boolean currentState = soundToggle.isChecked();
-                soundToggle.setChecked(!currentState);
-                PreferencesManager.get().setPlaySounds(!currentState);
+                Switch shakeToggle = (Switch) firstCell.findViewById(R.id.toggle);
+                boolean shakeStatus = shakeToggle.isChecked();
+                shakeToggle.setChecked(!shakeStatus);
+                PreferencesManager.get().setShakeEnabled(!shakeStatus);
                 return;
             case 1:
+                View secondCell = settingsOptions.getChildAt(1);
+                Switch soundToggle = (Switch) secondCell.findViewById(R.id.toggle);
+                boolean soundsEnabled = soundToggle.isChecked();
+                soundToggle.setChecked(!soundsEnabled);
+                PreferencesManager.get().setPlaySounds(!soundsEnabled);
+                return;
+            case 2:
                 intent = new Intent(this, EditConfigurationsActivity.class);
                 break;
-            case 2:
+            case 3:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
                 Uri mailUri = Uri.parse(uriText);
                 Intent sendIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
                 startActivity(Intent.createChooser(sendIntent, sendEmail));
                 return;
-            case 3:
+            case 4:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OTHER_APPS_URL));
                 break;
-            case 4:
+            case 5:
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
@@ -69,7 +76,7 @@ public class SettingsActivity extends StandardActivity {
                     return;
                 }
                 break;
-            case 5:
+            case 6:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL));
                 break;
         }

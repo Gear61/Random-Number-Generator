@@ -7,15 +7,14 @@ import android.preference.PreferenceManager;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 
-/**
- * Created by alexanderchiou on 1/1/16.
- */
 public class PreferencesManager {
+
     private static final String DEFAULT_CONFIG = "defaultConfig";
     private static final String NUM_APP_OPENS = "numAppOpens";
     private static final String PLAY_SOUNDS = "playSounds";
     private static final String ASK_FOR_MUTE = "askForMute";
     private static final String SHAKE_IS_NEW = "shakeIsNew";
+    private static final String ENABLE_SHAKE = "enableShake";
 
     // Dice
     private static final String NUM_SIDES = "numSides";
@@ -113,5 +112,13 @@ public class PreferencesManager {
         boolean shouldShowShake = prefs.getBoolean(SHAKE_IS_NEW, true);
         prefs.edit().putBoolean(SHAKE_IS_NEW, false).apply();
         return shouldShowShake;
+    }
+
+    public boolean isShakeEnabled() {
+        return prefs.getBoolean(ENABLE_SHAKE, true);
+    }
+
+    public void setShakeEnabled(boolean enableShake) {
+        prefs.edit().putBoolean(ENABLE_SHAKE, enableShake).apply();
     }
 }

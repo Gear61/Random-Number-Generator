@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="enable_shake">Shake enabled</string>
     <string name="play_sounds">Play sounds</string>
     <string name="edit_configurations">Edit RNG configurations</string>
     <string name="send_feedback">Send feedback</string>
@@ -7,6 +8,7 @@
     <string name="rate_this_app">Rate this app</string>
     <string name="source_code">Source code</string>
     <string-array name="settings_options">
+        <item>@string/enable_shake</item>
         <item>@string/play_sounds</item>
         <item>@string/edit_configurations</item>
         <item>@string/send_feedback</item>
@@ -19,6 +21,7 @@
     <string name="send_email">Send email</string>
 
     <!-- Icons -->
+    <string name="shake_icon">{ion-radio-waves}</string>
     <string name="sound_icon">{ion-speakerphone}</string>
     <string name="edit_icon">{ion-edit}</string>
     <string name="email_icon">{ion-email}</string>
@@ -26,6 +29,7 @@
     <string name="like_icon">{ion-thumbsup}</string>
     <string name="github_icon">{ion-social-github}</string>
     <string-array name="settings_icons">
+        <item>@string/shake_icon</item>
         <item>@string/sound_icon</item>
         <item>@string/edit_icon</item>
         <item>@string/email_icon</item>

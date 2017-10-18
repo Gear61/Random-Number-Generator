@@ -116,14 +116,18 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
             getFragmentManager().putFragment(savedInstanceState, CoinsFragment.TAG, coinsFragment);
         }
 
-        shakeDetector.stop();
+        if (PreferencesManager.get().isShakeEnabled()) {
+            shakeDetector.stop();
+        }
         super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        shakeDetector.start((SensorManager) getSystemService(SENSOR_SERVICE));
+        if (PreferencesManager.get().isShakeEnabled()) {
+            shakeDetector.start((SensorManager) getSystemService(SENSOR_SERVICE));
+        }
     }
 
     public void showSnackbar(String message) {
@@ -184,13 +188,14 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     @Override
     public void onPause() {
         super.onPause();
-        shakeDetector.stop();
+        if (PreferencesManager.get().isShakeEnabled()) {
+            shakeDetector.stop();
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mediaPlayer.stop();
-        shakeDetector.stop();
     }
 }

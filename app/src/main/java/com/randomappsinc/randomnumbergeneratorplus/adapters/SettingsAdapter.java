@@ -44,29 +44,47 @@ public class SettingsAdapter extends BaseAdapter {
     }
 
     public class SettingsViewHolder {
-        @BindView(R.id.icon) TextView itemIcon;
-        @BindView(R.id.option) TextView itemName;
-        @BindView(R.id.sound_toggle) Switch soundToggle;
+        @BindView(R.id.icon) TextView mItemIcon;
+        @BindView(R.id.option) TextView mItemName;
+        @BindView(R.id.toggle) Switch mToggle;
+
+        private int mPosition;
 
         public SettingsViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
 
         public void loadSetting(int position) {
-            itemName.setText(itemNames[position]);
-            itemIcon.setText(itemIcons[position]);
+            mPosition = position;
 
-            if (position == 0) {
-                soundToggle.setCheckedImmediately(PreferencesManager.get().shouldPlaySounds());
-                soundToggle.setVisibility(View.VISIBLE);
-            } else {
-                soundToggle.setVisibility(View.GONE);
+            mItemName.setText(itemNames[mPosition]);
+            mItemIcon.setText(itemIcons[mPosition]);
+
+            switch (mPosition) {
+                case 0:
+                    mToggle.setCheckedImmediately(PreferencesManager.get().isShakeEnabled());
+                    mToggle.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    mToggle.setCheckedImmediately(PreferencesManager.get().shouldPlaySounds());
+                    mToggle.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    mToggle.setVisibility(View.GONE);
+                    break;
             }
         }
 
-        @OnClick(R.id.sound_toggle)
-        public void onSoundToggle() {
-            PreferencesManager.get().setPlaySounds(soundToggle.isChecked());
+        @OnClick(R.id.toggle)
+        public void onToggleClicked() {
+            switch (mPosition) {
+                case 0:
+                    PreferencesManager.get().setShakeEnabled(mToggle.isChecked());
+                    break;
+                case 1:
+                    PreferencesManager.get().setPlaySounds(mToggle.isChecked());
+                    break;
+            }
         }
     }
 
