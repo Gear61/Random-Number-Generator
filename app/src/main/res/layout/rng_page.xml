@@ -128,7 +128,6 @@
                 android:layout_marginLeft="16dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:imeOptions="actionDone"
                 style="@style/numeric_input"/>
 
             <TextView

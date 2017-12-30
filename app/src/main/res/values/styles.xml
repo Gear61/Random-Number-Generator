@@ -69,8 +69,9 @@
         <item name="android:layout_marginLeft">-6dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">16dp</item>
         <item name="cbd_animDuration">@integer/shorter_anim_length</item>
-        <item name="cbd_strokeColor">@color/app_blue</item>
+        <item name="cbd_strokeColor">@color/checkbox_box_color</item>
     </style>
 
     <style name="page_title">
