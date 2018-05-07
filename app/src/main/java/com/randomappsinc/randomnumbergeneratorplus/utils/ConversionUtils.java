@@ -7,10 +7,8 @@ import java.util.List;
 
 import io.realm.RealmList;
 
-/**
- * Created by alexanderchiou on 1/1/16.
- */
 public class ConversionUtils {
+
     public static RealmList<ExcludedNumber> getRealmExcludes(List<Integer> excludedNums) {
         RealmList<ExcludedNumber> realmExcludedNums = new RealmList<>();
         for (Integer number : excludedNums) {

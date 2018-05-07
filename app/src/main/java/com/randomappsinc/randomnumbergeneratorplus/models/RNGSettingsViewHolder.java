@@ -1,6 +1,7 @@
 package com.randomappsinc.randomnumbergeneratorplus.models;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -8,7 +9,7 @@ import android.widget.Spinner;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.database.RNGConfiguration;
 import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
-import com.rey.material.widget.CheckBox;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,9 +17,9 @@ import butterknife.ButterKnife;
 public class RNGSettingsViewHolder {
 
     @BindView(R.id.sort_options) Spinner sortOptions;
-    @BindView(R.id.duplicates_toggle) CheckBox blockDupes;
-    @BindView(R.id.show_sum) CheckBox showSum;
-    @BindView(R.id.hide_excludes) CheckBox hideExcludes;
+    @BindView(R.id.duplicates_toggle) AppCompatCheckBox blockDupes;
+    @BindView(R.id.show_sum) AppCompatCheckBox showSum;
+    @BindView(R.id.hide_excludes) AppCompatCheckBox hideExcludes;
 
     public RNGSettingsViewHolder(View view, Context context) {
         ButterKnife.bind(this, view);
@@ -36,9 +37,9 @@ public class RNGSettingsViewHolder {
 
     public void loadConfig(RNGConfiguration configuration) {
         sortOptions.setSelection(configuration.getSortIndex());
-        blockDupes.setCheckedImmediately(configuration.isNoDupes());
-        showSum.setCheckedImmediately(configuration.isShowSum());
-        hideExcludes.setCheckedImmediately(configuration.isHideExcludes());
+        UIUtils.setCheckedImmediately(blockDupes, configuration.isNoDupes());
+        UIUtils.setCheckedImmediately(showSum, configuration.isShowSum());
+        UIUtils.setCheckedImmediately(hideExcludes, configuration.isHideExcludes());
     }
 
     public boolean getNoDupes() {

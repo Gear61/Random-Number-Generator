@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -40,19 +40,22 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <com.rey.material.widget.CheckBox
+    <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/duplicates_toggle"
         android:text="@string/no_dupes"
         android:layout_marginTop="-4dp"
+        app:buttonTint="@color/checkbox_box_color"
         style="@style/checkbox"/>
 
-    <com.rey.material.widget.CheckBox
+    <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/show_sum"
         android:text="@string/show_sum"
+        app:buttonTint="@color/checkbox_box_color"
         style="@style/checkbox"/>
 
-    <com.rey.material.widget.CheckBox
+    <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/hide_excludes"
         android:text="@string/hide_excluded"
+        app:buttonTint="@color/checkbox_box_color"
         style="@style/checkbox"/>
 </LinearLayout>
