@@ -9,26 +9,6 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="ripple_button_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:background">@drawable/rounded_ripple_button</item>
-    </style>
-
-    <style name="button_ripple_attributes">
-        <item name="rd_rippleType">touch</item>
-        <item name="rd_backgroundAnimDuration">0</item>
-        <item name="rd_backgroundColor">@android:color/transparent</item>
-        <item name="rd_maxRippleRadius">match_view</item>
-        <item name="rd_rippleAnimDuration">@integer/shorter_anim_length</item>
-        <item name="rd_delayClick">untilRelease</item>
-    </style>
-
     <style name="number_input_style">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:singleLine">true</item>
