@@ -1,13 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parent"
-    android:background="@color/background_gray"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings_options"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ListView
-        android:id="@+id/settings"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</android.support.design.widget.CoordinatorLayout>
+    android:layout_height="match_parent"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>

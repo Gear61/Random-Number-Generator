@@ -1,104 +1,102 @@
 package com.randomappsinc.randomnumbergeneratorplus.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.activities.SettingsActivity;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
-import com.rey.material.widget.Switch;
+import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingsAdapter extends BaseAdapter {
+public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.SettingViewHolder> {
 
-    private String[] itemNames;
-    private String[] itemIcons;
-    private SettingsActivity activity;
+    public interface ItemSelectionListener {
+        void onItemClick(int position);
+    }
 
-    public SettingsAdapter(SettingsActivity activity) {
-        this.activity = activity;
-        this.itemNames = activity.getResources().getStringArray(R.array.settings_options);
-        this.itemIcons = activity.getResources().getStringArray(R.array.settings_icons);
+    @NonNull
+    private ItemSelectionListener itemSelectionListener;
+    private Context context;
+    private String[] options;
+    private String[] icons;
+
+    public SettingsAdapter(Context context, @NonNull ItemSelectionListener itemSelectionListener) {
+        this.itemSelectionListener = itemSelectionListener;
+        this.context = context;
+        this.options = context.getResources().getStringArray(R.array.settings_options);
+        this.icons = context.getResources().getStringArray(R.array.settings_icons);
     }
 
     @Override
-    public int getCount() {
-        return itemNames.length;
+    @NonNull
+    public SettingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(context).inflate(
+                R.layout.settings_item_cell,
+                parent,
+                false);
+        return new SettingViewHolder(itemView);
     }
 
     @Override
-    public String getItem(int position) {
-        return itemNames[position];
+    public void onBindViewHolder(@NonNull SettingViewHolder holder, int position) {
+        holder.loadSetting(position);
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
+    public int getItemCount() {
+        return options.length;
     }
 
-    public class SettingsViewHolder {
-        @BindView(R.id.icon) TextView mItemIcon;
-        @BindView(R.id.option) TextView mItemName;
-        @BindView(R.id.toggle) Switch mToggle;
+    class SettingViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.icon) TextView icon;
+        @BindView(R.id.option) TextView option;
+        @BindView(R.id.toggle) Switch toggle;
 
-        private int mPosition;
-
-        public SettingsViewHolder(View view) {
+        SettingViewHolder(View view) {
+            super(view);
             ButterKnife.bind(this, view);
         }
 
-        public void loadSetting(int position) {
-            mPosition = position;
+        void loadSetting(int position) {
+            option.setText(options[position]);
+            icon.setText(icons[position]);
 
-            mItemName.setText(itemNames[mPosition]);
-            mItemIcon.setText(itemIcons[mPosition]);
-
-            switch (mPosition) {
+            switch (position) {
                 case 0:
-                    mToggle.setCheckedImmediately(PreferencesManager.get().isShakeEnabled());
-                    mToggle.setVisibility(View.VISIBLE);
+                    UIUtils.setCheckedImmediately(toggle, PreferencesManager.get().isShakeEnabled());
+                    toggle.setVisibility(View.VISIBLE);
                     break;
                 case 1:
-                    mToggle.setCheckedImmediately(PreferencesManager.get().shouldPlaySounds());
-                    mToggle.setVisibility(View.VISIBLE);
+                    UIUtils.setCheckedImmediately(toggle, PreferencesManager.get().shouldPlaySounds());
+                    toggle.setVisibility(View.VISIBLE);
                     break;
                 default:
-                    mToggle.setVisibility(View.GONE);
+                    toggle.setVisibility(View.GONE);
                     break;
             }
         }
 
         @OnClick(R.id.toggle)
-        public void onToggleClicked() {
-            switch (mPosition) {
-                case 0:
-                    PreferencesManager.get().setShakeEnabled(mToggle.isChecked());
-                    break;
-                case 1:
-                    PreferencesManager.get().setPlaySounds(mToggle.isChecked());
-                    break;
+        public void onToggle() {
+            if (getAdapterPosition() == 0) {
+                PreferencesManager.get().setShakeEnabled(toggle.isChecked());
+            } else if (getAdapterPosition() == 1) {
+                PreferencesManager.get().setPlaySounds(toggle.isChecked());
             }
         }
-    }
 
-    public View getView(int position, View view, ViewGroup parent) {
-        SettingsViewHolder holder;
-        if (view == null) {
-            LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = vi.inflate(R.layout.settings_item_cell, parent, false);
-            holder = new SettingsViewHolder(view);
-            view.setTag(holder);
-        } else {
-            holder = (SettingsViewHolder) view.getTag();
+        @OnClick(R.id.parent)
+        public void onSettingSelected() {
+            itemSelectionListener.onItemClick(getAdapterPosition());
         }
-        holder.loadSetting(position);
-        return view;
     }
 }

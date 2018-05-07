@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:padding="12dp"
+    android:foreground="?attr/selectableItemBackground"
     tools:ignore="RtlHardcoded, SpUsage">
 
     <com.joanzapata.iconify.widget.IconTextView
@@ -17,16 +18,12 @@
         android:textColor="@color/dark_gray"
         android:textSize="22dp"/>
 
-    <com.rey.material.widget.Switch
+    <Switch
         android:id="@+id/toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        app:sw_trackColor="@color/switch_track_color"
-        app:sw_thumbColor="@color/switch_thumb_color"
-        style="@style/Material.Widget.Switch"/>
+        android:layout_alignParentRight="true"/>
 
     <TextView
         android:id="@+id/option"

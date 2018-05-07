@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.Icon;
@@ -25,7 +26,7 @@ public class UIUtils {
         Snackbar snackbar = Snackbar.make(parent, message, Snackbar.LENGTH_LONG);
         View rootView = snackbar.getView();
         snackbar.getView().setBackgroundColor(context.getResources().getColor(R.color.app_blue));
-        TextView textView = (TextView) rootView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = rootView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setTextColor(Color.WHITE);
         textView.setMaxLines(4);
         snackbar.show();
@@ -39,7 +40,6 @@ public class UIUtils {
         if (view == null) {
             view = new View(activity);
         }
-
         if (inputMethodManager != null) {
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
@@ -91,5 +91,10 @@ public class UIUtils {
             });
             shrink.start();
         }
+    }
+
+    public static void setCheckedImmediately(CompoundButton checkableView, boolean checked) {
+        checkableView.setChecked(checked);
+        checkableView.jumpDrawablesToCurrentState();
     }
 }
