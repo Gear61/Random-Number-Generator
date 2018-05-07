@@ -1,12 +1,12 @@
 package com.randomappsinc.randomnumbergeneratorplus.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;

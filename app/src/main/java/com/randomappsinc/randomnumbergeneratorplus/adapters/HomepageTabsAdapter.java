@@ -1,9 +1,9 @@
 package com.randomappsinc.randomnumbergeneratorplus.adapters;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.fragments.CoinsFragment;
@@ -12,18 +12,15 @@ import com.randomappsinc.randomnumbergeneratorplus.fragments.LottoFragment;
 import com.randomappsinc.randomnumbergeneratorplus.fragments.RNGFragment;
 import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 
-/**
- * Created by alexanderchiou on 1/1/17.
- */
-
 public class HomepageTabsAdapter extends FragmentStatePagerAdapter {
+
     private String[] tabNames;
     private RNGFragment rngFragment;
     private DiceFragment diceFragment;
     private LottoFragment lottoFragment;
     private CoinsFragment coinsFragment;
 
-    public HomepageTabsAdapter (FragmentManager fragmentManager, Bundle bundle) {
+    public HomepageTabsAdapter(FragmentManager fragmentManager, Bundle bundle) {
         super(fragmentManager);
         tabNames = MyApplication.getAppContext().getResources().getStringArray(R.array.homepage_options);
 

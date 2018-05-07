@@ -62,7 +62,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
             }
         });
 
-        tabsAdapter = new HomepageTabsAdapter(getFragmentManager(), savedInstanceState);
+        tabsAdapter = new HomepageTabsAdapter(getSupportFragmentManager(), savedInstanceState);
         homePager.setAdapter(tabsAdapter);
         homePager.setOffscreenPageLimit(3);
         homeTabs.setupWithViewPager(homePager);
@@ -101,19 +101,19 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     public void onSaveInstanceState(Bundle savedInstanceState) {
         RNGFragment rngFragment = tabsAdapter.getRngFragment();
         if (rngFragment != null) {
-            getFragmentManager().putFragment(savedInstanceState, RNGFragment.TAG, rngFragment);
+            getSupportFragmentManager().putFragment(savedInstanceState, RNGFragment.TAG, rngFragment);
         }
         DiceFragment diceFragment = tabsAdapter.getDiceFragment();
         if (diceFragment != null) {
-            getFragmentManager().putFragment(savedInstanceState, DiceFragment.TAG, diceFragment);
+            getSupportFragmentManager().putFragment(savedInstanceState, DiceFragment.TAG, diceFragment);
         }
         LottoFragment lottoFragment = tabsAdapter.getLottoFragment();
         if (lottoFragment != null) {
-            getFragmentManager().putFragment(savedInstanceState, LottoFragment.TAG, lottoFragment);
+            getSupportFragmentManager().putFragment(savedInstanceState, LottoFragment.TAG, lottoFragment);
         }
         CoinsFragment coinsFragment = tabsAdapter.getCoinsFragment();
         if (coinsFragment != null) {
-            getFragmentManager().putFragment(savedInstanceState, CoinsFragment.TAG, coinsFragment);
+            getSupportFragmentManager().putFragment(savedInstanceState, CoinsFragment.TAG, coinsFragment);
         }
 
         if (PreferencesManager.get().isShakeEnabled()) {
@@ -147,7 +147,10 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         try {
             mediaPlayer.reset();
             AssetFileDescriptor fileDescriptor = MyApplication.getAppContext().getAssets().openFd(filePath);
-            mediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(), fileDescriptor.getStartOffset(), fileDescriptor.getLength());
+            mediaPlayer.setDataSource(
+                    fileDescriptor.getFileDescriptor(),
+                    fileDescriptor.getStartOffset(),
+                    fileDescriptor.getLength());
             mediaPlayer.prepare();
             mediaPlayer.start();
             if (PreferencesManager.get().shouldAskForMute()) {
@@ -160,7 +163,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         Snackbar snackbar = Snackbar.make(parent, R.string.dislike_sound, Snackbar.LENGTH_LONG);
         View rootView = snackbar.getView();
         snackbar.getView().setBackgroundColor(blue);
-        TextView tv = (TextView) rootView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView tv = rootView.findViewById(android.support.design.R.id.snackbar_text);
         tv.setTextColor(Color.WHITE);
         snackbar.setAction(R.string.turn_off, new View.OnClickListener() {
             @Override
