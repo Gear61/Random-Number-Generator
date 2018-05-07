@@ -1,9 +1,10 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_gray"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="SpUsage, RtlHardcoded">
 
     <LinearLayout style="@style/rng_page_container">
         <TextView
@@ -50,12 +51,10 @@
                 android:textColor="@color/dark_gray"/>
         </RelativeLayout>
 
-        <com.rey.material.widget.Button
+        <TextView
             android:id="@+id/generate"
             android:text="@string/simulate"
-            android:layout_marginTop="16dp"
-            style="@style/ripple_button_style"
-            app:rd_style="@style/button_ripple_attributes"/>
+            style="@style/rounded_generate_button"/>
 
         <include layout="@layout/results"/>
     </LinearLayout>
