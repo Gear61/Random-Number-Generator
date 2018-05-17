@@ -24,8 +24,8 @@ public class RandUtils {
     private static final int NUM_NORMAL_BALLS = 5;
     private static final int POWERBALL_NORMAL = 69;
     private static final int POWERBALL_SPECIAL = 26;
-    private static final int MEGA_MILLIONS_NORMAL = 75;
-    private static final int MEGA_MILLIONS_SPECIAL = 15;
+    private static final int MEGA_MILLIONS_NORMAL = 70;
+    private static final int MEGA_MILLIONS_SPECIAL = 25;
 
     public static List<Integer> getNumbers(int min, int max, int quantity, boolean noDupes, List<Integer> excludedNums) {
         List<Integer> numbers = new ArrayList<>();
