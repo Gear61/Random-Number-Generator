@@ -39,14 +39,14 @@ public class CoinsFragment extends Fragment {
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView results;
 
-    private final TextUtils.SnackbarDisplay mSnackbarDisplay = new TextUtils.SnackbarDisplay() {
+    private final TextUtils.SnackbarDisplay snackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
         public void showSnackbar(String message) {
             ((MainActivity) getActivity()).showSnackbar(message);
         }
     };
 
-    private Unbinder mUnbinder;
+    private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class CoinsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.coins_page, container, false);
-        mUnbinder = ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
 
         numCoinsInput.setText(String.valueOf(PreferencesManager.get().getNumCoins()));
         return rootView;
@@ -90,11 +90,11 @@ public class CoinsFragment extends Fragment {
         String numCoins = numCoinsInput.getText().toString();
         try {
             if (Integer.parseInt(numCoins) <= 0) {
-                mSnackbarDisplay.showSnackbar(getString(R.string.zero_coins));
+                snackbarDisplay.showSnackbar(getString(R.string.zero_coins));
                 return false;
             }
         } catch (NumberFormatException exception) {
-            mSnackbarDisplay.showSnackbar(getString(R.string.not_a_number));
+            snackbarDisplay.showSnackbar(getString(R.string.not_a_number));
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class CoinsFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyTextToClipboard(numbersText, mSnackbarDisplay);
+        TextUtils.copyTextToClipboard(numbersText, snackbarDisplay);
     }
 
     private void saveSettings() {
@@ -114,7 +114,7 @@ public class CoinsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         saveSettings();
-        mUnbinder.unbind();
+        unbinder.unbind();
     }
 
     @Override

@@ -23,8 +23,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         void onItemClick(int position);
     }
 
-    @NonNull
-    private ItemSelectionListener itemSelectionListener;
+    @NonNull private ItemSelectionListener itemSelectionListener;
     private Context context;
     private String[] options;
     private String[] icons;

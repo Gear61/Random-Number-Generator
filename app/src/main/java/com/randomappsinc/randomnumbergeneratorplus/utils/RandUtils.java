@@ -47,12 +47,10 @@ public class RandUtils {
     private static int generateNumInRange(int min, int max) {
         if (min >= 0 && max >= 0) {
             return generateNumInPosRange(min, max);
-        }
-        else if (min <= 0 && max <= 0) {
+        } else if (min <= 0 && max <= 0) {
             int posNum = generateNumInPosRange(max * -1, min * -1);
             return posNum * -1;
-        }
-        else {
+        } else {
             int deficit = min * -1;
             int preShift = generateNumInPosRange(min + deficit, max + deficit);
             return preShift - deficit;

@@ -37,14 +37,14 @@ public class LottoFragment extends Fragment {
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView results;
 
-    private final TextUtils.SnackbarDisplay mSnackbarDisplay = new TextUtils.SnackbarDisplay() {
+    private final TextUtils.SnackbarDisplay snackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
         public void showSnackbar(String message) {
             ((MainActivity) getActivity()).showSnackbar(message);
         }
     };
 
-    private Unbinder mUnbinder;
+    private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class LottoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.lotto_page, container, false);
-        mUnbinder = ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
 
         results.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -77,13 +77,13 @@ public class LottoFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyTextToClipboard(numbersText, mSnackbarDisplay);
+        TextUtils.copyTextToClipboard(numbersText, snackbarDisplay);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mUnbinder.unbind();
+        unbinder.unbind();
     }
 
     @Override

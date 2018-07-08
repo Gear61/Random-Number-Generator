@@ -40,14 +40,14 @@ public class DiceFragment extends Fragment {
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView results;
 
-    private final TextUtils.SnackbarDisplay mSnackbarDisplay = new TextUtils.SnackbarDisplay() {
+    private final TextUtils.SnackbarDisplay snackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
         public void showSnackbar(String message) {
             ((MainActivity) getActivity()).showSnackbar(message);
         }
     };
 
-    private Unbinder mUnbinder;
+    private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class DiceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dice_page, container, false);
-        mUnbinder = ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
 
         numDiceInput.setText(PreferencesManager.get().getNumDice());
         numSidesInput.setText(PreferencesManager.get().getNumSides());
@@ -80,7 +80,12 @@ public class DiceFragment extends Fragment {
             int numDice = Integer.parseInt(numDiceInput.getText().toString());
             int numSides = Integer.parseInt(numSidesInput.getText().toString());
 
-            List<Integer> rolls = RandUtils.getNumbers(1, numSides, numDice, false, new ArrayList<Integer>());
+            List<Integer> rolls = RandUtils.getNumbers(
+                    1,
+                    numSides,
+                    numDice,
+                    false,
+                    new ArrayList<Integer>());
             resultsContainer.setVisibility(View.VISIBLE);
             String rollsText = RandUtils.getDiceResults(rolls);
             UIUtils.animateResults(results, Html.fromHtml(rollsText));
@@ -95,14 +100,14 @@ public class DiceFragment extends Fragment {
         String numDice = numDiceInput.getText().toString();
         try {
             if (Integer.parseInt(numSides) <= 0) {
-                mSnackbarDisplay.showSnackbar(getString(R.string.zero_sides));
+                snackbarDisplay.showSnackbar(getString(R.string.zero_sides));
                 return false;
             } else if (Integer.parseInt(numDice) <= 0) {
-                mSnackbarDisplay.showSnackbar(getString(R.string.zero_dice));
+                snackbarDisplay.showSnackbar(getString(R.string.zero_dice));
                 return false;
             }
         } catch (NumberFormatException exception) {
-            mSnackbarDisplay.showSnackbar(getString(R.string.not_a_number));
+            snackbarDisplay.showSnackbar(getString(R.string.not_a_number));
             return false;
         }
         return true;
@@ -111,18 +116,20 @@ public class DiceFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyTextToClipboard(numbersText, mSnackbarDisplay);
+        TextUtils.copyTextToClipboard(numbersText, snackbarDisplay);
     }
 
     private void saveSettings() {
-        PreferencesManager.get().saveDiceSettings(numSidesInput.getText().toString(), numDiceInput.getText().toString());
+        PreferencesManager.get().saveDiceSettings(
+                numSidesInput.getText().toString(),
+                numDiceInput.getText().toString());
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         saveSettings();
-        mUnbinder.unbind();
+        unbinder.unbind();
     }
 
     @Override

@@ -11,10 +11,8 @@ import java.util.Random;
 
 import io.realm.Realm;
 
-/**
- * Created by alexanderchiou on 12/30/15.
- */
 public final class MyApplication extends Application {
+
     private static Context instance;
     private static Random random;
 

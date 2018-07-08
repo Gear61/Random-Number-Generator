@@ -61,7 +61,7 @@ public class RNGFragment extends Fragment {
     @BindString(R.string.config_name) String configHint;
     @BindColor(R.color.app_blue) int blue;
 
-    private final TextUtils.SnackbarDisplay mSnackbarDisplay = new TextUtils.SnackbarDisplay() {
+    private final TextUtils.SnackbarDisplay snackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
         public void showSnackbar(String message) {
             ((MainActivity) getActivity()).showSnackbar(message);
@@ -72,7 +72,7 @@ public class RNGFragment extends Fragment {
     private String currentConfiguration;
     private MaterialDialog settingsDialog;
     private RNGSettingsViewHolder viewHolder;
-    private Unbinder mUnbinder;
+    private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public class RNGFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.rng_page, container, false);
-        mUnbinder = ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
 
         excludedNumbers = new ArrayList<>();
         settingsDialog = new MaterialDialog.Builder(getActivity())
@@ -136,7 +136,7 @@ public class RNGFragment extends Fragment {
                         } else if (which == DialogAction.NEUTRAL) {
                             excludedNumbers.clear();
                             loadExcludedNumbers();
-                            mSnackbarDisplay.showSnackbar(getString(R.string.excluded_clear));
+                            snackbarDisplay.showSnackbar(getString(R.string.excluded_clear));
                         }
                     }
                 })
@@ -156,7 +156,7 @@ public class RNGFragment extends Fragment {
             startActivityForResult(intent, 1);
             getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
         } catch (NumberFormatException exception) {
-            mSnackbarDisplay.showSnackbar(getString(R.string.not_a_number));
+            snackbarDisplay.showSnackbar(getString(R.string.not_a_number));
         }
     }
 
@@ -182,7 +182,7 @@ public class RNGFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK) {
             excludedNumbers = data.getIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY);
             loadExcludedNumbers();
-            mSnackbarDisplay.showSnackbar(getString(R.string.excluded_updated));
+            snackbarDisplay.showSnackbar(getString(R.string.excluded_updated));
         }
     }
 
@@ -223,20 +223,20 @@ public class RNGFragment extends Fragment {
             int numAvailable = Integer.parseInt(maximum) - Integer.parseInt(minimum) + 1;
             int quantityRestriction = viewHolder.getNoDupes() ? Integer.parseInt(quantity) : 1;
             if (minimum.isEmpty() || maximum.isEmpty() || quantity.isEmpty()) {
-                mSnackbarDisplay.showSnackbar(getString(R.string.missing_input));
+                snackbarDisplay.showSnackbar(getString(R.string.missing_input));
                 return false;
             } else if (Integer.parseInt(maximum) < Integer.parseInt(minimum)) {
-                mSnackbarDisplay.showSnackbar(getString(R.string.bigger_min));
+                snackbarDisplay.showSnackbar(getString(R.string.bigger_min));
                 return false;
             } else if (Integer.parseInt(quantity) <= 0) {
-                mSnackbarDisplay.showSnackbar(getString(R.string.non_zero_quantity));
+                snackbarDisplay.showSnackbar(getString(R.string.non_zero_quantity));
                 return false;
             } else if (numAvailable < quantityRestriction + excludedNumbers.size()) {
-                mSnackbarDisplay.showSnackbar(getString(R.string.overlimited_range));
+                snackbarDisplay.showSnackbar(getString(R.string.overlimited_range));
                 return false;
             }
         } catch (NumberFormatException exception) {
-            mSnackbarDisplay.showSnackbar(getString(R.string.not_a_number));
+            snackbarDisplay.showSnackbar(getString(R.string.not_a_number));
             return false;
         }
         return true;
@@ -256,7 +256,7 @@ public class RNGFragment extends Fragment {
                     })
                     .show();
         } else {
-            mSnackbarDisplay.showSnackbar(getString(R.string.no_configs));
+            snackbarDisplay.showSnackbar(getString(R.string.no_configs));
         }
     }
 
@@ -348,26 +348,26 @@ public class RNGFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     PreferencesManager.get().setDefaultConfig(configName);
-                    mSnackbarDisplay.showSnackbar(getString(R.string.preload_confirm));
+                    snackbarDisplay.showSnackbar(getString(R.string.preload_confirm));
                 }
             });
             snackbar.setActionTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            mSnackbarDisplay.showSnackbar(messageBase);
+            snackbarDisplay.showSnackbar(messageBase);
         }
     }
 
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyTextToClipboard(numbersText, mSnackbarDisplay);
+        TextUtils.copyTextToClipboard(numbersText, snackbarDisplay);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mUnbinder.unbind();
+        unbinder.unbind();
     }
 
     @Override

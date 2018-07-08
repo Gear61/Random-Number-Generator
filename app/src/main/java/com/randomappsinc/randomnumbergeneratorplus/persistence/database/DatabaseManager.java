@@ -10,10 +10,8 @@ import io.realm.RealmMigration;
 import io.realm.RealmResults;
 import io.realm.RealmSchema;
 
-/**
- * Created by alexanderchiou on 1/1/16.
- */
 public class DatabaseManager {
+
     private static final int CURRENT_DB_VERSION = 2;
 
     private static DatabaseManager instance;
@@ -93,7 +91,10 @@ public class DatabaseManager {
     public void deleteConfig(String configName) {
         try {
             realm.beginTransaction();
-            RNGConfiguration config = realm.where(RNGConfiguration.class).equalTo("configName", configName).findFirst();
+            RNGConfiguration config = realm
+                    .where(RNGConfiguration.class)
+                    .equalTo("configName", configName)
+                    .findFirst();
             config.deleteFromRealm();
             realm.commitTransaction();
         } catch (Exception e) {
