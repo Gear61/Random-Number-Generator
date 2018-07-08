@@ -73,12 +73,9 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
-    <style name="rounded_generate_button">
+    <style name="rounded_button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">16dp</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
         <item name="android:padding">16dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">15sp</item>
@@ -87,5 +84,19 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:background">@drawable/rounded_button_background</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="rounded_generate_button" parent="rounded_button">
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
+    <style name="quick_option_button" parent="rounded_button">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

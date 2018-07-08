@@ -19,7 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="16dp">
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <EditText
                 android:id="@+id/num_dice"
@@ -44,6 +46,36 @@
                 android:textColor="@color/dark_gray"/>
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/num_dice_one"
+                android:text="@string/one"
+                style="@style/quick_option_button"/>
+
+            <TextView
+                android:id="@+id/num_dice_two"
+                android:text="@string/two"
+                style="@style/quick_option_button"/>
+
+            <TextView
+                android:id="@+id/num_dice_three"
+                android:text="@string/three"
+                style="@style/quick_option_button"/>
+
+            <TextView
+                android:id="@+id/num_dice_four"
+                android:text="@string/four"
+                style="@style/quick_option_button"/>
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -53,7 +85,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="16dp">
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <EditText
                 android:id="@+id/num_sides"
@@ -77,6 +111,46 @@
                 android:textSize="15dp"
                 android:textColor="@color/dark_gray"/>
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/num_sides_four"
+                android:text="@string/four"
+                style="@style/quick_option_button"/>
+
+            <TextView
+                android:id="@+id/num_sides_six"
+                android:text="@string/six"
+                style="@style/quick_option_button"/>
+
+            <TextView
+                android:id="@+id/num_sides_eight"
+                android:text="@string/eight"
+                style="@style/quick_option_button"/>
+
+            <TextView
+                android:id="@+id/num_sides_ten"
+                android:text="@string/ten"
+                style="@style/quick_option_button"/>
+
+            <TextView
+                android:id="@+id/num_sides_twelve"
+                android:text="@string/twelve"
+                style="@style/quick_option_button"/>
+
+            <TextView
+                android:id="@+id/num_sides_twenty"
+                android:text="@string/twenty"
+                style="@style/quick_option_button"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/roll"

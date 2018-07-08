@@ -2,6 +2,7 @@ package com.randomappsinc.randomnumbergeneratorplus.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.SpannedString;
 import android.view.Gravity;
@@ -53,7 +54,7 @@ public class LottoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.lotto_page, container, false);
         unbinder = ButterKnife.bind(this, rootView);
 
