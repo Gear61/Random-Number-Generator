@@ -48,8 +48,6 @@ import butterknife.Unbinder;
 
 public class RNGFragment extends Fragment {
 
-    public static final String TAG = RNGFragment.class.getSimpleName();
-
     @BindView(R.id.focal_point) View focalPoint;
     @BindView(R.id.minimum) EditText minimumInput;
     @BindView(R.id.maximum) EditText maximumInput;
@@ -373,6 +371,7 @@ public class RNGFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.rng_menu, menu);
         UIUtils.loadMenuIcon(menu, R.id.save_config, FontAwesomeIcons.fa_save);
         UIUtils.loadMenuIcon(menu, R.id.load_config, FontAwesomeIcons.fa_upload);

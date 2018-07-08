@@ -32,8 +32,6 @@ import butterknife.Unbinder;
 
 public class LottoFragment extends Fragment {
 
-    public static final String TAG = LottoFragment.class.getSimpleName();
-
     @BindView(R.id.lotto_options) Spinner lottoSpinner;
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView results;
@@ -90,6 +88,7 @@ public class LottoFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.regular_menu, menu);
         UIUtils.loadMenuIcon(menu, R.id.settings, IoniconsIcons.ion_android_settings);
     }
