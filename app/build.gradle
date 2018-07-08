@@ -8,8 +8,8 @@ android {
         applicationId "com.randomappsinc.randomnumbergeneratorplus"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 223
-        versionName "2.2.3"
+        versionCode 224
+        versionName "2.2.4"
     }
     buildTypes {
         release {

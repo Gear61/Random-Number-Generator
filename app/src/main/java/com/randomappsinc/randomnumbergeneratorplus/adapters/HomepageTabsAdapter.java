@@ -1,6 +1,5 @@
 package com.randomappsinc.randomnumbergeneratorplus.adapters;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -20,32 +19,9 @@ public class HomepageTabsAdapter extends FragmentStatePagerAdapter {
     private LottoFragment lottoFragment;
     private CoinsFragment coinsFragment;
 
-    public HomepageTabsAdapter(FragmentManager fragmentManager, Bundle bundle) {
+    public HomepageTabsAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
         tabNames = MyApplication.getAppContext().getResources().getStringArray(R.array.homepage_options);
-
-        if (bundle != null) {
-            this.rngFragment = (RNGFragment) fragmentManager.getFragment(bundle, RNGFragment.TAG);
-            this.diceFragment = (DiceFragment) fragmentManager.getFragment(bundle, DiceFragment.TAG);
-            this.lottoFragment = (LottoFragment) fragmentManager.getFragment(bundle, LottoFragment.TAG);
-            this.coinsFragment = (CoinsFragment) fragmentManager.getFragment(bundle, CoinsFragment.TAG);
-        }
-    }
-
-    public RNGFragment getRngFragment() {
-        return rngFragment;
-    }
-
-    public DiceFragment getDiceFragment() {
-        return diceFragment;
-    }
-
-    public LottoFragment getLottoFragment() {
-        return lottoFragment;
-    }
-
-    public CoinsFragment getCoinsFragment() {
-        return coinsFragment;
     }
 
     public void generate(int position) {
