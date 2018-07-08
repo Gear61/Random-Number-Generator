@@ -72,6 +72,19 @@ public class DiceFragment extends Fragment {
         saveSettings();
     }
 
+    @OnClick({R.id.num_dice_one, R.id.num_dice_two, R.id.num_dice_three, R.id.num_dice_four})
+    public void loadNumDiceQuickOption(TextView view) {
+        String value = view.getText().toString();
+        numDiceInput.setText(value);
+    }
+
+    @OnClick({R.id.num_sides_four, R.id.num_sides_six, R.id.num_sides_eight,
+              R.id.num_sides_ten, R.id.num_sides_twelve, R.id.num_sides_twenty})
+    public void loadNumSidesQuickOption(TextView view) {
+        String value = view.getText().toString();
+        numSidesInput.setText(value);
+    }
+
     @OnClick(R.id.roll)
     public void roll() {
         if (verifyForm()) {
