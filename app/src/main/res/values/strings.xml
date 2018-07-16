@@ -12,20 +12,11 @@
         <item>@string/coins</item>
     </string-array>
 
-    <string name="load_config">Load RNG configuration</string>
-    <string name="save_config">Save RNG configuration</string>
-
     <string name="rng_settings">RNG settings</string>
     <string name="settings">Settings</string>
 
     <string name="plus_icon">{ion-android-add}</string>
     <string name="additional_settings">MORE OPTIONS</string>
-
-    <string name="load">Load</string>
-    <string name="config_name">RNG configuration name</string>
-    <string name="save">Save</string>
-    <string name="confirm_overwrite">Confirm overwrite</string>
-    <string name="confirm_delete">Confirm delete</string>
 
     <string name="minimum">Minimum</string>
     <string name="default_min">1</string>
@@ -39,21 +30,15 @@
     <string name="add_excluded_number">Add excluded number</string>
     <string name="excluded_hint">Number to exclude</string>
     <string name="no_excluded">No excluded numbers.</string>
+    <string name="save">Save</string>
 
     <string name="bigger_min">The minimum must be greater than the maximum.</string>
     <string name="overlimited_range">The range is too limited to get this many non-duplicate numbers.</string>
     <string name="non_zero_quantity">The quantity must be greater than 0.</string>
     <string name="missing_input">Please enter in a minimum, maximum, and quantity.</string>
-    <string name="no_configs">You don\'t have any RNG configurations.</string>
 
     <!-- Icons -->
     <string name="delete_icon">{ion-android-remove-circle}</string>
-
-    <string name="config_saved">RNG configuration saved.</string>
-    <string name="config_loaded">RNG configuration loaded.</string>
-    <string name="set_preload">&#160;Load it automatically upon app start?</string>
-
-    <string name="preload_confirm">This RNG configuration will now automatically load when the app starts.</string>
 
     <string name="please_rate">
         Hey, it looks like you\'re a frequent user of Random Number Generator!

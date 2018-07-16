@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -128,17 +127,6 @@ public class RandUtils {
             excludedList.append(String.valueOf(excludedNum));
         }
         return excludedList.toString();
-    }
-
-    public static String[] getConfigOptions(String config) {
-        Context context = MyApplication.getAppContext();
-        List<String> options = new ArrayList<>();
-        if (!PreferencesManager.get().getDefaultConfig().equals(config)) {
-            options.add(context.getString(R.string.load_on_start));
-        }
-        options.add(context.getString(R.string.rename_config));
-        options.add(context.getString(R.string.delete_config));
-        return options.toArray(new String[options.size()]);
     }
 
     public static SpannedString getLottoResults(int spinnerIndex) {

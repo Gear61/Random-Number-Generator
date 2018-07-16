@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 27
@@ -8,8 +7,8 @@ android {
         applicationId "com.randomappsinc.randomnumbergeneratorplus"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 227
-        versionName "2.2.7"
+        versionCode 230
+        versionName "2.3.0"
     }
     buildTypes {
         release {

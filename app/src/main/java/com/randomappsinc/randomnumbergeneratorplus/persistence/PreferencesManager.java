@@ -9,7 +9,6 @@ import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 
 public class PreferencesManager {
 
-    private static final String DEFAULT_CONFIG = "defaultConfig";
     private static final String NUM_APP_OPENS = "numAppOpens";
     private static final String PLAY_SOUNDS = "playSounds";
     private static final String ASK_FOR_MUTE = "askForMute";
@@ -44,14 +43,6 @@ public class PreferencesManager {
     private PreferencesManager() {
         Context context = MyApplication.getAppContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    }
-
-    public String getDefaultConfig() {
-        return prefs.getString(DEFAULT_CONFIG, "");
-    }
-
-    public void setDefaultConfig(String configName) {
-        prefs.edit().putString(DEFAULT_CONFIG, configName).apply();
     }
 
     public boolean shouldAskForRating() {
