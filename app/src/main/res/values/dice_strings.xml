@@ -4,8 +4,6 @@
     <string name="roll">Roll</string>
     <string name="num_dice">How many dice are you rolling?</string>
     <string name="num_sides">How many sides does each die have?</string>
-    <string name="default_sides">6</string>
-    <string name="default_num_dice">2</string>
     <string name="rolls_prefix">Roll(s):&#160;</string>
 
     <string name="zero_dice">You need to roll at least 1 die.</string>

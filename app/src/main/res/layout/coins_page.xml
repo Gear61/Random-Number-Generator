@@ -27,7 +27,6 @@
                 android:layout_marginLeft="16dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="@string/default_min"
                 android:inputType="number"
                 android:maxLength="4"
                 android:imeOptions="actionDone"

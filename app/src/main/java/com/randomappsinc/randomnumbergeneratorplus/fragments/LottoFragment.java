@@ -43,12 +43,15 @@ public class LottoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.lotto_page, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-
         results.setGravity(Gravity.CENTER_HORIZONTAL);
+        return rootView;
+    }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         String[] lottoOptions = getResources().getStringArray(R.array.lotto_options);
         lottoSpinner.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.spinner_item, lottoOptions));
-        return rootView;
     }
 
     @OnClick(R.id.generate)

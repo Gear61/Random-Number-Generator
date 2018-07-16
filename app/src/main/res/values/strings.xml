@@ -20,9 +20,7 @@
     <string name="additional_settings">MORE OPTIONS</string>
 
     <string name="minimum">Minimum</string>
-    <string name="default_min">1</string>
     <string name="maximum">Maximum</string>
-    <string name="default_max">100</string>
     <string name="quantity">How many numbers do you need?</string>
     <string name="generate">Generate</string>
 

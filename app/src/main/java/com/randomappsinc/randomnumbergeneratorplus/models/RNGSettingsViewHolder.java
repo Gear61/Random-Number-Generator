@@ -19,11 +19,16 @@ public class RNGSettingsViewHolder {
     @BindView(R.id.show_sum) AppCompatCheckBox showSum;
     @BindView(R.id.hide_excludes) AppCompatCheckBox hideExcludes;
 
-    public RNGSettingsViewHolder(View view, Context context) {
+    public RNGSettingsViewHolder(View view, Context context, RNGSettings rngSettings) {
         ButterKnife.bind(this, view);
 
         String[] sortChoices = MyApplication.getAppContext().getResources().getStringArray(R.array.sort_options);
         sortOptions.setAdapter(new ArrayAdapter<>(context, R.layout.spinner_item, sortChoices));
+
+        sortOptions.setSelection(rngSettings.getSortType());
+        blockDupes.setChecked(rngSettings.isNoDupes());
+        showSum.setChecked(rngSettings.isShowSum());
+        hideExcludes.setChecked(rngSettings.isHideExcluded());
     }
 
     public boolean getNoDupes() {

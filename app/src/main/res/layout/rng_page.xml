@@ -38,7 +38,6 @@
 
                 <EditText
                     android:id="@+id/minimum"
-                    android:text="@string/default_min"
                     android:layout_marginTop="8dp"
                     android:inputType="numberSigned"
                     android:maxLength="9"
@@ -68,7 +67,6 @@
 
                 <EditText
                     android:id="@+id/maximum"
-                    android:text="@string/default_max"
                     android:layout_marginTop="8dp"
                     android:inputType="numberSigned"
                     android:maxLength="9"
@@ -94,7 +92,6 @@
                 android:layout_marginLeft="16dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="@string/default_min"
                 android:inputType="number"
                 android:maxLength="4"
                 android:imeOptions="actionDone"

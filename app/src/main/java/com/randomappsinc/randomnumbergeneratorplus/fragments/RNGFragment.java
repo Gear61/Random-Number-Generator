@@ -17,6 +17,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.activities.EditExcludedActivity;
 import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
+import com.randomappsinc.randomnumbergeneratorplus.models.RNGSettings;
 import com.randomappsinc.randomnumbergeneratorplus.models.RNGSettingsViewHolder;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
@@ -53,17 +54,22 @@ public class RNGFragment extends Fragment {
         }
     };
 
-    private ArrayList<Integer> excludedNumbers;
+    private PreferencesManager preferencesManager = PreferencesManager.get();
+    private RNGSettings rngSettings;
     private MaterialDialog settingsDialog;
-    private RNGSettingsViewHolder viewHolder;
+    private RNGSettingsViewHolder moreSettingsViewHolder;
     private Unbinder unbinder;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.rng_page, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 
-        excludedNumbers = new ArrayList<>();
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         settingsDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.rng_settings)
                 .customView(R.layout.rng_settings, true)
@@ -75,18 +81,50 @@ public class RNGFragment extends Fragment {
                     }
                 })
                 .build();
-        viewHolder = new RNGSettingsViewHolder(settingsDialog.getCustomView(), getActivity());
+        rngSettings = preferencesManager.getRNGSettings();
 
+        // Setting the value of min/max clears the excluded numbers, so we have to save them
+        ArrayList<Integer> excludedCopy = new ArrayList<>(rngSettings.getExcludedNumbers());
+        minimumInput.setText(String.valueOf(rngSettings.getMinimum()));
+        maximumInput.setText(String.valueOf(rngSettings.getMaximum()));
+        rngSettings.setExcludedNumbers(excludedCopy);
+
+        quantityInput.setText(String.valueOf(rngSettings.getNumNumbers()));
+        moreSettingsViewHolder = new RNGSettingsViewHolder(settingsDialog.getCustomView(), getActivity(), rngSettings);
         loadExcludedNumbers();
 
-        return rootView;
+        focalPoint.requestFocus();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        saveRNGSettings();
+    }
+
+    private void saveRNGSettings() {
+        try {
+            rngSettings.setMinimum(Integer.valueOf(minimumInput.getText().toString()));
+        } catch (NumberFormatException ignored) {}
+        try {
+            rngSettings.setMaximum(Integer.valueOf(maximumInput.getText().toString()));
+        } catch (NumberFormatException ignored) {}
+        try {
+            rngSettings.setNumNumbers(Integer.valueOf(quantityInput.getText().toString()));
+        } catch (NumberFormatException ignored) {}
+        rngSettings.setSortType(moreSettingsViewHolder.getSortIndex());
+        rngSettings.setNoDupes(moreSettingsViewHolder.getNoDupes());
+        rngSettings.setShowSum(moreSettingsViewHolder.getShowSum());
+        rngSettings.setHideExcluded(moreSettingsViewHolder.getHideExcludes());
+        preferencesManager.saveRNGSettings(rngSettings);
     }
 
     private void loadExcludedNumbers() {
+        ArrayList<Integer> excludedNumbers = rngSettings.getExcludedNumbers();
         if (excludedNumbers.isEmpty()) {
             excludedNumsDisplay.setText(R.string.none);
         } else {
-            if (viewHolder.getHideExcludes()) {
+            if (moreSettingsViewHolder.getHideExcludes()) {
                 excludedNumsDisplay.setText(R.string.ellipsis);
             } else {
                 excludedNumsDisplay.setText(RandUtils.getExcludedList(excludedNumbers));
@@ -96,6 +134,7 @@ public class RNGFragment extends Fragment {
 
     @OnClick({R.id.excluded_numbers_container, R.id.excluded_numbers})
     public void editExcluded() {
+        final ArrayList<Integer> excludedNumbers = rngSettings.getExcludedNumbers();
         MaterialDialog excludedDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.excluded_numbers)
                 .content(RandUtils.getExcludedList(excludedNumbers))
@@ -125,7 +164,9 @@ public class RNGFragment extends Fragment {
             Intent intent = new Intent(getActivity(), EditExcludedActivity.class);
             intent.putExtra(EditExcludedActivity.MINIMUM_KEY, Integer.parseInt(minimumInput.getText().toString()));
             intent.putExtra(EditExcludedActivity.MAXIMUM_KEY, Integer.parseInt(maximumInput.getText().toString()));
-            intent.putIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY, excludedNumbers);
+            intent.putIntegerArrayListExtra(
+                    EditExcludedActivity.EXCLUDED_NUMBERS_KEY,
+                    rngSettings.getExcludedNumbers());
             startActivityForResult(intent, 1);
             getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
         } catch (NumberFormatException exception) {
@@ -140,20 +181,21 @@ public class RNGFragment extends Fragment {
 
     @OnTextChanged(value = R.id.minimum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void minChanged() {
-        excludedNumbers.clear();
+        rngSettings.getExcludedNumbers().clear();
         loadExcludedNumbers();
     }
 
     @OnTextChanged(value = R.id.maximum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void maxChanged() {
-        excludedNumbers.clear();
+        rngSettings.getExcludedNumbers().clear();
         loadExcludedNumbers();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            excludedNumbers = data.getIntegerArrayListExtra(EditExcludedActivity.EXCLUDED_NUMBERS_KEY);
+            rngSettings.setExcludedNumbers(data.getIntegerArrayListExtra(
+                    EditExcludedActivity.EXCLUDED_NUMBERS_KEY));
             loadExcludedNumbers();
             snackbarDisplay.showSnackbar(getString(R.string.excluded_updated));
         }
@@ -169,8 +211,8 @@ public class RNGFragment extends Fragment {
             int maximum = Integer.parseInt(maximumInput.getText().toString());
             int quantity = Integer.parseInt(quantityInput.getText().toString());
             List<Integer> generatedNums = RandUtils.getNumbers(minimum, maximum, quantity,
-                    viewHolder.getNoDupes(), excludedNumbers);
-            switch (viewHolder.getSortIndex()) {
+                    moreSettingsViewHolder.getNoDupes(), rngSettings.getExcludedNumbers());
+            switch (moreSettingsViewHolder.getSortIndex()) {
                 case 1:
                     Collections.sort(generatedNums);
                     break;
@@ -180,7 +222,7 @@ public class RNGFragment extends Fragment {
                     break;
             }
             resultsContainer.setVisibility(View.VISIBLE);
-            String resultsString = RandUtils.getResultsString(generatedNums, viewHolder.getShowSum());
+            String resultsString = RandUtils.getResultsString(generatedNums, moreSettingsViewHolder.getShowSum());
             UIUtils.animateResults(results, Html.fromHtml(resultsString));
         }
     }
@@ -194,7 +236,7 @@ public class RNGFragment extends Fragment {
         String quantity = quantityInput.getText().toString();
         try {
             int numAvailable = Integer.parseInt(maximum) - Integer.parseInt(minimum) + 1;
-            int quantityRestriction = viewHolder.getNoDupes() ? Integer.parseInt(quantity) : 1;
+            int quantityRestriction = moreSettingsViewHolder.getNoDupes() ? Integer.parseInt(quantity) : 1;
             if (minimum.isEmpty() || maximum.isEmpty() || quantity.isEmpty()) {
                 snackbarDisplay.showSnackbar(getString(R.string.missing_input));
                 return false;
@@ -204,7 +246,7 @@ public class RNGFragment extends Fragment {
             } else if (Integer.parseInt(quantity) <= 0) {
                 snackbarDisplay.showSnackbar(getString(R.string.non_zero_quantity));
                 return false;
-            } else if (numAvailable < quantityRestriction + excludedNumbers.size()) {
+            } else if (numAvailable < quantityRestriction + rngSettings.getExcludedNumbers().size()) {
                 snackbarDisplay.showSnackbar(getString(R.string.overlimited_range));
                 return false;
             }
@@ -223,6 +265,7 @@ public class RNGFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        saveRNGSettings();
         super.onDestroyView();
         unbinder.unbind();
     }
