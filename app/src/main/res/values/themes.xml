@@ -19,4 +19,8 @@
         <!-- Dialog theming -->
         <item name="md_dark_theme">false</item>
     </style>
+
+    <style name="SplashTheme" parent="no_action_bar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 </resources>
