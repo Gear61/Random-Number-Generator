@@ -1,25 +1,19 @@
 package com.randomappsinc.randomnumbergeneratorplus.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.SpannedString;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
-import com.randomappsinc.randomnumbergeneratorplus.activities.SettingsActivity;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
@@ -44,12 +38,6 @@ public class LottoFragment extends Fragment {
     };
 
     private Unbinder unbinder;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,25 +71,5 @@ public class LottoFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.regular_menu, menu);
-        UIUtils.loadMenuIcon(menu, R.id.settings, IoniconsIcons.ion_android_settings);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.settings:
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }
