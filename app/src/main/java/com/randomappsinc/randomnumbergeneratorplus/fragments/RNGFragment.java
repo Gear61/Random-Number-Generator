@@ -17,6 +17,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.activities.EditExcludedActivity;
 import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
+import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
 import com.randomappsinc.randomnumbergeneratorplus.models.RNGSettings;
 import com.randomappsinc.randomnumbergeneratorplus.models.RNGSettingsViewHolder;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
@@ -58,6 +59,7 @@ public class RNGFragment extends Fragment {
     private RNGSettings rngSettings;
     private MaterialDialog settingsDialog;
     private RNGSettingsViewHolder moreSettingsViewHolder;
+    private HistoryDialog historyDialog;
     private Unbinder unbinder;
 
     @Override
@@ -70,6 +72,7 @@ public class RNGFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        historyDialog = new HistoryDialog(getActivity());
         settingsDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.rng_settings)
                 .customView(R.layout.rng_settings, true)
@@ -223,6 +226,7 @@ public class RNGFragment extends Fragment {
             }
             resultsContainer.setVisibility(View.VISIBLE);
             String resultsString = RandUtils.getResultsString(generatedNums, moreSettingsViewHolder.getShowSum());
+            historyDialog.addItem(resultsString);
             UIUtils.animateResults(results, Html.fromHtml(resultsString));
         }
     }
@@ -255,6 +259,11 @@ public class RNGFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    @OnClick(R.id.history)
+    public void showHistory() {
+        historyDialog.show();
     }
 
     @OnClick(R.id.copy_results)

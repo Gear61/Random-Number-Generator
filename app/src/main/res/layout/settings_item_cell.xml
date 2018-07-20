@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:padding="12dp"
-    android:foreground="?attr/selectableItemBackground"
+    android:foreground="?android:attr/selectableItemBackground"
     tools:ignore="RtlHardcoded, SpUsage">
 
     <com.joanzapata.iconify.widget.IconTextView
