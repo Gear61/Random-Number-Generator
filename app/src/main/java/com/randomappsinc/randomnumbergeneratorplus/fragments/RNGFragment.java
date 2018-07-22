@@ -72,7 +72,7 @@ public class RNGFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        historyDialog = new HistoryDialog(getActivity(), snackbarDisplay);
+        historyDialog = new HistoryDialog(getActivity(), snackbarDisplay, false);
         settingsDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.rng_settings)
                 .customView(R.layout.rng_settings, true)

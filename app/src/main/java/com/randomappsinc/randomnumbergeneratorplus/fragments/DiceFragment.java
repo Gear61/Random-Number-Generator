@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
+import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
@@ -40,6 +41,7 @@ public class DiceFragment extends Fragment {
         }
     };
 
+    private HistoryDialog historyDialog;
     private Unbinder unbinder;
 
     @Override
@@ -50,6 +52,12 @@ public class DiceFragment extends Fragment {
         numDiceInput.setText(PreferencesManager.get().getNumDice());
         numSidesInput.setText(PreferencesManager.get().getNumSides());
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        historyDialog = new HistoryDialog(getActivity(), snackbarDisplay, false);
     }
 
     @Override
@@ -88,6 +96,7 @@ public class DiceFragment extends Fragment {
                     new ArrayList<Integer>());
             resultsContainer.setVisibility(View.VISIBLE);
             String rollsText = RandUtils.getDiceResults(rolls);
+            historyDialog.addItem(rollsText);
             UIUtils.animateResults(results, Html.fromHtml(rollsText));
         }
     }
@@ -117,6 +126,11 @@ public class DiceFragment extends Fragment {
     public void copyNumbers() {
         String numbersText = results.getText().toString();
         TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay);
+    }
+
+    @OnClick(R.id.history)
+    public void showHistory() {
+        historyDialog.show();
     }
 
     private void saveSettings() {

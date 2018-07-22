@@ -22,13 +22,15 @@ import butterknife.OnClick;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryItemViewHolder> {
 
     protected SnackbarDisplay snackbarDisplay;
-    protected List<String> items = new ArrayList<>();
+    protected List<CharSequence> items = new ArrayList<>();
+    protected boolean forLotto;
 
-    public HistoryAdapter(SnackbarDisplay snackbarDisplay) {
+    public HistoryAdapter(SnackbarDisplay snackbarDisplay, boolean forLotto) {
         this.snackbarDisplay = snackbarDisplay;
+        this.forLotto = forLotto;
     }
 
-    public void addItem(String item) {
+    public void addItem(CharSequence item) {
         items.add(0, item);
         notifyDataSetChanged();
     }
@@ -62,13 +64,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryI
         }
 
         void loadItem(int position) {
-            itemText.setText(Html.fromHtml(items.get(position)));
+            itemText.setText(forLotto ? items.get(position) : Html.fromHtml(items.get(position).toString()));
         }
 
         @OnClick(R.id.item_text)
         public void onItemClicked() {
-            String text = items.get(getAdapterPosition());
-            TextUtils.copyHistoryRecordToClipboard(TextUtils.stripHtml(text));
+            CharSequence text = items.get(getAdapterPosition());
+            TextUtils.copyHistoryRecordToClipboard(forLotto ? text.toString() : TextUtils.stripHtml(text.toString()));
         }
     }
 }

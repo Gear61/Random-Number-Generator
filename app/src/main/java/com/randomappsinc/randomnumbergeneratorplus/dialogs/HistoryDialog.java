@@ -13,8 +13,8 @@ public class HistoryDialog {
     private MaterialDialog dialog;
     private HistoryAdapter historyAdapter;
 
-    public HistoryDialog(Context context, SnackbarDisplay snackbarDisplay) {
-        historyAdapter = new HistoryAdapter(snackbarDisplay);
+    public HistoryDialog(Context context, SnackbarDisplay snackbarDisplay, boolean forLotto) {
+        historyAdapter = new HistoryAdapter(snackbarDisplay, forLotto);
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.history)
                 .content(R.string.history_explanation)
@@ -24,7 +24,7 @@ public class HistoryDialog {
         dialog.getRecyclerView().addItemDecoration(new SimpleDividerItemDecoration(context));
     }
 
-    public void addItem(String item) {
+    public void addItem(CharSequence item) {
         historyAdapter.addItem(item);
     }
 
