@@ -72,7 +72,7 @@ public class RNGFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        historyDialog = new HistoryDialog(getActivity());
+        historyDialog = new HistoryDialog(getActivity(), snackbarDisplay);
         settingsDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.rng_settings)
                 .customView(R.layout.rng_settings, true)
@@ -269,7 +269,7 @@ public class RNGFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyTextToClipboard(numbersText, snackbarDisplay);
+        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay);
     }
 
     @Override

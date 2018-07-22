@@ -116,7 +116,7 @@ public class DiceFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyTextToClipboard(numbersText, snackbarDisplay);
+        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay);
     }
 
     private void saveSettings() {

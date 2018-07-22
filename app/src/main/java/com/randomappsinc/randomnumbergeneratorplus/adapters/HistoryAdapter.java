@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
+import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils.SnackbarDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,16 @@ import butterknife.OnClick;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryItemViewHolder> {
 
+    protected SnackbarDisplay snackbarDisplay;
     protected List<String> items = new ArrayList<>();
+
+    public HistoryAdapter(SnackbarDisplay snackbarDisplay) {
+        this.snackbarDisplay = snackbarDisplay;
+    }
 
     public void addItem(String item) {
         items.add(0, item);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -61,10 +67,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryI
 
         @OnClick(R.id.item_text)
         public void onItemClicked() {
-            Toast.makeText(
-                    MyApplication.getAppContext(),
-                    "Item clicked: " + String.valueOf(getAdapterPosition()),
-                    Toast.LENGTH_LONG).show();
+            String text = items.get(getAdapterPosition());
+            TextUtils.copyHistoryRecordToClipboard(TextUtils.stripHtml(text));
         }
     }
 }
