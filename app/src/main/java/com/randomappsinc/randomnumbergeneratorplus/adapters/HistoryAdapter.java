@@ -1,5 +1,7 @@
 package com.randomappsinc.randomnumbergeneratorplus.adapters;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -10,7 +12,6 @@ import android.widget.TextView;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
-import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils.SnackbarDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +22,22 @@ import butterknife.OnClick;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryItemViewHolder> {
 
-    protected SnackbarDisplay snackbarDisplay;
     protected List<CharSequence> items = new ArrayList<>();
     protected boolean forLotto;
 
-    public HistoryAdapter(SnackbarDisplay snackbarDisplay, boolean forLotto) {
-        this.snackbarDisplay = snackbarDisplay;
+    public HistoryAdapter(boolean forLotto) {
         this.forLotto = forLotto;
+    }
+
+    public void setItems(final List<CharSequence> newItems) {
+        Handler uiHandler = new Handler(Looper.getMainLooper());
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                items.addAll(newItems);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     public void addItem(CharSequence item) {

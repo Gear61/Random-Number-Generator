@@ -19,9 +19,12 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.adapters.HomepageTabsAdapter;
+import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
+import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
@@ -44,6 +47,11 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     private MediaPlayer mediaPlayer;
     private ShakeDetector shakeDetector;
     private boolean disableGeneration;
+
+    private HistoryDialog rngHistoryDialog;
+    private HistoryDialog diceHistoryDialog;
+    private HistoryDialog lottoHistoryDialog;
+    private HistoryDialog coinsHistoryDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +101,11 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
                     .cancelable(false)
                     .show();
         }
+
+        rngHistoryDialog = new HistoryDialog(this, RNGType.NUMBER);
+        diceHistoryDialog = new HistoryDialog(this, RNGType.DICE);
+        lottoHistoryDialog = new HistoryDialog(this, RNGType.LOTTO);
+        coinsHistoryDialog = new HistoryDialog(this, RNGType.COINS);
     }
 
     @Override
@@ -165,6 +178,23 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         }
     }
 
+    private void showProperHistoryDialog() {
+        switch (homePager.getCurrentItem()) {
+            case 0:
+                rngHistoryDialog.show();
+                break;
+            case 1:
+                diceHistoryDialog.show();
+                break;
+            case 2:
+                lottoHistoryDialog.show();
+                break;
+            case 3:
+                coinsHistoryDialog.show();
+                break;
+        }
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -182,6 +212,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        UIUtils.loadMenuIcon(menu, R.id.history, FontAwesomeIcons.fa_history);
         UIUtils.loadMenuIcon(menu, R.id.settings, IoniconsIcons.ion_android_settings);
         return true;
     }
@@ -189,6 +220,9 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.history:
+                showProperHistoryDialog();
+                return true;
             case R.id.settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;

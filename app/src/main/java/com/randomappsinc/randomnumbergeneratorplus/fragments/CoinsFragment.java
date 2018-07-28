@@ -12,7 +12,8 @@ import android.widget.TextView;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
-import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
+import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
@@ -40,7 +41,7 @@ public class CoinsFragment extends Fragment {
         }
     };
 
-    private HistoryDialog historyDialog;
+    private HistoryDataManager historyDataManager = HistoryDataManager.get();
     private Unbinder unbinder;
 
     @Override
@@ -49,12 +50,6 @@ public class CoinsFragment extends Fragment {
         unbinder = ButterKnife.bind(this, rootView);
         numCoinsInput.setText(String.valueOf(PreferencesManager.get().getNumCoins()));
         return rootView;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        historyDialog = new HistoryDialog(getActivity(), snackbarDisplay, false);
     }
 
     @Override
@@ -78,7 +73,7 @@ public class CoinsFragment extends Fragment {
                     new ArrayList<Integer>());
             resultsContainer.setVisibility(View.VISIBLE);
             String flipText = RandUtils.getCoinResults(flips);
-            historyDialog.addItem(flipText);
+            historyDataManager.addHistoryRecord(RNGType.COINS, flipText);
             UIUtils.animateResults(results, Html.fromHtml(flipText));
         }
     }
@@ -98,11 +93,6 @@ public class CoinsFragment extends Fragment {
             return false;
         }
         return true;
-    }
-
-    @OnClick(R.id.history)
-    public void showHistory() {
-        historyDialog.show();
     }
 
     @OnClick(R.id.copy_results)

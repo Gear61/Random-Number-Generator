@@ -14,7 +14,8 @@ import android.widget.TextView;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
-import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
+import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
@@ -38,7 +39,7 @@ public class LottoFragment extends Fragment {
         }
     };
 
-    private HistoryDialog historyDialog;
+    private HistoryDataManager historyDataManager = HistoryDataManager.get();
     private Unbinder unbinder;
 
     @Override
@@ -54,7 +55,6 @@ public class LottoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         String[] lottoOptions = getResources().getStringArray(R.array.lotto_options);
         lottoSpinner.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.spinner_item, lottoOptions));
-        historyDialog = new HistoryDialog(getActivity(), snackbarDisplay, true);
     }
 
     @OnClick(R.id.generate)
@@ -64,13 +64,8 @@ public class LottoFragment extends Fragment {
         }
         resultsContainer.setVisibility(View.VISIBLE);
         SpannedString lottoResults = RandUtils.getLottoResults(lottoSpinner.getSelectedItemPosition());
-        historyDialog.addItem(lottoResults);
+        historyDataManager.addHistoryRecord(RNGType.LOTTO, lottoResults.toString());
         UIUtils.animateResults(results, lottoResults);
-    }
-
-    @OnClick(R.id.history)
-    public void showHistory() {
-        historyDialog.show();
     }
 
     @OnClick(R.id.copy_results)

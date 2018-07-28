@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Random Number Generator Plus</string>
     <string name="app_name_abbreviated">RNG Plus</string>
+    <string name="random_number_generator">Random Number Generator</string>
 
     <string name="rng">RNG</string>
     <string name="dice">Dice</string>
@@ -72,7 +73,9 @@
         No problem! You can turn it off and on anytime from the settings!
     </string>
 
+    <string name="show_history">Show history</string>
     <string name="history">History</string>
+    <string name="no_history">There is no history to display.</string>
     <string name="history_explanation">Tap on any record to copy it to your clipboard.</string>
     <string name="record_copied">Record copied to your clipboard.</string>
     <string name="record">Record</string>

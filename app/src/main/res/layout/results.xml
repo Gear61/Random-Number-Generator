@@ -14,17 +14,6 @@
     tools:ignore="RtlHardcoded, SpUsage">
 
     <TextView
-        android:id="@+id/history"
-        android:text="@string/history"
-        android:textColor="@color/app_blue"
-        android:textAllCaps="true"
-        android:textSize="15dp"
-        android:padding="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"/>
-
-    <TextView
         android:id="@+id/copy_results"
         android:text="@string/copy"
         android:textColor="@color/app_blue"

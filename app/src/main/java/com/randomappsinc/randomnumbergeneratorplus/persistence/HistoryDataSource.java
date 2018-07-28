@@ -14,23 +14,36 @@ import java.util.List;
 
 public class HistoryDataSource {
 
-    // Database fields
+    private static HistoryDataSource instance;
+
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
     private Handler backgroundHandler;
 
-    // Constructor
-    public HistoryDataSource() {
+    public static HistoryDataSource get() {
+        if (instance == null) {
+            instance = getSync();
+        }
+        return instance;
+    }
+
+    private static synchronized HistoryDataSource getSync() {
+        if (instance == null) {
+            instance = new HistoryDataSource();
+        }
+        return instance;
+    }
+
+    private HistoryDataSource() {
         dbHelper = new MySQLiteHelper();
+        HandlerThread handlerThread = new HandlerThread("Database");
+        handlerThread.start();
+        backgroundHandler = new Handler(handlerThread.getLooper());
     }
 
     // Open connection to database
     private void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
-
-        HandlerThread handlerThread = new HandlerThread("Database");
-        handlerThread.start();
-        backgroundHandler = new Handler(handlerThread.getLooper());
     }
 
     // Terminate connection to database
@@ -38,8 +51,8 @@ public class HistoryDataSource {
         dbHelper.close();
     }
 
-    public List<String> getHistory(@RNGType int rngType) {
-        List<String> history = new ArrayList<>();
+    public List<CharSequence> getHistory(@RNGType int rngType) {
+        List<CharSequence> history = new ArrayList<>();
         open();
         String[] columns = {MySQLiteHelper.COLUMN_RECORD_TEXT, MySQLiteHelper.COLUMN_TIME_INSERTED};
         String selection = MySQLiteHelper.COLUMN_RNG_TYPE + " = ?";
