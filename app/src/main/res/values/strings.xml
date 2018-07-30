@@ -74,7 +74,10 @@
     </string>
 
     <string name="show_history">Show history</string>
-    <string name="history">History</string>
+    <string name="rng_history">RNG History</string>
+    <string name="dice_history">Dice Roll History</string>
+    <string name="lotto_history">Lotto History</string>
+    <string name="coins_history">Coin Flip History</string>
     <string name="no_history">There is no history to display.</string>
     <string name="history_explanation">Tap on any record to copy it to your clipboard.</string>
     <string name="record_copied">Record copied to your clipboard.</string>

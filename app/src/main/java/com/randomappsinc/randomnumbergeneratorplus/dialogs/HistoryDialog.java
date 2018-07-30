@@ -1,6 +1,7 @@
 package com.randomappsinc.randomnumbergeneratorplus.dialogs;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.R;
@@ -23,13 +24,28 @@ public class HistoryDialog {
         this.currentRngType = rngType;
         historyAdapter = new HistoryAdapter(rngType == RNGType.LOTTO);
         dialog = new MaterialDialog.Builder(context)
-                .title(R.string.history)
+                .title(getTitleResource())
                 .content(R.string.no_history)
                 .adapter(historyAdapter, null)
                 .positiveText(R.string.dismiss)
                 .build();
         dialog.getRecyclerView().addItemDecoration(new SimpleDividerItemDecoration(context));
         HistoryDataManager.get().addListener(listener);
+    }
+
+    private @StringRes int getTitleResource() {
+        switch (currentRngType) {
+            case RNGType.NUMBER:
+                return R.string.rng_history;
+            case RNGType.DICE:
+                return R.string.dice_history;
+            case RNGType.LOTTO:
+                return R.string.lotto_history;
+            case RNGType.COINS:
+                return R.string.coins_history;
+            default:
+                return R.string.rng_history;
+        }
     }
 
     private final HistoryDataManager.Listener listener = new HistoryDataManager.Listener() {
