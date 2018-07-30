@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
+import com.randomappsinc.randomnumbergeneratorplus.models.HistoryRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,21 +52,27 @@ public class HistoryDataSource {
         dbHelper.close();
     }
 
-    public List<CharSequence> getHistory(@RNGType int rngType) {
-        List<CharSequence> history = new ArrayList<>();
+    public List<HistoryRecord> getHistory() {
+        List<HistoryRecord> historyList = new ArrayList<>();
         open();
-        String[] columns = {MySQLiteHelper.COLUMN_RECORD_TEXT, MySQLiteHelper.COLUMN_TIME_INSERTED};
-        String selection = MySQLiteHelper.COLUMN_RNG_TYPE + " = ?";
-        String[] selectionArgs = {String.valueOf(rngType)};
+        String[] columns = {
+                MySQLiteHelper.COLUMN_RNG_TYPE,
+                MySQLiteHelper.COLUMN_RECORD_TEXT,
+                MySQLiteHelper.COLUMN_TIME_INSERTED};
         String orderBy = MySQLiteHelper.COLUMN_TIME_INSERTED + " DESC";
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_NAME, columns, selection,
-                selectionArgs, null, null, orderBy);
-        while (cursor.moveToNext()) {
-            history.add(cursor.getString(0));
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_NAME, columns, null,
+                null, null, null, orderBy);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                HistoryRecord historyRecord = new HistoryRecord();
+                historyRecord.setRngType(cursor.getInt(0));
+                historyRecord.setRecordText(cursor.getString(1));
+                historyList.add(historyRecord);
+            }
+            cursor.close();
         }
-        cursor.close();
         close();
-        return history;
+        return historyList;
     }
 
     public void addHistoryRecord(@RNGType final int rngType, final String recordText) {

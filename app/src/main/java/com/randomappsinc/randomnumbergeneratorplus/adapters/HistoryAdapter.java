@@ -29,12 +29,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryI
         this.forLotto = forLotto;
     }
 
-    public void setItems(final List<CharSequence> newItems) {
+    public void setInitialItems(final List<CharSequence> initialItems) {
         Handler uiHandler = new Handler(Looper.getMainLooper());
         uiHandler.post(new Runnable() {
             @Override
             public void run() {
-                items.addAll(newItems);
+                items.addAll(initialItems);
                 notifyDataSetChanged();
             }
         });

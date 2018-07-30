@@ -25,6 +25,7 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.adapters.HomepageTabsAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
+import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
@@ -106,6 +107,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         diceHistoryDialog = new HistoryDialog(this, RNGType.DICE);
         lottoHistoryDialog = new HistoryDialog(this, RNGType.LOTTO);
         coinsHistoryDialog = new HistoryDialog(this, RNGType.COINS);
+        HistoryDataManager.get().getInitialHistory();
     }
 
     @Override
