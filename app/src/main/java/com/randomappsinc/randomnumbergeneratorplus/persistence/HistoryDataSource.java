@@ -89,4 +89,19 @@ public class HistoryDataSource {
             }
         });
     }
+
+    public void deleteHistory(@RNGType final int rngType) {
+        backgroundHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                open();
+                String whereArgs[] = {String.valueOf(rngType)};
+                database.delete(
+                        MySQLiteHelper.TABLE_NAME,
+                        MySQLiteHelper.COLUMN_RNG_TYPE + " = ?",
+                        whereArgs);
+                close();
+            }
+        });
+    }
 }

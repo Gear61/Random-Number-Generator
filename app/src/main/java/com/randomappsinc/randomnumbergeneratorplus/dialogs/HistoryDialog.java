@@ -1,8 +1,10 @@
 package com.randomappsinc.randomnumbergeneratorplus.dialogs;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.adapters.HistoryAdapter;
@@ -19,6 +21,7 @@ public class HistoryDialog {
     private MaterialDialog dialog;
     private HistoryAdapter historyAdapter;
     private @RNGType int currentRngType;
+    private HistoryDataManager historyDataManager = HistoryDataManager.get();
 
     public HistoryDialog(Context context, @RNGType final int rngType) {
         this.currentRngType = rngType;
@@ -28,9 +31,25 @@ public class HistoryDialog {
                 .content(R.string.no_history)
                 .adapter(historyAdapter, null)
                 .positiveText(R.string.dismiss)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .neutralText(R.string.clear)
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        historyDataManager.deleteHistory(rngType);
+                        historyAdapter.clear();
+                        dialog.setContent(R.string.no_history);
+                    }
+                })
+                .autoDismiss(false)
                 .build();
         dialog.getRecyclerView().addItemDecoration(new SimpleDividerItemDecoration(context));
-        HistoryDataManager.get().addListener(listener);
+        historyDataManager.addListener(listener);
     }
 
     private @StringRes int getTitleResource() {

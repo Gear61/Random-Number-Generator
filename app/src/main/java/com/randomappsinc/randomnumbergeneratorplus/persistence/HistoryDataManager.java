@@ -68,4 +68,8 @@ public class HistoryDataManager {
             }
         });
     }
+
+    public void deleteHistory(@RNGType int rngType) {
+        dataSource.deleteHistory(rngType);
+    }
 }
