@@ -23,6 +23,7 @@ import com.randomappsinc.randomnumbergeneratorplus.models.RNGSettingsViewHolder;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
@@ -56,11 +57,21 @@ public class RNGFragment extends Fragment {
         }
     };
 
+    private final ShakeManager.Listener shakeListener = new ShakeManager.Listener() {
+        @Override
+        public void onShakeDetected(int currentRngPage) {
+            if (currentRngPage == RNGType.NUMBER) {
+                generate();
+            }
+        }
+    };
+
     private PreferencesManager preferencesManager = PreferencesManager.get();
     private RNGSettings rngSettings;
     private MaterialDialog settingsDialog;
     private RNGSettingsViewHolder moreSettingsViewHolder;
     private HistoryDataManager historyDataManager = HistoryDataManager.get();
+    private ShakeManager shakeManager = ShakeManager.get();
     private Unbinder unbinder;
 
     @Override
@@ -97,6 +108,7 @@ public class RNGFragment extends Fragment {
         loadExcludedNumbers();
 
         focalPoint.requestFocus();
+        shakeManager.registerListener(shakeListener);
     }
 
     @Override
@@ -269,8 +281,9 @@ public class RNGFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        saveRNGSettings();
         super.onDestroyView();
+        shakeManager.unregisterListener(shakeListener);
+        saveRNGSettings();
         unbinder.unbind();
     }
 }

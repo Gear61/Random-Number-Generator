@@ -53,7 +53,10 @@ public class UIUtils {
                         .actionBarSize());
     }
 
-    /** Animates a results text view to indicate that the app is doing something. */
+    /**
+     * Animates a results text view to indicate that the app is doing something.
+     * This makes the case where the app generates the same thing twice less awkward.
+     */
     public static void animateResults(final TextView resultsText, final CharSequence newText) {
         Context context = MyApplication.getAppContext();
         final int animLength = context.getResources().getInteger(R.integer.shorter_anim_length);

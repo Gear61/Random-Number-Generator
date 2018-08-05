@@ -16,6 +16,7 @@ import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
@@ -42,16 +43,26 @@ public class DiceFragment extends Fragment {
         }
     };
 
+    private final ShakeManager.Listener shakeListener = new ShakeManager.Listener() {
+        @Override
+        public void onShakeDetected(int currentRngPage) {
+            if (currentRngPage == RNGType.DICE) {
+                roll();
+            }
+        }
+    };
+
     private HistoryDataManager historyDataManager = HistoryDataManager.get();
+    private ShakeManager shakeManager = ShakeManager.get();
     private Unbinder unbinder;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dice_page, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-
         numDiceInput.setText(PreferencesManager.get().getNumDice());
         numSidesInput.setText(PreferencesManager.get().getNumSides());
+        shakeManager.registerListener(shakeListener);
         return rootView;
     }
 
@@ -132,6 +143,7 @@ public class DiceFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        shakeManager.unregisterListener(shakeListener);
         saveSettings();
         unbinder.unbind();
     }

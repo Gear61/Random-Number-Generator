@@ -16,6 +16,7 @@ import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
@@ -41,7 +42,17 @@ public class CoinsFragment extends Fragment {
         }
     };
 
+    private final ShakeManager.Listener shakeListener = new ShakeManager.Listener() {
+        @Override
+        public void onShakeDetected(int currentRngPage) {
+            if (currentRngPage == RNGType.COINS) {
+                flip();
+            }
+        }
+    };
+
     private HistoryDataManager historyDataManager = HistoryDataManager.get();
+    private ShakeManager shakeManager = ShakeManager.get();
     private Unbinder unbinder;
 
     @Override
@@ -49,6 +60,7 @@ public class CoinsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.coins_page, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         numCoinsInput.setText(String.valueOf(PreferencesManager.get().getNumCoins()));
+        shakeManager.registerListener(shakeListener);
         return rootView;
     }
 
@@ -108,6 +120,7 @@ public class CoinsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        shakeManager.unregisterListener(shakeListener);
         saveSettings();
         unbinder.unbind();
     }

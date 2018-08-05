@@ -18,6 +18,7 @@ import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
+import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
@@ -39,7 +40,17 @@ public class LottoFragment extends Fragment {
         }
     };
 
+    private final ShakeManager.Listener shakeListener = new ShakeManager.Listener() {
+        @Override
+        public void onShakeDetected(int currentRngPage) {
+            if (currentRngPage == RNGType.LOTTO) {
+                generateTickets();
+            }
+        }
+    };
+
     private HistoryDataManager historyDataManager = HistoryDataManager.get();
+    private ShakeManager shakeManager = ShakeManager.get();
     private Unbinder unbinder;
 
     @Override
@@ -55,6 +66,7 @@ public class LottoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         String[] lottoOptions = getResources().getStringArray(R.array.lotto_options);
         lottoSpinner.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.spinner_item, lottoOptions));
+        shakeManager.registerListener(shakeListener);
     }
 
     @OnClick(R.id.generate)
@@ -77,6 +89,7 @@ public class LottoFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        shakeManager.unregisterListener(shakeListener);
         unbinder.unbind();
     }
 }

@@ -24,23 +24,6 @@ public class HomepageTabsAdapter extends FragmentStatePagerAdapter {
         tabNames = MyApplication.getAppContext().getResources().getStringArray(R.array.homepage_options);
     }
 
-    public void generate(int position) {
-        switch (position) {
-            case 0:
-                rngFragment.generate();
-                break;
-            case 1:
-                diceFragment.roll();
-                break;
-            case 2:
-                lottoFragment.generateTickets();
-                break;
-            case 3:
-                coinsFragment.flip();
-                break;
-        }
-    }
-
     @Override
     public Fragment getItem(int position) {
         switch (position) {

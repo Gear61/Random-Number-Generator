@@ -28,6 +28,7 @@ import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
+import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 import com.squareup.seismic.ShakeDetector;
 
@@ -44,10 +45,10 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     @BindView(R.id.view_pager) ViewPager homePager;
     @BindColor(R.color.app_blue) int blue;
 
-    private HomepageTabsAdapter tabsAdapter;
     private MediaPlayer mediaPlayer;
     private ShakeDetector shakeDetector;
     private boolean disableGeneration;
+    private ShakeManager shakeManager;
 
     private HistoryDialog rngHistoryDialog;
     private HistoryDialog diceHistoryDialog;
@@ -61,6 +62,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
+        shakeManager = ShakeManager.get();
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -69,7 +71,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
             }
         });
 
-        tabsAdapter = new HomepageTabsAdapter(getSupportFragmentManager());
+        HomepageTabsAdapter tabsAdapter = new HomepageTabsAdapter(getSupportFragmentManager());
         homePager.setAdapter(tabsAdapter);
         homePager.setOffscreenPageLimit(3);
         homeTabs.setupWithViewPager(homePager);
@@ -84,7 +86,8 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+                            Uri uri = Uri.parse(
+                                    "market://details?id=" + getApplicationContext().getPackageName());
                             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                             if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
                                 UIUtils.showSnackbar(parent, getString(R.string.play_store_error));
@@ -152,7 +155,10 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     }
 
     public void askToMute() {
-        Snackbar snackbar = Snackbar.make(parent, R.string.dislike_sound, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(
+                parent,
+                R.string.dislike_sound,
+                Snackbar.LENGTH_LONG);
         View rootView = snackbar.getView();
         snackbar.getView().setBackgroundColor(blue);
         TextView tv = rootView.findViewById(android.support.design.R.id.snackbar_text);
@@ -173,10 +179,10 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         if (PreferencesManager.get().shouldPlaySounds()) {
             if (!disableGeneration) {
                 disableGeneration = true;
-                tabsAdapter.generate(homePager.getCurrentItem());
+                shakeManager.onShakeDetected(homePager.getCurrentItem());
             }
         } else {
-            tabsAdapter.generate(homePager.getCurrentItem());
+            shakeManager.onShakeDetected(homePager.getCurrentItem());
         }
     }
 
