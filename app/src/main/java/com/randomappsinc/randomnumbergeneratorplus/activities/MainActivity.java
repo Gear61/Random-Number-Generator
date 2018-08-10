@@ -32,6 +32,7 @@ import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 import com.squareup.seismic.ShakeDetector;
 
+import butterknife.BindArray;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +44,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.tab_layout) TabLayout homeTabs;
     @BindView(R.id.view_pager) ViewPager homePager;
+    @BindArray(R.array.homepage_options) String[] homepageTabStrings;
     @BindColor(R.color.app_blue) int blue;
 
     private MediaPlayer mediaPlayer;
@@ -71,7 +73,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
             }
         });
 
-        HomepageTabsAdapter tabsAdapter = new HomepageTabsAdapter(getSupportFragmentManager());
+        HomepageTabsAdapter tabsAdapter = new HomepageTabsAdapter(getSupportFragmentManager(), homepageTabStrings);
         homePager.setAdapter(tabsAdapter);
         homePager.setOffscreenPageLimit(3);
         homeTabs.setupWithViewPager(homePager);

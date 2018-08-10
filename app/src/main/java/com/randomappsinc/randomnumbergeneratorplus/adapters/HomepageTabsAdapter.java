@@ -4,12 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.fragments.CoinsFragment;
 import com.randomappsinc.randomnumbergeneratorplus.fragments.DiceFragment;
 import com.randomappsinc.randomnumbergeneratorplus.fragments.LottoFragment;
 import com.randomappsinc.randomnumbergeneratorplus.fragments.RNGFragment;
-import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 
 public class HomepageTabsAdapter extends FragmentStatePagerAdapter {
 
@@ -19,9 +17,9 @@ public class HomepageTabsAdapter extends FragmentStatePagerAdapter {
     private LottoFragment lottoFragment;
     private CoinsFragment coinsFragment;
 
-    public HomepageTabsAdapter(FragmentManager fragmentManager) {
+    public HomepageTabsAdapter(FragmentManager fragmentManager, String[] tabNames) {
         super(fragmentManager);
-        tabNames = MyApplication.getAppContext().getResources().getStringArray(R.array.homepage_options);
+        this.tabNames = tabNames;
     }
 
     @Override
