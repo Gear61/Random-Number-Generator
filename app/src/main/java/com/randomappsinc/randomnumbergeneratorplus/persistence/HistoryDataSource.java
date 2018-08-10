@@ -6,14 +6,16 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.SparseArray;
 
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
-import com.randomappsinc.randomnumbergeneratorplus.models.HistoryRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryDataSource {
+
+    private static final int MAX_RECORDS_PER_TYPE = 20;
 
     private static HistoryDataSource instance;
 
@@ -52,27 +54,40 @@ public class HistoryDataSource {
         dbHelper.close();
     }
 
-    public List<HistoryRecord> getHistory() {
-        List<HistoryRecord> historyList = new ArrayList<>();
+    public SparseArray<List<CharSequence>> getHistory() {
+        SparseArray<List<CharSequence>> rngTypeToHistoryList = new SparseArray<>();
+
         open();
         String[] columns = {
-                MySQLiteHelper.COLUMN_RNG_TYPE,
                 MySQLiteHelper.COLUMN_RECORD_TEXT,
                 MySQLiteHelper.COLUMN_TIME_INSERTED};
+        String selection = MySQLiteHelper.COLUMN_RNG_TYPE + " = ?";
         String orderBy = MySQLiteHelper.COLUMN_TIME_INSERTED + " DESC";
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_NAME, columns, null,
-                null, null, null, orderBy);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                HistoryRecord historyRecord = new HistoryRecord();
-                historyRecord.setRngType(cursor.getInt(0));
-                historyRecord.setRecordText(cursor.getString(1));
-                historyList.add(historyRecord);
+        int[] rngTypes = new int[] {RNGType.NUMBER, RNGType.DICE, RNGType.COINS, RNGType.LOTTO};
+        for (int rngType : rngTypes) {
+            List<CharSequence> history = new ArrayList<>();
+            String[] selectionArgs = {String.valueOf(rngType)};
+            Cursor cursor = database.query(
+                    MySQLiteHelper.TABLE_NAME,
+                    columns,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    orderBy,
+                    String.valueOf(MAX_RECORDS_PER_TYPE));
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    history.add(cursor.getString(0));
+
+                }
+                cursor.close();
             }
-            cursor.close();
+
+            rngTypeToHistoryList.append(rngType, history);
         }
         close();
-        return historyList;
+        return rngTypeToHistoryList;
     }
 
     public void addHistoryRecord(@RNGType final int rngType, final String recordText) {

@@ -2,9 +2,9 @@ package com.randomappsinc.randomnumbergeneratorplus.persistence;
 
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.SparseArray;
 
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
-import com.randomappsinc.randomnumbergeneratorplus.models.HistoryRecord;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.UUID;
 public class HistoryDataManager {
 
     public interface Listener {
-        void onInitialHistoryDataFetched(List<HistoryRecord> historyRecords);
+        void onInitialHistoryDataFetched(SparseArray<List<CharSequence>> historyRecords);
 
         void onHistoryRecordAdded(@RNGType int rngType, String recordText);
     }
@@ -61,7 +61,7 @@ public class HistoryDataManager {
         backgroundHandler.post(new Runnable() {
             @Override
             public void run() {
-                List<HistoryRecord> historyRecords = dataSource.getHistory();
+                SparseArray<List<CharSequence>> historyRecords = dataSource.getHistory();
                 for (Listener listener : listeners) {
                     listener.onInitialHistoryDataFetched(historyRecords);
                 }

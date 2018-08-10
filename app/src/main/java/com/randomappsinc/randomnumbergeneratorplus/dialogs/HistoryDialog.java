@@ -3,17 +3,16 @@ package com.randomappsinc.randomnumbergeneratorplus.dialogs;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.util.SparseArray;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.adapters.HistoryAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
-import com.randomappsinc.randomnumbergeneratorplus.models.HistoryRecord;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.SimpleDividerItemDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryDialog {
@@ -69,13 +68,8 @@ public class HistoryDialog {
 
     private final HistoryDataManager.Listener listener = new HistoryDataManager.Listener() {
         @Override
-        public void onInitialHistoryDataFetched(List<HistoryRecord> historyRecords) {
-            List<CharSequence> history = new ArrayList<>();
-            for (HistoryRecord historyRecord : historyRecords) {
-                if (historyRecord.getRngType() == currentRngType) {
-                    history.add(historyRecord.getRecordText());
-                }
-            }
+        public void onInitialHistoryDataFetched(SparseArray<List<CharSequence>> historyRecords) {
+            List<CharSequence> history = historyRecords.get(currentRngType);
             if (!history.isEmpty()) {
                 dialog.setContent(R.string.history_explanation);
             }
