@@ -21,8 +21,7 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 
 public class UIUtils {
 
-    public static void showSnackbar(View parent, String message) {
-        Context context = MyApplication.getAppContext();
+    public static void showSnackbar(View parent, String message, Context context) {
         Snackbar snackbar = Snackbar.make(parent, message, Snackbar.LENGTH_LONG);
         View rootView = snackbar.getView();
         snackbar.getView().setBackgroundColor(context.getResources().getColor(R.color.app_blue));
@@ -46,9 +45,9 @@ public class UIUtils {
         }
     }
 
-    public static void loadMenuIcon(Menu menu, int itemId, Icon icon) {
+    public static void loadMenuIcon(Menu menu, int itemId, Icon icon, Context context) {
         menu.findItem(itemId).setIcon(
-                new IconDrawable(MyApplication.getAppContext().getApplicationContext(), icon)
+                new IconDrawable(context, icon)
                         .colorRes(R.color.white)
                         .actionBarSize());
     }
@@ -57,10 +56,7 @@ public class UIUtils {
      * Animates a results text view to indicate that the app is doing something.
      * This makes the case where the app generates the same thing twice less awkward.
      */
-    public static void animateResults(final TextView resultsText, final CharSequence newText) {
-        Context context = MyApplication.getAppContext();
-        final int animLength = context.getResources().getInteger(R.integer.shorter_anim_length);
-
+    public static void animateResults(final TextView resultsText, final CharSequence newText, final int animLength) {
         if (resultsText.getAnimation() == null || resultsText.getAnimation().hasEnded()) {
             ObjectAnimator animX = ObjectAnimator.ofFloat(resultsText, "scaleX", 0.75f);
             ObjectAnimator animY = ObjectAnimator.ofFloat(resultsText, "scaleY", 0.75f);

@@ -27,7 +27,6 @@ import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
-import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 import com.squareup.seismic.ShakeDetector;
@@ -51,6 +50,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     private ShakeDetector shakeDetector;
     private boolean disableGeneration;
     private ShakeManager shakeManager;
+    private PreferencesManager preferencesManager;
 
     private HistoryDialog rngHistoryDialog;
     private HistoryDialog diceHistoryDialog;
@@ -65,6 +65,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         setSupportActionBar(toolbar);
 
         shakeManager = ShakeManager.get();
+        preferencesManager = new PreferencesManager(this);
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -80,7 +81,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
 
         shakeDetector = new ShakeDetector(this);
 
-        if (PreferencesManager.get().shouldAskForRating()) {
+        if (preferencesManager.shouldAskForRating()) {
             new MaterialDialog.Builder(this)
                     .content(R.string.please_rate)
                     .negativeText(R.string.decline_rating)
@@ -92,14 +93,14 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
                                     "market://details?id=" + getApplicationContext().getPackageName());
                             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                             if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
-                                UIUtils.showSnackbar(parent, getString(R.string.play_store_error));
+                                UIUtils.showSnackbar(parent, getString(R.string.play_store_error), MainActivity.this);
                                 return;
                             }
                             startActivity(intent);
                         }
                     })
                     .show();
-        } else if (PreferencesManager.get().shouldShowShake()) {
+        } else if (preferencesManager.shouldShowShake()) {
             new MaterialDialog.Builder(this)
                     .title(R.string.shake_it)
                     .content(R.string.shake_now_supported)
@@ -112,12 +113,12 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         diceHistoryDialog = new HistoryDialog(this, RNGType.DICE);
         lottoHistoryDialog = new HistoryDialog(this, RNGType.LOTTO);
         coinsHistoryDialog = new HistoryDialog(this, RNGType.COINS);
-        HistoryDataManager.get().getInitialHistory();
+        HistoryDataManager.get(this).getInitialHistory();
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        if (PreferencesManager.get().isShakeEnabled()) {
+        if (preferencesManager.isShakeEnabled()) {
             shakeDetector.stop();
         }
         super.onSaveInstanceState(savedInstanceState);
@@ -126,13 +127,13 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     @Override
     public void onResume() {
         super.onResume();
-        if (PreferencesManager.get().isShakeEnabled()) {
+        if (preferencesManager.isShakeEnabled()) {
             shakeDetector.start((SensorManager) getSystemService(SENSOR_SERVICE));
         }
     }
 
     public void showSnackbar(String message) {
-        UIUtils.showSnackbar(parent, message);
+        UIUtils.showSnackbar(parent, message, this);
     }
 
     @OnPageChange(R.id.view_pager)
@@ -143,14 +144,14 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     public void playSound(String filePath) {
         try {
             mediaPlayer.reset();
-            AssetFileDescriptor fileDescriptor = MyApplication.getAppContext().getAssets().openFd(filePath);
+            AssetFileDescriptor fileDescriptor = getAssets().openFd(filePath);
             mediaPlayer.setDataSource(
                     fileDescriptor.getFileDescriptor(),
                     fileDescriptor.getStartOffset(),
                     fileDescriptor.getLength());
             mediaPlayer.prepare();
             mediaPlayer.start();
-            if (PreferencesManager.get().shouldAskForMute()) {
+            if (preferencesManager.shouldAskForMute()) {
                 askToMute();
             }
         } catch (Exception ignored) {}
@@ -168,7 +169,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         snackbar.setAction(R.string.turn_off, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferencesManager.get().setPlaySounds(false);
+                preferencesManager.setPlaySounds(false);
                 showSnackbar(getString(R.string.sounds_muted));
             }
         });
@@ -178,7 +179,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
 
     @Override
     public void hearShake() {
-        if (PreferencesManager.get().shouldPlaySounds()) {
+        if (preferencesManager.shouldPlaySounds()) {
             if (!disableGeneration) {
                 disableGeneration = true;
                 shakeManager.onShakeDetected(homePager.getCurrentItem());
@@ -208,7 +209,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     @Override
     public void onPause() {
         super.onPause();
-        if (PreferencesManager.get().isShakeEnabled()) {
+        if (preferencesManager.isShakeEnabled()) {
             shakeDetector.stop();
         }
     }
@@ -222,8 +223,8 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        UIUtils.loadMenuIcon(menu, R.id.history, FontAwesomeIcons.fa_history);
-        UIUtils.loadMenuIcon(menu, R.id.settings, IoniconsIcons.ion_android_settings);
+        UIUtils.loadMenuIcon(menu, R.id.history, FontAwesomeIcons.fa_history, this);
+        UIUtils.loadMenuIcon(menu, R.id.settings, IoniconsIcons.ion_android_settings, this);
         return true;
     }
 

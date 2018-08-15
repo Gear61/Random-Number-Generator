@@ -1,6 +1,7 @@
 package com.randomappsinc.randomnumbergeneratorplus.persistence;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,22 +24,22 @@ public class HistoryDataSource {
     private MySQLiteHelper dbHelper;
     private Handler backgroundHandler;
 
-    public static HistoryDataSource get() {
+    public static HistoryDataSource get(Context context) {
         if (instance == null) {
-            instance = getSync();
+            instance = getSync(context);
         }
         return instance;
     }
 
-    private static synchronized HistoryDataSource getSync() {
+    private static synchronized HistoryDataSource getSync(Context context) {
         if (instance == null) {
-            instance = new HistoryDataSource();
+            instance = new HistoryDataSource(context);
         }
         return instance;
     }
 
-    private HistoryDataSource() {
-        dbHelper = new MySQLiteHelper();
+    private HistoryDataSource(Context context) {
+        dbHelper = new MySQLiteHelper(context);
         HandlerThread handlerThread = new HandlerThread("Database");
         handlerThread.start();
         backgroundHandler = new Handler(handlerThread.getLooper());

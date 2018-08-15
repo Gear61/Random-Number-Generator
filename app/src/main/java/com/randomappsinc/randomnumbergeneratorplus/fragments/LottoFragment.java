@@ -22,6 +22,8 @@ import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
+import butterknife.BindColor;
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,6 +34,9 @@ public class LottoFragment extends Fragment {
     @BindView(R.id.lotto_options) Spinner lottoSpinner;
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView results;
+
+    @BindColor(R.color.green) int green;
+    @BindInt(R.integer.shorter_anim_length) int resultsAnimationLength;
 
     private final TextUtils.SnackbarDisplay snackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
@@ -49,8 +54,9 @@ public class LottoFragment extends Fragment {
         }
     };
 
-    private HistoryDataManager historyDataManager = HistoryDataManager.get();
+    private HistoryDataManager historyDataManager;
     private ShakeManager shakeManager = ShakeManager.get();
+    private PreferencesManager preferencesManager;
     private Unbinder unbinder;
 
     @Override
@@ -64,6 +70,8 @@ public class LottoFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        historyDataManager = HistoryDataManager.get(getActivity());
+        preferencesManager = new PreferencesManager(getActivity());
         String[] lottoOptions = getResources().getStringArray(R.array.lotto_options);
         lottoSpinner.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.spinner_item, lottoOptions));
         shakeManager.registerListener(shakeListener);
@@ -71,19 +79,19 @@ public class LottoFragment extends Fragment {
 
     @OnClick(R.id.generate)
     public void generateTickets() {
-        if (PreferencesManager.get().shouldPlaySounds()) {
+        if (preferencesManager.shouldPlaySounds()) {
             ((MainActivity) getActivity()).playSound("lotto_scratch.wav");
         }
         resultsContainer.setVisibility(View.VISIBLE);
-        SpannedString lottoResults = RandUtils.getLottoResults(lottoSpinner.getSelectedItemPosition());
+        SpannedString lottoResults = RandUtils.getLottoResults(lottoSpinner.getSelectedItemPosition(), green);
         historyDataManager.addHistoryRecord(RNGType.LOTTO, lottoResults.toString());
-        UIUtils.animateResults(results, lottoResults);
+        UIUtils.animateResults(results, lottoResults, resultsAnimationLength);
     }
 
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay);
+        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay, getActivity());
     }
 
     @Override

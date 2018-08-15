@@ -32,6 +32,8 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindColor;
+import butterknife.BindInt;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,7 +50,11 @@ public class RNGFragment extends Fragment {
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView results;
 
+    @BindString(R.string.numbers_prefix) String numbersPrefix;
+    @BindString(R.string.sum_prefix) String sumPrefix;
+    @BindString(R.string.no_excluded_numbers) String noExcludedNumbers;
     @BindColor(R.color.app_blue) int blue;
+    @BindInt(R.integer.shorter_anim_length) int resultsAnimationLength;
 
     private final TextUtils.SnackbarDisplay snackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
@@ -66,11 +72,11 @@ public class RNGFragment extends Fragment {
         }
     };
 
-    private PreferencesManager preferencesManager = PreferencesManager.get();
+    private PreferencesManager preferencesManager;
     private RNGSettings rngSettings;
     private MaterialDialog settingsDialog;
     private RNGSettingsViewHolder moreSettingsViewHolder;
-    private HistoryDataManager historyDataManager = HistoryDataManager.get();
+    private HistoryDataManager historyDataManager;
     private ShakeManager shakeManager = ShakeManager.get();
     private Unbinder unbinder;
 
@@ -84,6 +90,8 @@ public class RNGFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        historyDataManager = HistoryDataManager.get(getActivity());
+        preferencesManager = new PreferencesManager(getActivity());
         settingsDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.rng_settings)
                 .customView(R.layout.rng_settings, true)
@@ -142,7 +150,7 @@ public class RNGFragment extends Fragment {
             if (moreSettingsViewHolder.getHideExcludes()) {
                 excludedNumsDisplay.setText(R.string.ellipsis);
             } else {
-                excludedNumsDisplay.setText(RandUtils.getExcludedList(excludedNumbers));
+                excludedNumsDisplay.setText(RandUtils.getExcludedList(excludedNumbers, noExcludedNumbers));
             }
         }
     }
@@ -152,7 +160,7 @@ public class RNGFragment extends Fragment {
         final ArrayList<Integer> excludedNumbers = rngSettings.getExcludedNumbers();
         MaterialDialog excludedDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.excluded_numbers)
-                .content(RandUtils.getExcludedList(excludedNumbers))
+                .content(RandUtils.getExcludedList(excludedNumbers, noExcludedNumbers))
                 .positiveText(android.R.string.yes)
                 .negativeText(R.string.edit)
                 .onAny(new MaterialDialog.SingleButtonCallback() {
@@ -219,7 +227,7 @@ public class RNGFragment extends Fragment {
     @OnClick(R.id.generate)
     public void generate() {
         if (verifyForm()) {
-            if (PreferencesManager.get().shouldPlaySounds()) {
+            if (preferencesManager.shouldPlaySounds()) {
                 ((MainActivity) getActivity()).playSound("rng_noise.wav");
             }
             int minimum = Integer.parseInt(minimumInput.getText().toString());
@@ -237,9 +245,13 @@ public class RNGFragment extends Fragment {
                     break;
             }
             resultsContainer.setVisibility(View.VISIBLE);
-            String resultsString = RandUtils.getResultsString(generatedNums, moreSettingsViewHolder.getShowSum());
+            String resultsString = RandUtils.getResultsString(
+                    generatedNums,
+                    moreSettingsViewHolder.getShowSum(),
+                    numbersPrefix,
+                    sumPrefix);
             historyDataManager.addHistoryRecord(RNGType.NUMBER, resultsString);
-            UIUtils.animateResults(results, Html.fromHtml(resultsString));
+            UIUtils.animateResults(results, Html.fromHtml(resultsString), resultsAnimationLength);
         }
     }
 
@@ -276,7 +288,7 @@ public class RNGFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay);
+        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay, getActivity());
     }
 
     @Override

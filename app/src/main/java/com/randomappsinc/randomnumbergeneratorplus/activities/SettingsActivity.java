@@ -27,12 +27,16 @@ public class SettingsActivity extends StandardActivity implements SettingsAdapte
     @BindString(R.string.feedback_subject) String feedbackSubject;
     @BindString(R.string.send_email) String sendEmail;
 
+    private PreferencesManager preferencesManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        preferencesManager = new PreferencesManager(this);
 
         settingsOptions.addItemDecoration(new SimpleDividerItemDecoration(this));
         settingsOptions.setAdapter(new SettingsAdapter(this, this));
@@ -47,14 +51,14 @@ public class SettingsActivity extends StandardActivity implements SettingsAdapte
                 Switch shakeToggle = firstCell.findViewById(R.id.toggle);
                 boolean shakeStatus = shakeToggle.isChecked();
                 shakeToggle.setChecked(!shakeStatus);
-                PreferencesManager.get().setShakeEnabled(!shakeStatus);
+                preferencesManager.setShakeEnabled(!shakeStatus);
                 return;
             case 1:
                 View secondCell = settingsOptions.getChildAt(1);
                 Switch soundToggle = secondCell.findViewById(R.id.toggle);
                 boolean soundsEnabled = soundToggle.isChecked();
                 soundToggle.setChecked(!soundsEnabled);
-                PreferencesManager.get().setPlaySounds(!soundsEnabled);
+                preferencesManager.setPlaySounds(!soundsEnabled);
                 return;
             case 2:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);

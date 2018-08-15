@@ -59,17 +59,17 @@ public class EditExcludedActivity extends StandardActivity {
         excludedInput.setText("");
         try {
             if (enteredExcluded.isEmpty()) {
-                UIUtils.showSnackbar(parent, getString(R.string.not_a_number));
+                UIUtils.showSnackbar(parent, getString(R.string.not_a_number), this);
             } else if (Integer.parseInt(enteredExcluded) > maximum || Integer.parseInt(enteredExcluded) < minimum) {
                 String range = "(" + String.valueOf(minimum) + " to " + String.valueOf(maximum) + ")";
-                UIUtils.showSnackbar(parent, getString(R.string.not_in_range) + range);
+                UIUtils.showSnackbar(parent, getString(R.string.not_in_range) + range, this);
             } else if (adapter.containsNumber(Integer.parseInt(enteredExcluded))) {
-                UIUtils.showSnackbar(parent, getString(R.string.already_excluded));
+                UIUtils.showSnackbar(parent, getString(R.string.already_excluded), this);
             } else {
                 adapter.addNumber(Integer.parseInt(enteredExcluded));
             }
         } catch (NumberFormatException exception) {
-            UIUtils.showSnackbar(parent, getString(R.string.not_a_number));
+            UIUtils.showSnackbar(parent, getString(R.string.not_a_number), this);
         }
     }
 

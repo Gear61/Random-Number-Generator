@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
-import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +21,7 @@ public class RNGSettingsViewHolder {
     public RNGSettingsViewHolder(View view, Context context, RNGSettings rngSettings) {
         ButterKnife.bind(this, view);
 
-        String[] sortChoices = MyApplication.getAppContext().getResources().getStringArray(R.array.sort_options);
+        String[] sortChoices = context.getResources().getStringArray(R.array.sort_options);
         sortOptions.setAdapter(new ArrayAdapter<>(context, R.layout.spinner_item, sortChoices));
 
         sortOptions.setSelection(rngSettings.getSortType());

@@ -1,9 +1,8 @@
 package com.randomappsinc.randomnumbergeneratorplus.persistence;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
@@ -24,8 +23,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + TABLE_NAME + "(" + COLUMN_RNG_TYPE
             + " INTEGER, " + COLUMN_RECORD_TEXT + " TEXT, " + COLUMN_TIME_INSERTED + " INTEGER);";
 
-    MySQLiteHelper() {
-        super(MyApplication.getAppContext(), DATABASE_NAME, null, DATABASE_VERSION);
+    MySQLiteHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

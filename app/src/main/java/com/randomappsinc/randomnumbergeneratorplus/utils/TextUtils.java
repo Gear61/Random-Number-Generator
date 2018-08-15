@@ -14,8 +14,7 @@ public class TextUtils {
         void showSnackbar(String message);
     }
 
-    public static void copyResultsToClipboard(String text, SnackbarDisplay snackbarDisplay) {
-        Context context = MyApplication.getAppContext();
+    public static void copyResultsToClipboard(String text, SnackbarDisplay snackbarDisplay, Context context) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(context.getString(R.string.generated_numbers), text);
         if (clipboard != null) {
@@ -26,15 +25,14 @@ public class TextUtils {
         }
     }
 
-    public static void copyHistoryRecordToClipboard(String text) {
-        Context context = MyApplication.getAppContext();
+    public static void copyHistoryRecordToClipboard(String text, Context context) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(context.getString(R.string.record), text);
         if (clipboard != null) {
             clipboard.setPrimaryClip(clip);
-            ToastUtil.showLongToast(R.string.record_copied);
+            ToastUtil.showLongToast(R.string.record_copied, context);
         } else {
-            ToastUtil.showLongToast(R.string.clipboard_fail);
+            ToastUtil.showLongToast(R.string.clipboard_fail, context);
         }
     }
 

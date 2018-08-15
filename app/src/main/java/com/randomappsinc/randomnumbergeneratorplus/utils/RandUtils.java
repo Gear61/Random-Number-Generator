@@ -11,6 +11,7 @@ import android.text.style.ForegroundColorSpan;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -61,12 +62,10 @@ public class RandUtils {
         return random.nextInt((max - min) + 1) + min;
     }
 
-    public static String getResultsString(List<Integer> numbers, boolean showSum) {
-        Context context = MyApplication.getAppContext();
-
+    public static String getResultsString(List<Integer> numbers, boolean showSum, String numbersPrefix, String sumPrefix) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<b>");
-        stringBuilder.append(context.getString(R.string.numbers_prefix));
+        stringBuilder.append(numbersPrefix);
         stringBuilder.append("</b>");
 
         int sum = 0;
@@ -81,7 +80,7 @@ public class RandUtils {
 
         if (showSum) {
             stringBuilder.append("<br><br><b>");
-            stringBuilder.append(context.getString(R.string.sum_prefix));
+            stringBuilder.append(sumPrefix);
             stringBuilder.append("</b>");
             stringBuilder.append(String.valueOf(sum));
         }
@@ -89,12 +88,10 @@ public class RandUtils {
         return stringBuilder.toString();
     }
 
-    public static String getDiceResults(List<Integer> rolls) {
-        Context context = MyApplication.getAppContext();
-
+    public static String getDiceResults(List<Integer> rolls, String rollsPrefix, String sumPrefix) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<b>");
-        stringBuilder.append(context.getString(R.string.rolls_prefix));
+        stringBuilder.append(rollsPrefix);
         stringBuilder.append("</b>");
 
         int sum = 0;
@@ -108,17 +105,17 @@ public class RandUtils {
         }
 
         stringBuilder.append("<br><br><b>");
-        stringBuilder.append(context.getString(R.string.sum_prefix));
+        stringBuilder.append(sumPrefix);
         stringBuilder.append("</b>");
         stringBuilder.append(String.valueOf(sum));
 
         return stringBuilder.toString();
     }
 
-    public static String getExcludedList(List<Integer> excludedNums) {
+    public static String getExcludedList(List<Integer> excludedNums, String noExcludedNumbers) {
         StringBuilder excludedList = new StringBuilder();
         if (excludedNums.isEmpty()) {
-            return MyApplication.getAppContext().getString(R.string.no_excluded_numbers);
+            return noExcludedNumbers;
         }
         for (Integer excludedNum : excludedNums) {
             if (excludedList.length() != 0) {
@@ -129,29 +126,29 @@ public class RandUtils {
         return excludedList.toString();
     }
 
-    public static SpannedString getLottoResults(int spinnerIndex) {
+    public static SpannedString getLottoResults(int spinnerIndex, int specialColor) {
         switch (spinnerIndex) {
             // Powerball
             case 0:
-                return getLottoTickets(POWERBALL_NORMAL, POWERBALL_SPECIAL);
+                return getLottoTickets(POWERBALL_NORMAL, POWERBALL_SPECIAL, specialColor);
             // Mega Millions
             case 1:
-                return getLottoTickets(MEGA_MILLIONS_NORMAL, MEGA_MILLIONS_SPECIAL);
+                return getLottoTickets(MEGA_MILLIONS_NORMAL, MEGA_MILLIONS_SPECIAL, specialColor);
             default:
-                return getLottoTickets(POWERBALL_NORMAL, POWERBALL_SPECIAL);
+                return getLottoTickets(POWERBALL_NORMAL, POWERBALL_SPECIAL, specialColor);
         }
     }
 
-    private static SpannedString getLottoTickets(int normalMax, int specialMax) {
-        Spannable ticket1 = getLottoTicket(normalMax, specialMax, true);
-        Spannable ticket2 = getLottoTicket(normalMax, specialMax, true);
-        Spannable ticket3 = getLottoTicket(normalMax, specialMax, true);
-        Spannable ticket4 = getLottoTicket(normalMax, specialMax, true);
-        Spannable ticket5 = getLottoTicket(normalMax, specialMax, false);
+    private static SpannedString getLottoTickets(int normalMax, int specialMax, int specialColor) {
+        Spannable ticket1 = getLottoTicket(normalMax, specialMax, true, specialColor);
+        Spannable ticket2 = getLottoTicket(normalMax, specialMax, true, specialColor);
+        Spannable ticket3 = getLottoTicket(normalMax, specialMax, true, specialColor);
+        Spannable ticket4 = getLottoTicket(normalMax, specialMax, true, specialColor);
+        Spannable ticket5 = getLottoTicket(normalMax, specialMax, false, specialColor);
         return (SpannedString) TextUtils.concat(ticket1, ticket2, ticket3, ticket4, ticket5);
     }
 
-    private static Spannable getLottoTicket(int normalMax, int specialMax, boolean addNewLine) {
+    private static Spannable getLottoTicket(int normalMax, int specialMax, boolean addNewLine, int specialColor) {
         List<Integer> normals = getNumbers(1, normalMax, NUM_NORMAL_BALLS, true, new ArrayList<Integer>());
         int special = getNumbers(1, specialMax, 1, false, new ArrayList<Integer>()).get(0);
 
@@ -170,13 +167,11 @@ public class RandUtils {
 
         SpannableString ticketFormatted = new SpannableString(ticket.toString());
 
-        int green = MyApplication.getAppContext().getResources().getColor(R.color.accent_green);
-        ticketFormatted.setSpan(new ForegroundColorSpan(green), 26, 28, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        ticketFormatted.setSpan(new ForegroundColorSpan(specialColor), 26, 28, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         return ticketFormatted;
     }
 
-    public static String getCoinResults(List<Integer> flips) {
-        Context context = MyApplication.getAppContext();
+    public static String getCoinResults(List<Integer> flips, Context context) {
         String heads = context.getString(R.string.heads);
         String tails = context.getString(R.string.tails);
 

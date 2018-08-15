@@ -20,7 +20,7 @@ public class HistoryDialog {
     private MaterialDialog dialog;
     private HistoryAdapter historyAdapter;
     private @RNGType int currentRngType;
-    private HistoryDataManager historyDataManager = HistoryDataManager.get();
+    private HistoryDataManager historyDataManager;
 
     public HistoryDialog(Context context, @RNGType final int rngType) {
         this.currentRngType = rngType;
@@ -48,6 +48,7 @@ public class HistoryDialog {
                 .autoDismiss(false)
                 .build();
         dialog.getRecyclerView().addItemDecoration(new SimpleDividerItemDecoration(context));
+        historyDataManager = HistoryDataManager.get(context);
         historyDataManager.addListener(listener);
     }
 

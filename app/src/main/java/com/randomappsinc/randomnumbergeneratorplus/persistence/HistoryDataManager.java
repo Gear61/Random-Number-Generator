@@ -1,5 +1,6 @@
 package com.randomappsinc.randomnumbergeneratorplus.persistence;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.SparseArray;
@@ -24,22 +25,22 @@ public class HistoryDataManager {
     private HistoryDataSource dataSource;
     private Set<Listener> listeners;
 
-    public static HistoryDataManager get() {
+    public static HistoryDataManager get(Context context) {
         if (instance == null) {
-            instance = getSync();
+            instance = getSync(context);
         }
         return instance;
     }
 
-    private static synchronized HistoryDataManager getSync() {
+    private static synchronized HistoryDataManager getSync(Context context) {
         if (instance == null) {
-            instance = new HistoryDataManager();
+            instance = new HistoryDataManager(context);
         }
         return instance;
     }
 
-    private HistoryDataManager() {
-        dataSource = HistoryDataSource.get();
+    private HistoryDataManager(Context context) {
+        dataSource = HistoryDataSource.get(context);
         listeners = new HashSet<>();
     }
 

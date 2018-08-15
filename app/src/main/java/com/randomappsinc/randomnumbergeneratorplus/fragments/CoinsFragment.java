@@ -23,6 +23,7 @@ import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,6 +35,8 @@ public class CoinsFragment extends Fragment {
     @BindView(R.id.num_coins) EditText numCoinsInput;
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView results;
+
+    @BindInt(R.integer.shorter_anim_length) int resultsAnimationLength;
 
     private final TextUtils.SnackbarDisplay snackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
@@ -51,17 +54,25 @@ public class CoinsFragment extends Fragment {
         }
     };
 
-    private HistoryDataManager historyDataManager = HistoryDataManager.get();
+    private HistoryDataManager historyDataManager;
     private ShakeManager shakeManager = ShakeManager.get();
+    private PreferencesManager preferencesManager;
     private Unbinder unbinder;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.coins_page, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-        numCoinsInput.setText(String.valueOf(PreferencesManager.get().getNumCoins()));
         shakeManager.registerListener(shakeListener);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        historyDataManager = HistoryDataManager.get(getActivity());
+        preferencesManager = new PreferencesManager(getActivity());
+        numCoinsInput.setText(String.valueOf(preferencesManager.getNumCoins()));
     }
 
     @Override
@@ -73,7 +84,7 @@ public class CoinsFragment extends Fragment {
     @OnClick(R.id.flip)
     public void flip() {
         if (verifyForm()) {
-            if (PreferencesManager.get().shouldPlaySounds()) {
+            if (preferencesManager.shouldPlaySounds()) {
                 ((MainActivity) getActivity()).playSound("coin_flip.wav");
             }
             int numCoins = Integer.parseInt(numCoinsInput.getText().toString());
@@ -84,9 +95,9 @@ public class CoinsFragment extends Fragment {
                     false,
                     new ArrayList<Integer>());
             resultsContainer.setVisibility(View.VISIBLE);
-            String flipText = RandUtils.getCoinResults(flips);
+            String flipText = RandUtils.getCoinResults(flips, getActivity());
             historyDataManager.addHistoryRecord(RNGType.COINS, flipText);
-            UIUtils.animateResults(results, Html.fromHtml(flipText));
+            UIUtils.animateResults(results, Html.fromHtml(flipText), resultsAnimationLength);
         }
     }
 
@@ -110,11 +121,11 @@ public class CoinsFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay);
+        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay, getActivity());
     }
 
     private void saveSettings() {
-        PreferencesManager.get().saveNumCoins(numCoinsInput.getText().toString());
+        preferencesManager.saveNumCoins(numCoinsInput.getText().toString());
     }
 
     @Override

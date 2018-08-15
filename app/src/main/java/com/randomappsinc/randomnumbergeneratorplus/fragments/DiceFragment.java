@@ -23,6 +23,8 @@ import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindInt;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,6 +37,10 @@ public class DiceFragment extends Fragment {
     @BindView(R.id.num_sides) EditText numSidesInput;
     @BindView(R.id.results_container) View resultsContainer;
     @BindView(R.id.results) TextView results;
+
+    @BindString(R.string.rolls_prefix) String rollsPrefix;
+    @BindString(R.string.sum_prefix) String sumPrefix;
+    @BindInt(R.integer.shorter_anim_length) int resultsAnimationLength;
 
     private final TextUtils.SnackbarDisplay snackbarDisplay = new TextUtils.SnackbarDisplay() {
         @Override
@@ -52,18 +58,26 @@ public class DiceFragment extends Fragment {
         }
     };
 
-    private HistoryDataManager historyDataManager = HistoryDataManager.get();
+    private HistoryDataManager historyDataManager;
     private ShakeManager shakeManager = ShakeManager.get();
+    private PreferencesManager preferencesManager;
     private Unbinder unbinder;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dice_page, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-        numDiceInput.setText(PreferencesManager.get().getNumDice());
-        numSidesInput.setText(PreferencesManager.get().getNumSides());
         shakeManager.registerListener(shakeListener);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        historyDataManager = HistoryDataManager.get(getActivity());
+        preferencesManager = new PreferencesManager(getActivity());
+        numDiceInput.setText(preferencesManager.getNumDice());
+        numSidesInput.setText(preferencesManager.getNumSides());
     }
 
     @Override
@@ -88,7 +102,7 @@ public class DiceFragment extends Fragment {
     @OnClick(R.id.roll)
     public void roll() {
         if (verifyForm()) {
-            if (PreferencesManager.get().shouldPlaySounds()) {
+            if (preferencesManager.shouldPlaySounds()) {
                 ((MainActivity) getActivity()).playSound("dice_roll.wav");
             }
             int numDice = Integer.parseInt(numDiceInput.getText().toString());
@@ -101,9 +115,9 @@ public class DiceFragment extends Fragment {
                     false,
                     new ArrayList<Integer>());
             resultsContainer.setVisibility(View.VISIBLE);
-            String rollsText = RandUtils.getDiceResults(rolls);
+            String rollsText = RandUtils.getDiceResults(rolls, rollsPrefix, sumPrefix);
             historyDataManager.addHistoryRecord(RNGType.DICE, rollsText);
-            UIUtils.animateResults(results, Html.fromHtml(rollsText));
+            UIUtils.animateResults(results, Html.fromHtml(rollsText), resultsAnimationLength);
         }
     }
 
@@ -131,11 +145,11 @@ public class DiceFragment extends Fragment {
     @OnClick(R.id.copy_results)
     public void copyNumbers() {
         String numbersText = results.getText().toString();
-        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay);
+        TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay, getActivity());
     }
 
     private void saveSettings() {
-        PreferencesManager.get().saveDiceSettings(
+        preferencesManager.saveDiceSettings(
                 numSidesInput.getText().toString(),
                 numDiceInput.getText().toString());
     }

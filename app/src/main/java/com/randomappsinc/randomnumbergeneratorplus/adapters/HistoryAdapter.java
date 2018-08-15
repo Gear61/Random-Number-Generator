@@ -83,9 +83,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryI
         }
 
         @OnClick(R.id.item_text)
-        public void onItemClicked() {
+        public void onItemClicked(View view) {
             CharSequence text = items.get(getAdapterPosition());
-            TextUtils.copyHistoryRecordToClipboard(forLotto ? text.toString() : TextUtils.stripHtml(text.toString()));
+            TextUtils.copyHistoryRecordToClipboard(
+                    forLotto ? text.toString() : TextUtils.stripHtml(text.toString()),
+                    view.getContext());
         }
     }
 }

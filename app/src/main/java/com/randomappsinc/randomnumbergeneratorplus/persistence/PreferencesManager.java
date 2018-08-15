@@ -6,9 +6,9 @@ import android.preference.PreferenceManager;
 
 import com.randomappsinc.randomnumbergeneratorplus.constants.SortType;
 import com.randomappsinc.randomnumbergeneratorplus.models.RNGSettings;
-import com.randomappsinc.randomnumbergeneratorplus.utils.MyApplication;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,24 +51,8 @@ public class PreferencesManager {
     private static final int DEFAULT_NUM_COINS = 1;
 
     private SharedPreferences prefs;
-    private static PreferencesManager instance;
 
-    public static PreferencesManager get() {
-        if (instance == null) {
-            instance = getSync();
-        }
-        return instance;
-    }
-
-    private static synchronized PreferencesManager getSync() {
-        if (instance == null) {
-            instance = new PreferencesManager();
-        }
-        return instance;
-    }
-
-    private PreferencesManager() {
-        Context context = MyApplication.getAppContext();
+    public PreferencesManager(Context context) {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
@@ -148,6 +132,7 @@ public class PreferencesManager {
         for (String number : excludedNumberStrings) {
             excludedNumbers.add(Integer.valueOf(number));
         }
+        Collections.sort(excludedNumbers);
         rngSettings.setExcludedNumbers(excludedNumbers);
 
         rngSettings.setSortType(prefs.getInt(SORT_TYPE_KEY, DEFAULT_SORT_TYPE));

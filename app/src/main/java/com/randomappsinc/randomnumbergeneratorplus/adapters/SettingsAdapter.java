@@ -26,11 +26,13 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
     @NonNull private ItemSelectionListener itemSelectionListener;
     private String[] options;
     private String[] icons;
+    private PreferencesManager preferencesManager;
 
     public SettingsAdapter(Context context, @NonNull ItemSelectionListener itemSelectionListener) {
         this.itemSelectionListener = itemSelectionListener;
         this.options = context.getResources().getStringArray(R.array.settings_options);
         this.icons = context.getResources().getStringArray(R.array.settings_icons);
+        this.preferencesManager = new PreferencesManager(context);
     }
 
     @Override
@@ -69,11 +71,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
 
             switch (position) {
                 case 0:
-                    UIUtils.setCheckedImmediately(toggle, PreferencesManager.get().isShakeEnabled());
+                    UIUtils.setCheckedImmediately(toggle, preferencesManager.isShakeEnabled());
                     toggle.setVisibility(View.VISIBLE);
                     break;
                 case 1:
-                    UIUtils.setCheckedImmediately(toggle, PreferencesManager.get().shouldPlaySounds());
+                    UIUtils.setCheckedImmediately(toggle, preferencesManager.shouldPlaySounds());
                     toggle.setVisibility(View.VISIBLE);
                     break;
                 default:
@@ -85,9 +87,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         @OnClick(R.id.toggle)
         public void onToggle() {
             if (getAdapterPosition() == 0) {
-                PreferencesManager.get().setShakeEnabled(toggle.isChecked());
+                preferencesManager.setShakeEnabled(toggle.isChecked());
             } else if (getAdapterPosition() == 1) {
-                PreferencesManager.get().setPlaySounds(toggle.isChecked());
+                preferencesManager.setPlaySounds(toggle.isChecked());
             }
         }
 
