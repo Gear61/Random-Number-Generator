@@ -1,10 +1,8 @@
 package com.randomappsinc.randomnumbergeneratorplus.activities;
 
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.hardware.SensorManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,11 +21,13 @@ import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.adapters.HomepageTabsAdapter;
+import com.randomappsinc.randomnumbergeneratorplus.audio.SoundPlayer;
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
+import com.randomappsinc.randomnumbergeneratorplus.utils.ToastUtil;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 import com.squareup.seismic.ShakeDetector;
 
@@ -46,7 +46,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     @BindArray(R.array.homepage_options) String[] homepageTabStrings;
     @BindColor(R.color.app_blue) int blue;
 
-    private MediaPlayer mediaPlayer;
+    private SoundPlayer soundPlayer;
     private ShakeDetector shakeDetector;
     private boolean disableGeneration;
     private ShakeManager shakeManager;
@@ -64,21 +64,27 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        shakeManager = ShakeManager.get();
-        preferencesManager = new PreferencesManager(this);
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        SoundPlayer.Listener soundListener = new SoundPlayer.Listener() {
             @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
+            public void onAudioComplete() {
                 disableGeneration = false;
             }
-        });
+
+            @Override
+            public void onAudioError() {
+                ToastUtil.showLongToast(R.string.sound_fail, MainActivity.this);
+            }
+        };
+        soundPlayer = new SoundPlayer(this, soundListener);
+
+        preferencesManager = new PreferencesManager(this);
 
         HomepageTabsAdapter tabsAdapter = new HomepageTabsAdapter(getSupportFragmentManager(), homepageTabStrings);
         homePager.setAdapter(tabsAdapter);
         homePager.setOffscreenPageLimit(3);
         homeTabs.setupWithViewPager(homePager);
 
+        shakeManager = ShakeManager.get();
         shakeDetector = new ShakeDetector(this);
 
         if (preferencesManager.shouldAskForRating()) {
@@ -141,20 +147,14 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         UIUtils.hideKeyboard(this);
     }
 
-    public void playSound(String filePath) {
-        try {
-            mediaPlayer.reset();
-            AssetFileDescriptor fileDescriptor = getAssets().openFd(filePath);
-            mediaPlayer.setDataSource(
-                    fileDescriptor.getFileDescriptor(),
-                    fileDescriptor.getStartOffset(),
-                    fileDescriptor.getLength());
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-            if (preferencesManager.shouldAskForMute()) {
-                askToMute();
-            }
-        } catch (Exception ignored) {}
+    public void playSound(@RNGType int rngType) {
+        if (!preferencesManager.shouldPlaySounds()) {
+            return;
+        }
+        soundPlayer.playSound(rngType);
+        if (preferencesManager.shouldAskForMute()) {
+            askToMute();
+        }
     }
 
     public void askToMute() {
@@ -212,12 +212,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         if (preferencesManager.isShakeEnabled()) {
             shakeDetector.stop();
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mediaPlayer.stop();
+        soundPlayer.silence();
     }
 
     @Override

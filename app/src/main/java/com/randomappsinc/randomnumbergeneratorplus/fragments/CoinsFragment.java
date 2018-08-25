@@ -84,8 +84,9 @@ public class CoinsFragment extends Fragment {
     @OnClick(R.id.flip)
     public void flip() {
         if (verifyForm()) {
-            if (preferencesManager.shouldPlaySounds()) {
-                ((MainActivity) getActivity()).playSound("coin_flip.wav");
+            MainActivity mainActivity = (MainActivity) getActivity();
+            if (mainActivity != null) {
+                mainActivity.playSound(RNGType.COINS);
             }
             int numCoins = Integer.parseInt(numCoinsInput.getText().toString());
             List<Integer> flips = RandUtils.getNumbers(

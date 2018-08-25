@@ -16,7 +16,6 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
-import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
@@ -56,7 +55,6 @@ public class LottoFragment extends Fragment {
 
     private HistoryDataManager historyDataManager;
     private ShakeManager shakeManager = ShakeManager.get();
-    private PreferencesManager preferencesManager;
     private Unbinder unbinder;
 
     @Override
@@ -71,7 +69,6 @@ public class LottoFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         historyDataManager = HistoryDataManager.get(getActivity());
-        preferencesManager = new PreferencesManager(getActivity());
         String[] lottoOptions = getResources().getStringArray(R.array.lotto_options);
         lottoSpinner.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.spinner_item, lottoOptions));
         shakeManager.registerListener(shakeListener);
@@ -79,8 +76,9 @@ public class LottoFragment extends Fragment {
 
     @OnClick(R.id.generate)
     public void generateTickets() {
-        if (preferencesManager.shouldPlaySounds()) {
-            ((MainActivity) getActivity()).playSound("lotto_scratch.wav");
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity != null) {
+            mainActivity.playSound(RNGType.LOTTO);
         }
         resultsContainer.setVisibility(View.VISIBLE);
         SpannedString lottoResults = RandUtils.getLottoResults(lottoSpinner.getSelectedItemPosition(), green);

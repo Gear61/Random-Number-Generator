@@ -227,8 +227,9 @@ public class RNGFragment extends Fragment {
     @OnClick(R.id.generate)
     public void generate() {
         if (verifyForm()) {
-            if (preferencesManager.shouldPlaySounds()) {
-                ((MainActivity) getActivity()).playSound("rng_noise.wav");
+            MainActivity mainActivity = (MainActivity) getActivity();
+            if (mainActivity != null) {
+                mainActivity.playSound(RNGType.NUMBER);
             }
             int minimum = Integer.parseInt(minimumInput.getText().toString());
             int maximum = Integer.parseInt(maximumInput.getText().toString());
