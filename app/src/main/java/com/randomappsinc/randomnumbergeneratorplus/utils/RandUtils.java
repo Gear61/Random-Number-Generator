@@ -57,7 +57,7 @@ public class RandUtils {
     }
 
     private static int generateNumInPosRange(int min, int max) {
-        Random random = MyApplication.getRandom();
+        Random random = new Random();
         return random.nextInt((max - min) + 1) + min;
     }
 
