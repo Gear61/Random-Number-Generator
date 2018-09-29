@@ -7,12 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
     // Table name
-    public static final String TABLE_NAME = "history";
+    static final String TABLE_NAME = "history";
 
     // COLUMNS
-    public static final String COLUMN_RNG_TYPE = "rng_type";
-    public static final String COLUMN_RECORD_TEXT = "record_text";
-    public static final String COLUMN_TIME_INSERTED = "time_inserted";
+    static final String COLUMN_RNG_TYPE = "rng_type";
+    static final String COLUMN_RECORD_TEXT = "record_text";
+    static final String COLUMN_TIME_INSERTED = "time_inserted";
 
     // Some random things fed to a super's method
     private static final String DATABASE_NAME = "RandomNumberGeneratorPlus.db";

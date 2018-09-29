@@ -45,7 +45,7 @@ public class AudioFocusManager {
                 .build();
     }
 
-    public void requestAudioFocus() {
+    void requestAudioFocus() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             requestAudioFocusPostO();
         } else {
@@ -87,7 +87,7 @@ public class AudioFocusManager {
                 }
             };
 
-    public void releaseAudioFocus() {
+    void releaseAudioFocus() {
         audioManager.abandonAudioFocus(audioFocusChangeListener);
     }
 }

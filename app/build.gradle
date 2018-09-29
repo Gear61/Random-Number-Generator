@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "com.randomappsinc.randomnumbergeneratorplus"
         minSdkVersion 14
-        targetSdkVersion 27
-        versionCode 240
-        versionName "2.4.0"
+        targetSdkVersion 28
+        versionCode 241
+        versionName "2.4.1"
     }
     buildTypes {
         release {
@@ -19,18 +19,28 @@ android {
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+        baseline file("lint-baseline.xml")
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation ('com.afollestad.material-dialogs:commons:0.9.6.0') {
+        exclude group: 'com.android.support'
+    }
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
-    implementation 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
+    implementation ('com.joanzapata.iconify:android-iconify-fontawesome:2.2.2') {
+        exclude group: 'com.android.support'
+    }
+    implementation ('com.joanzapata.iconify:android-iconify-ionicons:2.2.2') {
+        exclude group: 'com.android.support'
+    }
     implementation 'com.squareup:seismic:1.0.2'
 }
