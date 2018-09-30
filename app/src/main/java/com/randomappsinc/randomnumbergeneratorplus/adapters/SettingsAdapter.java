@@ -78,6 +78,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                     UIUtils.setCheckedImmediately(toggle, preferencesManager.shouldPlaySounds());
                     toggle.setVisibility(View.VISIBLE);
                     break;
+                case 2:
+                    UIUtils.setCheckedImmediately(toggle, preferencesManager.getDarkModeEnabled());
+                    toggle.setVisibility(View.VISIBLE);
+                    break;
                 default:
                     toggle.setVisibility(View.GONE);
                     break;
@@ -85,16 +89,22 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         }
 
         @OnClick(R.id.toggle)
-        public void onToggle() {
-            if (getAdapterPosition() == 0) {
-                preferencesManager.setShakeEnabled(toggle.isChecked());
-            } else if (getAdapterPosition() == 1) {
-                preferencesManager.setPlaySounds(toggle.isChecked());
+        void onToggle() {
+            switch (getAdapterPosition()) {
+                case 0:
+                    preferencesManager.setShakeEnabled(toggle.isChecked());
+                    break;
+                case 1:
+                    preferencesManager.setPlaySounds(toggle.isChecked());
+                    break;
+                case 2:
+                    preferencesManager.setDarkModeEnabled(toggle.isChecked());
+                    break;
             }
         }
 
         @OnClick(R.id.parent)
-        public void onSettingSelected() {
+        void onSettingSelected() {
             itemSelectionListener.onItemClick(getAdapterPosition());
         }
     }

@@ -20,6 +20,7 @@ public class PreferencesManager {
     private static final String ASK_FOR_MUTE = "askForMute";
     private static final String SHAKE_IS_NEW = "shakeIsNew";
     private static final String ENABLE_SHAKE = "enableShake";
+    private static final String DARK_MODE_ENABLED = "darkModeEnabled";
 
     // RNG
     private static final String MINIMUM_KEY = "minimum";
@@ -158,5 +159,13 @@ public class PreferencesManager {
                 .putBoolean(SHOW_SUM_KEY, rngSettings.isShowSum())
                 .putBoolean(HIDE_EXCLUDED_KEY, rngSettings.isHideExcluded())
                 .apply();
+    }
+
+    public boolean getDarkModeEnabled() {
+        return prefs.getBoolean(DARK_MODE_ENABLED, false);
+    }
+
+    public void setDarkModeEnabled(boolean darkModeEnabled) {
+        prefs.edit().putBoolean(DARK_MODE_ENABLED, darkModeEnabled).apply();
     }
 }

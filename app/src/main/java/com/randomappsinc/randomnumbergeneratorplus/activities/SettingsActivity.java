@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 
 public class SettingsActivity extends StandardActivity implements SettingsAdapter.ItemSelectionListener {
 
-    public static final String SUPPORT_EMAIL = "chessnone@gmail.com";
+    public static final String SUPPORT_EMAIL = "RandomAppsInc61@gmail.com";
     public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/dev?id=9093438553713389916";
     public static final String REPO_URL = "https://github.com/Gear61/Random-Number-Generator";
 
@@ -61,15 +61,22 @@ public class SettingsActivity extends StandardActivity implements SettingsAdapte
                 preferencesManager.setPlaySounds(!soundsEnabled);
                 return;
             case 2:
+                View thirdCell = settingsOptions.getChildAt(2);
+                Switch darkThemeToggle = thirdCell.findViewById(R.id.toggle);
+                boolean darkThemeEnabled = darkThemeToggle.isChecked();
+                darkThemeToggle.setChecked(!darkThemeEnabled);
+                preferencesManager.setDarkModeEnabled(!darkThemeEnabled);
+                return;
+            case 3:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
                 Uri mailUri = Uri.parse(uriText);
                 Intent sendIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
                 startActivity(Intent.createChooser(sendIntent, sendEmail));
                 return;
-            case 3:
+            case 4:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OTHER_APPS_URL));
                 break;
-            case 4:
+            case 5:
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
@@ -77,7 +84,7 @@ public class SettingsActivity extends StandardActivity implements SettingsAdapte
                     return;
                 }
                 break;
-            case 5:
+            case 6:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL));
                 break;
         }
