@@ -9,13 +9,12 @@
     android:foreground="?android:attr/selectableItemBackground"
     tools:ignore="RtlHardcoded, SpUsage">
 
-    <com.joanzapata.iconify.widget.IconTextView
+    <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedIcon
         android:id="@+id/icon"
         android:gravity="center"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_centerVertical="true"
-        android:textColor="@color/dark_gray"
         android:textSize="22dp"/>
 
     <Switch
@@ -25,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"/>
 
-    <TextView
+    <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
         android:id="@+id/option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

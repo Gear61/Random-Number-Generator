@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.adapters.SettingsAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.theme.ThemeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.SimpleDividerItemDecoration;
 
 import butterknife.BindString;
@@ -28,6 +29,7 @@ public class SettingsActivity extends StandardActivity implements SettingsAdapte
     @BindString(R.string.send_email) String sendEmail;
 
     private PreferencesManager preferencesManager;
+    private ThemeManager themeManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class SettingsActivity extends StandardActivity implements SettingsAdapte
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         preferencesManager = new PreferencesManager(this);
+        themeManager = ThemeManager.get();
 
         settingsOptions.addItemDecoration(new SimpleDividerItemDecoration(this));
         settingsOptions.setAdapter(new SettingsAdapter(this, this));
@@ -65,7 +68,7 @@ public class SettingsActivity extends StandardActivity implements SettingsAdapte
                 Switch darkThemeToggle = thirdCell.findViewById(R.id.toggle);
                 boolean darkThemeEnabled = darkThemeToggle.isChecked();
                 darkThemeToggle.setChecked(!darkThemeEnabled);
-                preferencesManager.setDarkModeEnabled(!darkThemeEnabled);
+                themeManager.setDarkModeEnabled(this, !darkThemeEnabled);
                 return;
             case 3:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);

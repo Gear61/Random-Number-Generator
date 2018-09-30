@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.theme.ThemeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 import butterknife.BindView;
@@ -27,12 +28,14 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
     private String[] options;
     private String[] icons;
     private PreferencesManager preferencesManager;
+    private ThemeManager themeManager;
 
     public SettingsAdapter(Context context, @NonNull ItemSelectionListener itemSelectionListener) {
         this.itemSelectionListener = itemSelectionListener;
         this.options = context.getResources().getStringArray(R.array.settings_options);
         this.icons = context.getResources().getStringArray(R.array.settings_icons);
         this.preferencesManager = new PreferencesManager(context);
+        this.themeManager = ThemeManager.get();
     }
 
     @Override
@@ -98,7 +101,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                     preferencesManager.setPlaySounds(toggle.isChecked());
                     break;
                 case 2:
-                    preferencesManager.setDarkModeEnabled(toggle.isChecked());
+                    themeManager.setDarkModeEnabled(toggle.getContext(), toggle.isChecked());
                     break;
             }
         }
