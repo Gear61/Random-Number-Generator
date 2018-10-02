@@ -1,4 +1,4 @@
-<android.support.design.widget.CoordinatorLayout
+<com.randomappsinc.randomnumbergeneratorplus.theme.ThemedCoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -34,7 +34,7 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <TextView
+                <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
                     style="@style/input_prefix_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                             android:layout_height="match_parent"/>
                     </android.support.v7.widget.CardView>
 
-                    <EditText
+                    <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedEditText
                         android:id="@+id/excluded_number_input"
                         android:padding="8dp"
                         android:inputType="numberSigned"
@@ -76,7 +76,7 @@
                         android:hint="@string/excluded_hint"
                         android:textColor="@color/dark_gray"
                         android:textSize="18dp"
-                        android:background="@drawable/edittext_border"
+                        android:background="@drawable/edittext_border_normal"
                         android:layout_marginRight="55dp"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
@@ -84,7 +84,7 @@
                         android:layout_height="44dp"/>
                 </FrameLayout>
 
-                <TextView
+                <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
                     android:id="@+id/no_excluded_numbers"
                     android:text="@string/no_excluded"
                     android:layout_gravity="center_horizontal"
@@ -102,4 +102,4 @@
                 android:layout_height="match_parent"/>
         </LinearLayout>
     </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+</com.randomappsinc.randomnumbergeneratorplus.theme.ThemedCoordinatorLayout>

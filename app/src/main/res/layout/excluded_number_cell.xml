@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <com.joanzapata.iconify.widget.IconTextView
+    <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedIcon
         android:id="@+id/delete_icon"
         android:text="@string/delete_icon"
         android:layout_alignParentRight="true"
         style="@style/action_icon"/>
 
-    <TextView
+    <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
         android:id="@+id/excluded_number"
         android:layout_marginLeft="4dp"
         android:layout_alignParentLeft="true"

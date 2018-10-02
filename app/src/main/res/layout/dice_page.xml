@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<com.randomappsinc.randomnumbergeneratorplus.theme.ThemedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background_gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="SpUsage, RtlHardcoded">
@@ -11,14 +10,13 @@
         android:id="@+id/focal_point"
         style="@style/rng_page_container">
 
-        <TextView
+        <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
             android:text="@string/dice_roller"
             style="@style/page_title"/>
 
-        <RelativeLayout
+        <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:paddingTop="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
@@ -34,7 +32,7 @@
                 android:imeOptions="actionNext"
                 style="@style/numeric_input"/>
 
-            <TextView
+            <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/num_dice"
@@ -43,15 +41,14 @@
                 android:text="@string/num_dice"
                 android:textSize="15dp"
                 android:textColor="@color/dark_gray"/>
-        </RelativeLayout>
+        </com.randomappsinc.randomnumbergeneratorplus.theme.ThemedRelativeLayout>
 
-        <LinearLayout
+        <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
-            android:background="@color/white"
             android:orientation="horizontal">
 
             <TextView
@@ -73,17 +70,16 @@
                 android:id="@+id/num_dice_four"
                 android:text="@string/four"
                 style="@style/quick_option_button"/>
-        </LinearLayout>
+        </com.randomappsinc.randomnumbergeneratorplus.theme.ThemedLinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/background_gray"/>
 
-        <RelativeLayout
+        <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:paddingTop="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
@@ -99,7 +95,7 @@
                 android:imeOptions="actionDone"
                 style="@style/numeric_input"/>
 
-            <TextView
+            <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/num_sides"
@@ -108,15 +104,14 @@
                 android:text="@string/num_sides"
                 android:textSize="15dp"
                 android:textColor="@color/dark_gray"/>
-        </RelativeLayout>
+        </com.randomappsinc.randomnumbergeneratorplus.theme.ThemedRelativeLayout>
 
-        <LinearLayout
+        <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
-            android:background="@color/white"
             android:orientation="horizontal">
 
             <TextView
@@ -148,7 +143,7 @@
                 android:id="@+id/num_sides_twenty"
                 android:text="@string/twenty"
                 style="@style/quick_option_button"/>
-        </LinearLayout>
+        </com.randomappsinc.randomnumbergeneratorplus.theme.ThemedLinearLayout>
 
         <TextView
             android:id="@+id/roll"
@@ -157,4 +152,4 @@
 
         <include layout="@layout/results"/>
     </LinearLayout>
-</ScrollView>
+</com.randomappsinc.randomnumbergeneratorplus.theme.ThemedScrollView>

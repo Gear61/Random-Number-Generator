@@ -1,7 +1,6 @@
-<ScrollView
+<com.randomappsinc.randomnumbergeneratorplus.theme.ThemedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background_gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="SpUsage, RtlHardcoded">
@@ -11,10 +10,9 @@
             android:text="@string/lottery_simulator"
             style="@style/page_title"/>
 
-        <RelativeLayout
+        <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:padding="16dp">
 
             <RelativeLayout
@@ -28,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <View
+                <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedDivider
                     android:layout_width="wrap_content"
                     android:layout_height="1dp"
                     android:layout_marginLeft="4dp"
@@ -40,7 +38,7 @@
                     android:background="@color/black"/>
             </RelativeLayout>
 
-            <TextView
+            <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/lotto_chooser"
@@ -49,7 +47,7 @@
                 android:text="@string/lottery_type"
                 android:textSize="15dp"
                 android:textColor="@color/dark_gray"/>
-        </RelativeLayout>
+        </com.randomappsinc.randomnumbergeneratorplus.theme.ThemedRelativeLayout>
 
         <TextView
             android:id="@+id/generate"
@@ -58,4 +56,4 @@
 
         <include layout="@layout/results"/>
     </LinearLayout>
-</ScrollView>
+</com.randomappsinc.randomnumbergeneratorplus.theme.ThemedScrollView>

@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.design.widget.TabLayout
+            <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,18 +43,18 @@
                 app:tabTextColor="@color/half_white"
                 app:tabSelectedTextColor="@color/white"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_below="@id/tab_layout"
-                android:background="@drawable/toolbar_shadow"/>
-
             <android.support.v4.view.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/tab_layout"
                 android:background="@color/white"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_below="@id/tab_layout"
+                android:background="@drawable/toolbar_shadow"/>
         </RelativeLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

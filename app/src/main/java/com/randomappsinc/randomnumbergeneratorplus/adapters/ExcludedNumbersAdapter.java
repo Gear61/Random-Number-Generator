@@ -47,7 +47,7 @@ public class ExcludedNumbersAdapter extends BaseAdapter {
         setNoContent();
     }
 
-    public void removeNumber(int position) {
+    private void removeNumber(int position) {
         excludedNumbers.remove(position);
         Collections.sort(excludedNumbers);
         notifyDataSetChanged();
@@ -69,7 +69,7 @@ public class ExcludedNumbersAdapter extends BaseAdapter {
         return getItem(position).hashCode();
     }
 
-    public class ExcludedNumberViewHolder {
+    class ExcludedNumberViewHolder {
         @BindView(R.id.excluded_number) TextView excludedNumber;
         @BindView(R.id.delete_icon) View deleteIcon;
 

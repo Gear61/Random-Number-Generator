@@ -1,8 +1,6 @@
-<TextView
+<com.randomappsinc.randomnumbergeneratorplus.theme.ThemedSpinnerTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="18dp"
-    android:textColor="@color/dark_gray"
-    android:padding="12dp"/>
+    android:padding="12dp"
+    android:textSize="17sp"/>

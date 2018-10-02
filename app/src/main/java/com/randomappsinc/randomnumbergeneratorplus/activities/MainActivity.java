@@ -64,8 +64,8 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         setContentView(R.layout.homepage);
         ButterKnife.bind(this);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-
         setSupportActionBar(toolbar);
+        setActionBarColors();
 
         SoundPlayer.Listener soundListener = new SoundPlayer.Listener() {
             @Override
