@@ -77,6 +77,7 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
     private PreferencesManager preferencesManager;
     private RNGSettings rngSettings;
     private MaterialDialog settingsDialog;
+    private MaterialDialog excludedDialog;
     private RNGSettingsViewHolder moreSettingsViewHolder;
     private HistoryDataManager historyDataManager;
     private ShakeManager shakeManager = ShakeManager.get();
@@ -103,6 +104,7 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
         maximumInput.setText(String.valueOf(rngSettings.getMaximum()));
         rngSettings.setExcludedNumbers(excludedCopy);
         setSettingsDialog();
+        setExcludedDialog();
         themeManager.registerListener(this);
 
         quantityInput.setText(String.valueOf(rngSettings.getNumNumbers()));
@@ -116,6 +118,7 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
     public void onThemeChanged(boolean darkModeEnabled) {
         saveRNGSettings();
         setSettingsDialog();
+        setExcludedDialog();
     }
 
     private void setSettingsDialog() {
@@ -132,6 +135,29 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
                 })
                 .build();
         moreSettingsViewHolder = new RNGSettingsViewHolder(settingsDialog.getCustomView(), getActivity(), rngSettings);
+    }
+
+    private void setExcludedDialog() {
+        ArrayList<Integer> excludedNumbers = rngSettings.getExcludedNumbers();
+        excludedDialog = new MaterialDialog.Builder(getActivity())
+                .theme(themeManager.getDarkModeEnabled(getActivity()) ? Theme.DARK : Theme.LIGHT)
+                .title(R.string.excluded_numbers)
+                .content(RandUtils.getExcludedList(excludedNumbers, noExcludedNumbers))
+                .positiveText(android.R.string.yes)
+                .negativeText(R.string.edit)
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (which == DialogAction.NEGATIVE) {
+                            editExcludedNumbers();
+                        } else if (which == DialogAction.NEUTRAL) {
+                            rngSettings.getExcludedNumbers().clear();
+                            loadExcludedNumbers();
+                            snackbarDisplay.showSnackbar(getString(R.string.excluded_clear));
+                        }
+                    }
+                })
+                .build();
     }
 
     @Override
@@ -172,26 +198,8 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
 
     @OnClick({R.id.excluded_numbers_container, R.id.excluded_numbers})
     public void editExcluded() {
-        final ArrayList<Integer> excludedNumbers = rngSettings.getExcludedNumbers();
-        MaterialDialog excludedDialog = new MaterialDialog.Builder(getActivity())
-                .title(R.string.excluded_numbers)
-                .theme(Theme.LIGHT)
-                .content(RandUtils.getExcludedList(excludedNumbers, noExcludedNumbers))
-                .positiveText(android.R.string.yes)
-                .negativeText(R.string.edit)
-                .onAny(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (which == DialogAction.NEGATIVE) {
-                            editExcludedNumbers();
-                        } else if (which == DialogAction.NEUTRAL) {
-                            excludedNumbers.clear();
-                            loadExcludedNumbers();
-                            snackbarDisplay.showSnackbar(getString(R.string.excluded_clear));
-                        }
-                    }
-                })
-                .build();
+        ArrayList<Integer> excludedNumbers = rngSettings.getExcludedNumbers();
+        excludedDialog.setContent(RandUtils.getExcludedList(excludedNumbers, noExcludedNumbers));
         if (!excludedNumbers.isEmpty()) {
             excludedDialog.setActionButton(DialogAction.NEUTRAL, R.string.clear);
         }

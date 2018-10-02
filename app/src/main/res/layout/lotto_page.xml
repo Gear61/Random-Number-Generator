@@ -6,7 +6,7 @@
     tools:ignore="SpUsage, RtlHardcoded">
 
     <LinearLayout style="@style/rng_page_container">
-        <TextView
+        <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
             android:text="@string/lottery_simulator"
             style="@style/page_title"/>
 

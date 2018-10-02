@@ -10,7 +10,7 @@
         android:id="@+id/focal_point"
         style="@style/rng_page_container">
 
-        <TextView
+        <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
             android:text="@string/coin_flipper"
             style="@style/page_title"/>
 
