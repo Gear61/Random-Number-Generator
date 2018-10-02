@@ -7,10 +7,12 @@ import android.util.SparseArray;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.adapters.HistoryAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
+import com.randomappsinc.randomnumbergeneratorplus.theme.ThemeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.SimpleDividerItemDecoration;
 
 import java.util.List;
@@ -22,10 +24,18 @@ public class HistoryDialog {
     private @RNGType int currentRngType;
     private HistoryDataManager historyDataManager;
 
-    public HistoryDialog(Context context, @RNGType final int rngType) {
+    public HistoryDialog(Context context, @RNGType final int rngType, boolean isDarkModeEnabled) {
         this.currentRngType = rngType;
         historyAdapter = new HistoryAdapter(rngType == RNGType.LOTTO);
+        resetDialog(context, isDarkModeEnabled);
+        dialog.getRecyclerView().addItemDecoration(new SimpleDividerItemDecoration(context));
+        historyDataManager = HistoryDataManager.get(context);
+        historyDataManager.addListener(listener);
+    }
+
+    public void resetDialog(Context context, boolean isDarkModeEnabled) {
         dialog = new MaterialDialog.Builder(context)
+                .theme(isDarkModeEnabled ? Theme.DARK : Theme.LIGHT)
                 .title(getTitleResource())
                 .content(R.string.no_history)
                 .adapter(historyAdapter, null)
@@ -40,7 +50,7 @@ public class HistoryDialog {
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        historyDataManager.deleteHistory(rngType);
+                        historyDataManager.deleteHistory(currentRngType);
                         historyAdapter.clear();
                         dialog.setContent(R.string.no_history);
                     }
@@ -48,8 +58,6 @@ public class HistoryDialog {
                 .autoDismiss(false)
                 .build();
         dialog.getRecyclerView().addItemDecoration(new SimpleDividerItemDecoration(context));
-        historyDataManager = HistoryDataManager.get(context);
-        historyDataManager.addListener(listener);
     }
 
     private @StringRes int getTitleResource() {

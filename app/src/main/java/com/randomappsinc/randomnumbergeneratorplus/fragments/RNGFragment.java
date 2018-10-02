@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.activities.EditExcludedActivity;
 import com.randomappsinc.randomnumbergeneratorplus.activities.MainActivity;
@@ -160,6 +161,7 @@ public class RNGFragment extends Fragment {
         final ArrayList<Integer> excludedNumbers = rngSettings.getExcludedNumbers();
         MaterialDialog excludedDialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.excluded_numbers)
+                .theme(Theme.LIGHT)
                 .content(RandUtils.getExcludedList(excludedNumbers, noExcludedNumbers))
                 .positiveText(android.R.string.yes)
                 .negativeText(R.string.edit)

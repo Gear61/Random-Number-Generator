@@ -57,6 +57,10 @@ public class StandardActivity extends AppCompatActivity implements ThemeManager.
         }
     }
 
+    protected boolean isDarkModeEnabled() {
+        return themeManager.getDarkModeEnabled(this);
+    }
+
     @Override
     public void onThemeChanged(boolean darkModeEnabled) {
         setActionBarColors();

@@ -23,7 +23,7 @@ import butterknife.OnClick;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryItemViewHolder> {
 
     protected List<CharSequence> items = new ArrayList<>();
-    protected boolean forLotto;
+    private boolean forLotto;
 
     public HistoryAdapter(boolean forLotto) {
         this.forLotto = forLotto;

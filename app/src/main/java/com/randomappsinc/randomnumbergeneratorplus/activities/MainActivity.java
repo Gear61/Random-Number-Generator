@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.R;
@@ -92,6 +93,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
 
         if (preferencesManager.shouldAskForRating()) {
             new MaterialDialog.Builder(this)
+                    .theme(isDarkModeEnabled() ? Theme.DARK : Theme.LIGHT)
                     .content(R.string.please_rate)
                     .negativeText(R.string.decline_rating)
                     .positiveText(R.string.will_rate)
@@ -111,6 +113,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
                     .show();
         } else if (preferencesManager.shouldShowShake()) {
             new MaterialDialog.Builder(this)
+                    .theme(isDarkModeEnabled() ? Theme.DARK : Theme.LIGHT)
                     .title(R.string.shake_it)
                     .content(R.string.shake_now_supported)
                     .positiveText(android.R.string.yes)
@@ -118,11 +121,20 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
                     .show();
         }
 
-        rngHistoryDialog = new HistoryDialog(this, RNGType.NUMBER);
-        diceHistoryDialog = new HistoryDialog(this, RNGType.DICE);
-        lottoHistoryDialog = new HistoryDialog(this, RNGType.LOTTO);
-        coinsHistoryDialog = new HistoryDialog(this, RNGType.COINS);
+        rngHistoryDialog = new HistoryDialog(this, RNGType.NUMBER, isDarkModeEnabled());
+        diceHistoryDialog = new HistoryDialog(this, RNGType.DICE, isDarkModeEnabled());
+        lottoHistoryDialog = new HistoryDialog(this, RNGType.LOTTO, isDarkModeEnabled());
+        coinsHistoryDialog = new HistoryDialog(this, RNGType.COINS, isDarkModeEnabled());
         HistoryDataManager.get(this).getInitialHistory();
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        super.onThemeChanged(darkModeEnabled);
+        rngHistoryDialog.resetDialog(this, darkModeEnabled);
+        diceHistoryDialog.resetDialog(this, darkModeEnabled);
+        lottoHistoryDialog.resetDialog(this, darkModeEnabled);
+        coinsHistoryDialog.resetDialog(this, darkModeEnabled);
     }
 
     @Override
