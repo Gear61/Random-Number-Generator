@@ -11,11 +11,12 @@
     <color name="accent_green">#00C853</color>
     <color name="black">#000000</color>
     <color name="shadow_black">#3D000000</color>
-    <color name="dark_mode_black">#424242</color>
+    <color name="dark_mode_black_lite">#484848</color>
+    <color name="dark_mode_black">#363636</color>
+    <color name="dark_mode_status_bar_black">#212121</color>
 
     <color name="blue_400">#42A5F5</color>
     <color name="blue_200">#90CAF9</color>
     <color name="gray_300">#E0E0E0</color>
     <color name="gray_100">#F5F5F5</color>
 </resources>
-

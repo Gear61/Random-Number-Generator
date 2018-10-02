@@ -37,6 +37,7 @@ public class SettingsActivity extends StandardActivity implements SettingsAdapte
         setContentView(R.layout.settings);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setActionBarColors();
 
         preferencesManager = new PreferencesManager(this);
         themeManager = ThemeManager.get();

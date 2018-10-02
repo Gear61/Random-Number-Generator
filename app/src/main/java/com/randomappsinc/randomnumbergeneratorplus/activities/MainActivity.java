@@ -3,6 +3,7 @@ package com.randomappsinc.randomnumbergeneratorplus.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -62,6 +63,8 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
         ButterKnife.bind(this);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         setSupportActionBar(toolbar);
 
         SoundPlayer.Listener soundListener = new SoundPlayer.Listener() {
