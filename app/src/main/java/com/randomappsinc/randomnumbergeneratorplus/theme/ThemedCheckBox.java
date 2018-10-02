@@ -2,29 +2,29 @@ package com.randomappsinc.randomnumbergeneratorplus.theme;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 
-public class ThemedDivider extends View implements ThemeManager.Listener {
+public class ThemedCheckBox extends AppCompatCheckBox implements ThemeManager.Listener {
 
     private ThemeManager themeManager;
-    private int normalModeColor;
-    private int darkModeColor;
+    private int normalModeTextColor;
+    private int darkModeTextColor;
 
-    public ThemedDivider(Context context, AttributeSet attrs) {
+    public ThemedCheckBox(Context context, AttributeSet attrs) {
         super(context, attrs);
         themeManager = ThemeManager.get();
-        normalModeColor = ContextCompat.getColor(context, R.color.dark_gray);
-        darkModeColor = ContextCompat.getColor(context, R.color.white);
+        normalModeTextColor = ContextCompat.getColor(context, R.color.dark_gray);
+        darkModeTextColor = ContextCompat.getColor(context, R.color.white);
 
-        setBackgroundColor(themeManager.getDarkModeEnabled(context) ? darkModeColor : normalModeColor);
+        setTextColor(themeManager.getDarkModeEnabled(context) ? darkModeTextColor : normalModeTextColor);
     }
 
     @Override
     public void onThemeChanged(boolean darkModeEnabled) {
-        setBackgroundColor(darkModeEnabled ? darkModeColor : normalModeColor);
+        setTextColor(darkModeEnabled ? darkModeTextColor : normalModeTextColor);
     }
 
     @Override

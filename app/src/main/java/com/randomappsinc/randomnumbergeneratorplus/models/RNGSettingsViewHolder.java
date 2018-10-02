@@ -22,7 +22,7 @@ public class RNGSettingsViewHolder {
         ButterKnife.bind(this, view);
 
         String[] sortChoices = context.getResources().getStringArray(R.array.sort_options);
-        sortOptions.setAdapter(new ArrayAdapter<>(context, R.layout.spinner_item, sortChoices));
+        sortOptions.setAdapter(new ArrayAdapter<>(context, R.layout.spinner_item_rng_settings, sortChoices));
 
         sortOptions.setSelection(rngSettings.getSortType());
         blockDupes.setChecked(rngSettings.isNoDupes());

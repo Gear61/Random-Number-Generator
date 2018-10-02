@@ -23,6 +23,7 @@ import com.randomappsinc.randomnumbergeneratorplus.models.RNGSettings;
 import com.randomappsinc.randomnumbergeneratorplus.models.RNGSettingsViewHolder;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.theme.ThemeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.RandUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.TextUtils;
@@ -41,7 +42,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
-public class RNGFragment extends Fragment {
+public class RNGFragment extends Fragment implements ThemeManager.Listener {
 
     @BindView(R.id.focal_point) View focalPoint;
     @BindView(R.id.minimum) EditText minimumInput;
@@ -79,6 +80,7 @@ public class RNGFragment extends Fragment {
     private RNGSettingsViewHolder moreSettingsViewHolder;
     private HistoryDataManager historyDataManager;
     private ShakeManager shakeManager = ShakeManager.get();
+    private ThemeManager themeManager = ThemeManager.get();
     private Unbinder unbinder;
 
     @Override
@@ -93,7 +95,32 @@ public class RNGFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         historyDataManager = HistoryDataManager.get(getActivity());
         preferencesManager = new PreferencesManager(getActivity());
+        rngSettings = preferencesManager.getRNGSettings();
+
+        // Setting the value of min/max clears the excluded numbers, so we have to save them
+        ArrayList<Integer> excludedCopy = new ArrayList<>(rngSettings.getExcludedNumbers());
+        minimumInput.setText(String.valueOf(rngSettings.getMinimum()));
+        maximumInput.setText(String.valueOf(rngSettings.getMaximum()));
+        rngSettings.setExcludedNumbers(excludedCopy);
+        setSettingsDialog();
+        themeManager.registerListener(this);
+
+        quantityInput.setText(String.valueOf(rngSettings.getNumNumbers()));
+        loadExcludedNumbers();
+
+        focalPoint.requestFocus();
+        shakeManager.registerListener(shakeListener);
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        saveRNGSettings();
+        setSettingsDialog();
+    }
+
+    private void setSettingsDialog() {
         settingsDialog = new MaterialDialog.Builder(getActivity())
+                .theme(themeManager.getDarkModeEnabled(getActivity()) ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.rng_settings)
                 .customView(R.layout.rng_settings, true)
                 .positiveText(android.R.string.yes)
@@ -104,20 +131,7 @@ public class RNGFragment extends Fragment {
                     }
                 })
                 .build();
-        rngSettings = preferencesManager.getRNGSettings();
-
-        // Setting the value of min/max clears the excluded numbers, so we have to save them
-        ArrayList<Integer> excludedCopy = new ArrayList<>(rngSettings.getExcludedNumbers());
-        minimumInput.setText(String.valueOf(rngSettings.getMinimum()));
-        maximumInput.setText(String.valueOf(rngSettings.getMaximum()));
-        rngSettings.setExcludedNumbers(excludedCopy);
-
-        quantityInput.setText(String.valueOf(rngSettings.getNumNumbers()));
         moreSettingsViewHolder = new RNGSettingsViewHolder(settingsDialog.getCustomView(), getActivity(), rngSettings);
-        loadExcludedNumbers();
-
-        focalPoint.requestFocus();
-        shakeManager.registerListener(shakeListener);
     }
 
     @Override
@@ -297,6 +311,7 @@ public class RNGFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        themeManager.unregisterListener(this);
         shakeManager.unregisterListener(shakeListener);
         saveRNGSettings();
         unbinder.unbind();

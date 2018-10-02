@@ -12,7 +12,6 @@ import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.adapters.HistoryAdapter;
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
-import com.randomappsinc.randomnumbergeneratorplus.theme.ThemeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.SimpleDividerItemDecoration;
 
 import java.util.List;
