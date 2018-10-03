@@ -21,6 +21,7 @@ public class PreferencesManager {
     private static final String SHAKE_IS_NEW = "shakeIsNew";
     private static final String ENABLE_SHAKE = "enableShake";
     private static final String DARK_MODE_ENABLED = "darkModeEnabled";
+    private static final String SHOULD_TEACH_ABOUT_DARK_MODE = "shouldTeachAboutDarkMode";
 
     // RNG
     private static final String MINIMUM_KEY = "minimum";
@@ -167,5 +168,14 @@ public class PreferencesManager {
 
     public void setDarkModeEnabled(boolean darkModeEnabled) {
         prefs.edit().putBoolean(DARK_MODE_ENABLED, darkModeEnabled).apply();
+    }
+
+    public boolean shouldTeachAboutDarkMode() {
+        boolean darkModeDisabled = !getDarkModeEnabled();
+        return darkModeDisabled && prefs.getBoolean(SHOULD_TEACH_ABOUT_DARK_MODE, true);
+    }
+
+    public void setShouldTeachAboutDarkMode(boolean shouldTeachAboutDarkMode) {
+        prefs.edit().putBoolean(SHOULD_TEACH_ABOUT_DARK_MODE, shouldTeachAboutDarkMode).apply();
     }
 }

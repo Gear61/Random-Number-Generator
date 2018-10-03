@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -16,9 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.Theme;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.R;
@@ -28,6 +23,7 @@ import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;
 import com.randomappsinc.randomnumbergeneratorplus.dialogs.HistoryDialog;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.HistoryDataManager;
 import com.randomappsinc.randomnumbergeneratorplus.persistence.PreferencesManager;
+import com.randomappsinc.randomnumbergeneratorplus.utils.DialogUtils;
 import com.randomappsinc.randomnumbergeneratorplus.utils.ShakeManager;
 import com.randomappsinc.randomnumbergeneratorplus.utils.ToastUtil;
 import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
@@ -91,35 +87,7 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
         shakeManager = ShakeManager.get();
         shakeDetector = new ShakeDetector(this);
 
-        if (preferencesManager.shouldAskForRating()) {
-            new MaterialDialog.Builder(this)
-                    .theme(isDarkModeEnabled() ? Theme.DARK : Theme.LIGHT)
-                    .content(R.string.please_rate)
-                    .negativeText(R.string.decline_rating)
-                    .positiveText(R.string.will_rate)
-                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            Uri uri = Uri.parse(
-                                    "market://details?id=" + getApplicationContext().getPackageName());
-                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                            if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
-                                UIUtils.showSnackbar(parent, getString(R.string.play_store_error), MainActivity.this);
-                                return;
-                            }
-                            startActivity(intent);
-                        }
-                    })
-                    .show();
-        } else if (preferencesManager.shouldShowShake()) {
-            new MaterialDialog.Builder(this)
-                    .theme(isDarkModeEnabled() ? Theme.DARK : Theme.LIGHT)
-                    .title(R.string.shake_it)
-                    .content(R.string.shake_now_supported)
-                    .positiveText(android.R.string.yes)
-                    .cancelable(false)
-                    .show();
-        }
+        DialogUtils.showHomepageDialog(this, preferencesManager, isDarkModeEnabled(), themeManager);
 
         rngHistoryDialog = new HistoryDialog(this, RNGType.NUMBER, isDarkModeEnabled());
         diceHistoryDialog = new HistoryDialog(this, RNGType.DICE, isDarkModeEnabled());

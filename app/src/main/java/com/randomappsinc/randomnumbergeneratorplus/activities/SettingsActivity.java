@@ -40,6 +40,7 @@ public class SettingsActivity extends StandardActivity implements SettingsAdapte
         setActionBarColors();
 
         preferencesManager = new PreferencesManager(this);
+        preferencesManager.setShouldTeachAboutDarkMode(false);
         themeManager = ThemeManager.get();
 
         settingsOptions.addItemDecoration(new SimpleDividerItemDecoration(this));

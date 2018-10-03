@@ -14,7 +14,7 @@ import com.randomappsinc.randomnumbergeneratorplus.utils.UIUtils;
 
 public class StandardActivity extends AppCompatActivity implements ThemeManager.Listener {
 
-    private ThemeManager themeManager = ThemeManager.get();
+    protected ThemeManager themeManager = ThemeManager.get();
     private int blue;
     private int darkBlue;
     private int actionBarBlack;

@@ -73,6 +73,14 @@
         No problem! You can turn it off and on anytime from the settings!
     </string>
 
+    <string name="eyes_getting_tired">Eyes Getting Tired?</string>
+    <string name="dark_mode_explanation">
+        If you want to give Random Number Generator Plus a darker color scheme, you can turn on dark mode.
+        Want to try it now? If not, that\'s okay, you can turn it on or off at any time from the settings menu.
+    </string>
+    <string name="sure_lets_do_it">Sure, let\'s do it!</string>
+    <string name="maybe_later">Maybe later</string>
+
     <string name="show_history">Show history</string>
     <string name="rng_history">RNG History</string>
     <string name="dice_history">Dice Roll History</string>
