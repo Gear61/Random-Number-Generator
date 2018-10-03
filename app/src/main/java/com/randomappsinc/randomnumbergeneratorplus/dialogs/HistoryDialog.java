@@ -57,6 +57,9 @@ public class HistoryDialog {
                 .autoDismiss(false)
                 .build();
         dialog.getRecyclerView().addItemDecoration(new SimpleDividerItemDecoration(context));
+        if (historyAdapter.getItemCount() > 0) {
+            dialog.setContent(R.string.history_explanation);
+        }
     }
 
     private @StringRes int getTitleResource() {
