@@ -1,6 +1,6 @@
 package com.randomappsinc.randomnumbergeneratorplus.constants;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 @IntDef({
         SortType.NONE,

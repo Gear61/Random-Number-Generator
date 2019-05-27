@@ -1,8 +1,9 @@
 package com.randomappsinc.randomnumbergeneratorplus.theme;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+
+import androidx.core.content.ContextCompat;
 
 import com.joanzapata.iconify.widget.IconTextView;
 import com.randomappsinc.randomnumbergeneratorplus.R;

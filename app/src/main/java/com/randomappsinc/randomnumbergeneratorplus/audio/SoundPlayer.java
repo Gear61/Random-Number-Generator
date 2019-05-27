@@ -2,7 +2,8 @@ package com.randomappsinc.randomnumbergeneratorplus.audio;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 import com.randomappsinc.randomnumbergeneratorplus.constants.RNGType;

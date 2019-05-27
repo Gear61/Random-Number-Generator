@@ -1,9 +1,10 @@
 package com.randomappsinc.randomnumbergeneratorplus.theme;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.core.content.ContextCompat;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 

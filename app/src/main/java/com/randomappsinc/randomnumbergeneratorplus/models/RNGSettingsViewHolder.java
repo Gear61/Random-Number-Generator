@@ -1,10 +1,11 @@
 package com.randomappsinc.randomnumbergeneratorplus.models;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import androidx.appcompat.widget.AppCompatCheckBox;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 

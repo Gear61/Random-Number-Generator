@@ -7,8 +7,8 @@ android {
         applicationId "com.randomappsinc.randomnumbergeneratorplus"
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 244
-        versionName "2.4.4"
+        versionCode 246
+        versionName "2.4.6"
     }
     buildTypes {
         release {
@@ -23,19 +23,23 @@ android {
         disable 'GoogleAppIndexingWarning'
         baseline file("lint-baseline.xml")
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
     implementation ('com.afollestad.material-dialogs:commons:0.9.6.0') {
         exclude group: 'com.android.support'
     }
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation ('com.joanzapata.iconify:android-iconify-fontawesome:2.2.2') {
         exclude group: 'com.android.support'
     }

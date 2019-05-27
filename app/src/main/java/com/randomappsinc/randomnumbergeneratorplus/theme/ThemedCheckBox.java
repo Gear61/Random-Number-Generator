@@ -1,9 +1,10 @@
 package com.randomappsinc.randomnumbergeneratorplus.theme;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.core.content.ContextCompat;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 

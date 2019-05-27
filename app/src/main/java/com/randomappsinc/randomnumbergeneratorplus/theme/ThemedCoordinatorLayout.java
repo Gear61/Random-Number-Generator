@@ -1,13 +1,14 @@
 package com.randomappsinc.randomnumbergeneratorplus.theme;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.widget.RelativeLayout;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 
-public class ThemedCoordinatorLayout extends RelativeLayout implements ThemeManager.Listener {
+public class ThemedCoordinatorLayout extends CoordinatorLayout implements ThemeManager.Listener {
 
     private ThemeManager themeManager;
     private int normalModeColor;

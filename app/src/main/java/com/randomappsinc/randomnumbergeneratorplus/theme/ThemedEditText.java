@@ -2,9 +2,10 @@ package com.randomappsinc.randomnumbergeneratorplus.theme;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 
 import com.randomappsinc.randomnumbergeneratorplus.R;
 

@@ -5,15 +5,18 @@ import android.graphics.Color;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.randomnumbergeneratorplus.R;
@@ -141,20 +144,20 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     }
 
     public void askToMute() {
+        SpannableStringBuilder spannableString = new SpannableStringBuilder(getString(R.string.dislike_sound));
+        spannableString.setSpan(
+                new ForegroundColorSpan(Color.WHITE),
+                0,
+                spannableString.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         Snackbar snackbar = Snackbar.make(
                 parent,
-                R.string.dislike_sound,
+                spannableString,
                 Snackbar.LENGTH_LONG);
-        View rootView = snackbar.getView();
         snackbar.getView().setBackgroundColor(blue);
-        TextView tv = rootView.findViewById(android.support.design.R.id.snackbar_text);
-        tv.setTextColor(Color.WHITE);
-        snackbar.setAction(R.string.turn_off, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                preferencesManager.setPlaySounds(false);
-                showSnackbar(getString(R.string.sounds_muted));
-            }
+        snackbar.setAction(R.string.turn_off, v -> {
+            preferencesManager.setPlaySounds(false);
+            showSnackbar(getString(R.string.sounds_muted));
         });
         snackbar.setActionTextColor(Color.WHITE);
         snackbar.show();

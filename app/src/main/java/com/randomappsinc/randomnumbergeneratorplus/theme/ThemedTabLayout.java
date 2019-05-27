@@ -1,10 +1,11 @@
 package com.randomappsinc.randomnumbergeneratorplus.theme;
 
 import android.content.Context;
-import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.tabs.TabLayout;
 import com.randomappsinc.randomnumbergeneratorplus.R;
 
 public class ThemedTabLayout extends TabLayout implements ThemeManager.Listener {
