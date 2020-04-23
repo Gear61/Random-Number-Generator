@@ -4,28 +4,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
 
         <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sort_by"
             android:textColor="@color/dark_gray"
-            android:textSize="19dp"/>
+            android:textSize="19dp"
+            />
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <Spinner
                 android:id="@+id/sort_options"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                />
 
             <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedDivider
                 android:layout_width="wrap_content"
@@ -36,7 +42,8 @@
                 android:layout_below="@id/sort_options"
                 android:layout_alignLeft="@id/sort_options"
                 android:layout_alignRight="@id/sort_options"
-                android:background="@color/black"/>
+                android:background="@color/black"
+                />
         </RelativeLayout>
     </LinearLayout>
 
@@ -45,17 +52,20 @@
         android:text="@string/no_dupes"
         android:layout_marginTop="-4dp"
         app:buttonTint="@color/checkbox_box_color"
-        style="@style/checkbox"/>
+        style="@style/checkbox"
+        />
 
     <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedCheckBox
         android:id="@+id/show_sum"
         android:text="@string/show_sum"
         app:buttonTint="@color/checkbox_box_color"
-        style="@style/checkbox"/>
+        style="@style/checkbox"
+        />
 
     <com.randomappsinc.randomnumbergeneratorplus.theme.ThemedCheckBox
         android:id="@+id/hide_excludes"
         android:text="@string/hide_excluded"
         app:buttonTint="@color/checkbox_box_color"
-        style="@style/checkbox"/>
+        style="@style/checkbox"
+        />
 </LinearLayout>

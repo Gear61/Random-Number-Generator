@@ -14,7 +14,7 @@
         <item>@string/coins</item>
     </string-array>
 
-    <string name="rng_settings">RNG settings</string>
+    <string name="rng_settings">RNG Settings</string>
     <string name="settings">Settings</string>
 
     <string name="plus_icon">{ion-android-add}</string>

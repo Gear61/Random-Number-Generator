@@ -9,7 +9,7 @@
         <item>@string/descending</item>
     </string-array>
 
-    <string name="no_dupes">No duplicate numbers</string>
+    <string name="no_dupes">No duplicate numbers when choosing more than 1 number at a time</string>
     <string name="show_sum">Show sum</string>
     <string name="hide_excluded">Hide excluded numbers</string>
 
