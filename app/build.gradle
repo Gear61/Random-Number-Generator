@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "com.randomappsinc.randomnumbergeneratorplus"
         minSdkVersion 14
-        targetSdkVersion 28
-        versionCode 245
-        versionName "2.4.5"
+        targetSdkVersion 29
+        versionCode 246
+        versionName "2.4.6"
     }
     buildTypes {
         release {
@@ -43,14 +43,14 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation ('com.afollestad.material-dialogs:commons:0.9.6.0') {
         exclude group: 'com.android.support'
     }
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation ('com.joanzapata.iconify:android-iconify-fontawesome:2.2.2') {
         exclude group: 'com.android.support'
     }

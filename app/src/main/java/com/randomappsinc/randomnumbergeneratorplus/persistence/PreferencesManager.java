@@ -116,7 +116,7 @@ public class PreferencesManager {
     }
 
     public boolean isShakeEnabled() {
-        return prefs.getBoolean(ENABLE_SHAKE, true);
+        return prefs.getBoolean(ENABLE_SHAKE, false);
     }
 
     public void setShakeEnabled(boolean enableShake) {

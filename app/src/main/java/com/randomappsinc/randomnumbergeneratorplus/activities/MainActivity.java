@@ -144,7 +144,8 @@ public class MainActivity extends StandardActivity implements ShakeDetector.List
     }
 
     public void askToMute() {
-        SpannableStringBuilder spannableString = new SpannableStringBuilder(getString(R.string.dislike_sound));
+        SpannableStringBuilder spannableString = new SpannableStringBuilder(
+                getString(R.string.dislike_sound));
         spannableString.setSpan(
                 new ForegroundColorSpan(Color.WHITE),
                 0,
