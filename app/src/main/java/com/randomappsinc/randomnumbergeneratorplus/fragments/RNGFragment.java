@@ -59,19 +59,12 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
     @BindColor(R.color.app_blue) int blue;
     @BindInt(R.integer.shorter_anim_length) int resultsAnimationLength;
 
-    private final TextUtils.SnackbarDisplay snackbarDisplay = new TextUtils.SnackbarDisplay() {
-        @Override
-        public void showSnackbar(String message) {
+    private final TextUtils.SnackbarDisplay snackbarDisplay = message ->
             ((MainActivity) getActivity()).showSnackbar(message);
-        }
-    };
 
-    private final ShakeManager.Listener shakeListener = new ShakeManager.Listener() {
-        @Override
-        public void onShakeDetected(int currentRngPage) {
-            if (currentRngPage == RNGType.NUMBER) {
-                generate();
-            }
+    private final ShakeManager.Listener shakeListener = currentRngPage -> {
+        if (currentRngPage == RNGType.NUMBER) {
+            generate();
         }
     };
 
@@ -128,12 +121,7 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
                 .title(R.string.rng_settings)
                 .customView(R.layout.rng_settings, true)
                 .positiveText(android.R.string.yes)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        loadExcludedNumbers();
-                    }
-                })
+                .onPositive((dialog, which) -> loadExcludedNumbers())
                 .build();
         moreSettingsViewHolder = new RNGSettingsViewHolder(settingsDialog.getCustomView(), getActivity(), rngSettings);
     }
@@ -146,16 +134,13 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
                 .content(RandUtils.getExcludedList(excludedNumbers, noExcludedNumbers))
                 .positiveText(android.R.string.yes)
                 .negativeText(R.string.edit)
-                .onAny(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (which == DialogAction.NEGATIVE) {
-                            editExcludedNumbers();
-                        } else if (which == DialogAction.NEUTRAL) {
-                            rngSettings.getExcludedNumbers().clear();
-                            loadExcludedNumbers();
-                            snackbarDisplay.showSnackbar(getString(R.string.excluded_clear));
-                        }
+                .onAny((dialog, which) -> {
+                    if (which == DialogAction.NEGATIVE) {
+                        editExcludedNumbers();
+                    } else if (which == DialogAction.NEUTRAL) {
+                        rngSettings.getExcludedNumbers().clear();
+                        loadExcludedNumbers();
+                        snackbarDisplay.showSnackbar(getString(R.string.excluded_clear));
                     }
                 })
                 .build();
@@ -198,7 +183,7 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
     }
 
     @OnClick({R.id.excluded_numbers_container, R.id.excluded_numbers})
-    public void editExcluded() {
+    void editExcluded() {
         ArrayList<Integer> excludedNumbers = rngSettings.getExcludedNumbers();
         excludedDialog.setContent(RandUtils.getExcludedList(excludedNumbers, noExcludedNumbers));
         if (!excludedNumbers.isEmpty()) {
@@ -223,18 +208,18 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
     }
 
     @OnClick(R.id.rng_settings)
-    public void showRNGSettings() {
+    void showRNGSettings() {
         settingsDialog.show();
     }
 
     @OnTextChanged(value = R.id.minimum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void minChanged() {
+    void minChanged() {
         rngSettings.getExcludedNumbers().clear();
         loadExcludedNumbers();
     }
 
     @OnTextChanged(value = R.id.maximum, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void maxChanged() {
+    void maxChanged() {
         rngSettings.getExcludedNumbers().clear();
         loadExcludedNumbers();
     }
@@ -250,7 +235,7 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
     }
 
     @OnClick(R.id.generate)
-    public void generate() {
+    void generate() {
         if (verifyForm()) {
             MainActivity mainActivity = (MainActivity) getActivity();
             if (mainActivity != null) {
@@ -281,7 +266,7 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
         }
     }
 
-    public boolean verifyForm() {
+    private boolean verifyForm() {
         UIUtils.hideKeyboard(getActivity());
         focalPoint.requestFocus();
 
@@ -312,7 +297,7 @@ public class RNGFragment extends Fragment implements ThemeManager.Listener {
     }
 
     @OnClick(R.id.copy_results)
-    public void copyNumbers() {
+    void copyNumbers() {
         String numbersText = results.getText().toString();
         TextUtils.copyResultsToClipboard(numbersText, snackbarDisplay, getActivity());
     }
