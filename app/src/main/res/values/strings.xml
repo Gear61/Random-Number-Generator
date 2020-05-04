@@ -66,13 +66,6 @@
         You can also customize this behavior in the settings menu.
     </string>
 
-    <string name="shake_it">Shake It!</string>
-    <string name="shake_now_supported">
-        Tired of clicking buttons? Don\'t worry, Random Number Generator has got you covered!
-        You can now shake your device to generate numbers! Don\'t like this feature?
-        No problem! You can turn it off and on anytime from the settings!
-    </string>
-
     <string name="eyes_getting_tired">Eyes Getting Tired?</string>
     <string name="dark_mode_explanation">
         If you want to give Random Number Generator Plus a darker color scheme, you can turn on dark mode.

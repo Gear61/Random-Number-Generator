@@ -18,7 +18,6 @@ public class PreferencesManager {
     private static final String NUM_APP_OPENS = "numAppOpens";
     private static final String PLAY_SOUNDS = "playSounds";
     private static final String ASK_FOR_MUTE = "askForMute";
-    private static final String SHAKE_IS_NEW = "shakeIsNew";
     private static final String ENABLE_SHAKE = "enableShake";
     private static final String DARK_MODE_ENABLED = "darkModeEnabled";
     private static final String SHOULD_TEACH_ABOUT_DARK_MODE = "shouldTeachAboutDarkMode";
@@ -107,12 +106,6 @@ public class PreferencesManager {
             prefs.edit().putBoolean(ASK_FOR_MUTE, false).apply();
         }
         return shouldAsk;
-    }
-
-    public boolean shouldShowShake() {
-        boolean shouldShowShake = prefs.getBoolean(SHAKE_IS_NEW, true);
-        prefs.edit().putBoolean(SHAKE_IS_NEW, false).apply();
-        return shouldShowShake;
     }
 
     public boolean isShakeEnabled() {
