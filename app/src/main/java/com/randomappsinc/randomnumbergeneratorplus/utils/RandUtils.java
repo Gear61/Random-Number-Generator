@@ -67,7 +67,7 @@ public class RandUtils {
         stringBuilder.append(numbersPrefix);
         stringBuilder.append("</b>");
 
-        int sum = 0;
+        long sum = 0;
         for (int i = 0; i < numbers.size(); i++) {
             if (i != 0) {
                 stringBuilder.append(", ");
@@ -93,7 +93,7 @@ public class RandUtils {
         stringBuilder.append(rollsPrefix);
         stringBuilder.append("</b>");
 
-        int sum = 0;
+        long sum = 0;
         for (int i = 0; i < rolls.size(); i++) {
             if (i != 0) {
                 stringBuilder.append(", ");
