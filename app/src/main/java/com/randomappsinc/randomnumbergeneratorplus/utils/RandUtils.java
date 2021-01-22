@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
+import java.security.SecureRandom;
 import java.util.Set;
 
 public class RandUtils {
@@ -57,7 +57,7 @@ public class RandUtils {
     }
 
     private static int generateNumInPosRange(int min, int max) {
-        Random random = new Random();
+        Random random = new SecureRandom();
         return random.nextInt((max - min) + 1) + min;
     }
 
