@@ -57,7 +57,12 @@ public class RandUtils {
     }
 
     private static int generateNumInPosRange(int min, int max) {
-        Random random = new SecureRandom();
+        Random random;
+        try {
+            random = SecureRandom.getInstance("NativePRNGNonBlocking");
+        } catch (NoSuchAlgorithmException nsae) {
+            random = new SecureRandom();
+        }
         return random.nextInt((max - min) + 1) + min;
     }
 
